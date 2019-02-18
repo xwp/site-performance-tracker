@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Admin notice for incompatible versions of PHP.
  */
-function block_lab_php_version_error() {
+function site_performance_tracker_php_version_error() {
 	printf( '<div class="error"><p>%s</p></div>', esc_html( site_performance_tracker_php_version_text() ) );
 }
 
