@@ -30,5 +30,10 @@
 	},
 	"scripts": {
 		"phpcs": "phpcs --standard=WordPress-Extra"
+	},
+	"autoload": {
+		"psr-4": {
+			"Site_Performance_Tracker\\": "php"
+		}
 	}
 }

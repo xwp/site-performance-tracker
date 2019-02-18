@@ -48,10 +48,10 @@ if ( version_compare( phpversion(), '5.3', '<' ) ) {
 	return;
 }
 
-// Load classes.
-require_once __DIR__ . '/php/class-plugin.php';
+// Setup the Composer auto loader for classes.
+require_once __DIR__ . '/vendor/autoload.php';
 
-// Load helper functions.
+// Load helper functions manually.
 require_once __DIR__ . '/php/helpers.php';
 
 // Initialize the plugin.
