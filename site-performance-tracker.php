@@ -54,20 +54,5 @@ require_once __DIR__ . '/php/class-plugin.php';
 // Load helper functions.
 require_once __DIR__ . '/php/helpers.php';
 
-/**
- * Get the plugin instance.
- *
- * @return \Site_Performance_Tracker\Plugin
- */
-function site_performance_tracker() {
-	static $instance;
-
-	if ( null === $instance ) {
-		$instance = new \Site_Performance_Tracker\Plugin();
-		$instance->init();
-	}
-
-	return $instance;
-}
-
-site_performance_tracker();
+// Initialize the plugin.
+add_action( 'init', array( new \Site_Performance_Tracker\Plugin(), 'init' ) );
