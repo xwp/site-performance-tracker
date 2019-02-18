@@ -90,6 +90,16 @@ apply_filters( 'site_performance_tracker_event_types', array $entry_types = [ 'p
 
 ## Changelog
 
+#### 0.1.1 - February 18, 2019
+
+* The plugin is no longer using a singleton pattern. Instead it is just
+a regular class that is being instantiated in the main plugin file.
+* Namespace has been added.
+* The PHP version check has been added (>= 5.3).
+* The helper functions are extracted to a separate file and they are now
+using static functions inside the class.
+* The `$default_entry_types` array is no longer defined as static.
+
 #### 0.1.0 - February 15, 2019
 
 * Initial release.
