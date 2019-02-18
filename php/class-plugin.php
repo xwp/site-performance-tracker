@@ -146,7 +146,7 @@ class Plugin {
 	 *
 	 * @param string $mark_slug Mark slug.
 	 */
-	static public function the_performance_mark( $mark_slug ) {
+	public static function the_performance_mark( $mark_slug ) {
 		echo self::get_the_performance_mark( $mark_slug ); // XSS ok.
 	}
 
@@ -157,7 +157,7 @@ class Plugin {
 	 *
 	 * @return string
 	 */
-	static public function get_the_performance_mark( $mark_slug ) {
+	public static function get_the_performance_mark( $mark_slug ) {
 		if ( ! $mark_slug ) {
 			return '';
 		}
