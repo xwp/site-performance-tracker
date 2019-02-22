@@ -162,7 +162,8 @@ class Plugin {
 			return '';
 		}
 
-		return sprintf( "<script>performance && performance.mark( 'mark_%s' );</script>\n", esc_js( $mark_slug ) );
+		$mark_id = 'mark_' . $mark_slug;
+		return sprintf( '<script>performance && performance.mark( %s );</script>' . PHP_EOL, wp_json_encode( $mark_id ) );
 	}
 }
 
