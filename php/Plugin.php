@@ -45,6 +45,13 @@ class Plugin {
 		add_action( 'wp_head', array( $this, 'inject_performance_observer' ), - PHP_INT_MAX );
 
 		/**
+		 * Add action to render a performance mark.
+		 *
+		 * @param string $mark_slug Mark slug.
+		 */
+		add_action( 'xwp/performance_tracker/render_mark', array( $this, 'the_performance_mark' ) );
+
+		/**
 		 * Check if performance marks should be added to default actions.
 		 *
 		 * @param boolean $disable_default_hooks Disable default hooks flag.
@@ -145,9 +152,17 @@ class Plugin {
 	 * Echo the performance mark snippet.
 	 *
 	 * @param string $mark_slug Mark slug.
+	 *
+	 * @return void
 	 */
 	public static function the_performance_mark( $mark_slug ) {
-		echo self::get_the_performance_mark( $mark_slug ); // XSS ok.
+		$mark = self::get_the_performance_mark( $mark_slug );
+
+		if ( ! $mark ) {
+			return;
+		}
+
+		echo '<script>' . $mark . '</script>' . PHP_EOL; // XSS ok.
 	}
 
 	/**
@@ -162,8 +177,7 @@ class Plugin {
 			return '';
 		}
 
-		$mark_id = 'mark_' . $mark_slug;
-		return sprintf( '<script>performance && performance.mark( %s );</script>' . PHP_EOL, wp_json_encode( $mark_id ) );
+		return sprintf( 'performance && performance.mark( %s );', wp_json_encode( 'mark_' . $mark_slug ) );
 	}
 }
 
