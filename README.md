@@ -42,7 +42,17 @@ By default the plugin will report the following metrics:
 
 ### Adding Custom Marks
 
-You can add a mark in important locations on your page using the `the_site_performance_mark()` function like this:
+You can add a mark in important locations on your page using the `xwp/performance_tracker/mark`
+action and providing the mark slug like this:
+
+```php
+do_action( 'xwp/performance_tracker/mark', 'after_hero' );
+```
+
+This will add a new performance mark called `mark_after_hero`.
+ 
+An alternative way to add a performance mark is to use the `the_site_performance_mark()`
+function like this:
 
 ```php
 if ( function_exists( 'the_site_performance_mark' ) ) {
@@ -50,7 +60,13 @@ if ( function_exists( 'the_site_performance_mark' ) ) {
 }
 ```
 
-This will add a new performance mark called `mark_after_hero`.
+You can also get the JS code alone by using the `get_the_performance_mark()` function:
+
+```php
+if ( function_exists( 'get_the_performance_mark' ) ) {
+	$parformance_mark_js = get_the_performance_mark( 'after_hero' );
+}
+```
 
 ### Hooks
 
