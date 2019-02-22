@@ -42,11 +42,11 @@ By default the plugin will report the following metrics:
 
 ### Adding Custom Marks
 
-You can add a mark in important locations on your page using the `xwp/performance_tracker/mark`
+You can add a mark in important locations on your page using the `xwp/performance_tracker/render_mark`
 action and providing the mark slug like this:
 
 ```php
-do_action( 'xwp/performance_tracker/mark', 'after_hero' );
+do_action( 'xwp/performance_tracker/render_mark', 'after_hero' );
 ```
 
 This will add a new performance mark called `mark_after_hero`.
