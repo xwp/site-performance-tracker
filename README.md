@@ -16,7 +16,7 @@ An inspiration for this plugin was a Google Developers guide around
 
 **License:** [GPLv2](LICENSE)
 
-**Contributors:** [delawski](https://github.com/delawski), [xwp](https://github.com/xwp)
+**Contributors:** [delawski](https://github.com/delawski), [kasparsd](https://github.com/kasparsd), [xwp](https://github.com/xwp)
 
 
 
@@ -105,6 +105,13 @@ apply_filters( 'site_performance_tracker_event_types', array $entry_types = [ 'p
 ```
 
 ## Changelog
+
+#### 0.2.0 - February 22, 2019
+
+* Make autoload.php optional to support project-wide autoload.
+* Add an action `xwp/performance_tracker/render_mark` as an alternative way for adding
+performance marks in the front-end.
+* Bugfix: Use proper JS escaping (as per WordPress VIP review).
 
 #### 0.1.1 - February 18, 2019
 

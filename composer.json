@@ -2,7 +2,7 @@
 	"name": "xwp/site-performance-tracker",
 	"description": "Allows you to detect and track site performance metrics",
 	"homepage": "https://github.com/xwp/site-performance-tracker",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"keywords": [
 		"wordpress"
 	],
