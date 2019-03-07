@@ -23,7 +23,9 @@ An inspiration for this plugin was a Google Developers guide around
 
 This plugin must be installed as [a Composer dependency](https://packagist.org/packages/xwp/site-performance-tracker):
 
-    composer require xwp/site-performance-tracker
+```
+composer require xwp/site-performance-tracker
+```
 
 It relies on [PSR-4 autoloading](https://getcomposer.org/doc/04-schema.md#psr-4) as defined in the [`composer.json` file](composer.json).
 
