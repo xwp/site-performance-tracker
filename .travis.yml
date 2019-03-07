@@ -1,0 +1,17 @@
+language: php
+
+php:
+  - 7.2
+
+install:
+  - composer install
+
+script:
+  - composer lint
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+notifications:
+  email: false
