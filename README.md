@@ -1,5 +1,4 @@
-Site Performance Tracker
-=============
+# Site Performance Tracker
 
 This WordPress plugin allows you to detect and track site performance metrics.
 It is using a browser's [`PerformanceObserver`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver)
