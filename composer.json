@@ -25,11 +25,25 @@
   "require": {},
   "require-dev": {
     "wp-coding-standards/wpcs": "^2.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0"
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+    "brainmaestro/composer-git-hooks": "^2.6"
+  },
+  "extra": {
+    "hooks": {
+      "pre-commit": [
+        "composer run lint"
+      ]
+    }
   },
   "scripts": {
     "lint": [
       "vendor/bin/phpcs ."
+    ],
+    "post-install-cmd": [
+      "vendor/bin/cghooks add --no-lock"
+    ],
+    "post-update-cmd": [
+      "vendor/bin/cghooks update"
     ]
   },
   "autoload": {
