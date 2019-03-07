@@ -3,8 +3,8 @@
 	<arg name="extensions" value="php" />
 	<arg value="s" /><!-- Show sniffs in all reports. -->
 
-	<file>site-performance-tracker.php</file>
-
+	<rule ref="WordPress-Docs" />
+	
 	<rule ref="WordPress-Core">
 		<exclude name="WordPress.Files.FileName" />
 		<exclude name="Generic.Formatting.MultipleStatementAlignment" />

@@ -1,6 +1,8 @@
 Site Performance Tracker
 =============
 
+[![Build Status](https://travis-ci.com/xwp/site-performance-tracker.svg?branch=master)](https://travis-ci.com/xwp/site-performance-tracker)
+
 This WordPress plugin allows you to detect and track site performance metrics.
 It is using a browser's [`PerformanceObserver`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver)
 API for measuring the metrics.
