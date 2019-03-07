@@ -33,7 +33,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Site_Performance_Tracker\\": "php"
+			"Site_Performance_Tracker\\": "php/"
 		}
 	}
 }
