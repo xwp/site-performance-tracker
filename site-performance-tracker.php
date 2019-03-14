@@ -57,4 +57,5 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 require_once __DIR__ . '/php/helpers.php';
 
 // Initialize the plugin.
+require_once __DIR__ . '/php/Plugin.php';
 add_action( 'init', array( new \Site_Performance_Tracker\Plugin(), 'init' ) );
