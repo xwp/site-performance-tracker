@@ -1,5 +1,4 @@
-Site Performance Tracker
-=============
+# Site Performance Tracker
 
 [![Build Status](https://travis-ci.com/xwp/site-performance-tracker.svg?branch=master)](https://travis-ci.com/xwp/site-performance-tracker)
 
@@ -24,7 +23,14 @@ An inspiration for this plugin was a Google Developers guide around
 
 ## Installation
 
-Copy the plugin files to the `wp-content/plugins` folder inside your WordPress directory.
+This plugin must be installed as [a Composer dependency](https://packagist.org/packages/xwp/site-performance-tracker):
+
+```
+composer require xwp/site-performance-tracker
+```
+
+It relies on [PSR-4 autoloading](https://getcomposer.org/doc/04-schema.md#psr-4) as defined in the [`composer.json` file](composer.json).
+
 
 ## Usage
 
