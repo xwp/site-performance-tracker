@@ -98,10 +98,12 @@ class Plugin {
 			if ( window.PerformanceObserver ) {
 				window.sitePerformanceObserver = <?php echo wp_json_encode( $options ); ?>;
 				window.sitePerformanceObserver.send = function( name, startTime, duration ) {
-					window.ga && window.ga( 'send', 'timing', {
-						timingCategory: window.sitePerformanceObserver.categoryName,
-						timingVar: name,
-						timingValue: Math.round( startTime + duration ),
+						var trackerName = window.ga.getAll()[0].get('name');
+						ga(trackerName + '.send', 'event', {
+							eventCategory: window.sitePerformanceObserver.categoryName,
+							eventAction: name,
+							eventValue: Math.round( startTime + duration ),
+							eventLabel: Math.round( startTime + duration ),
 					} );
 				};
 				window.sitePerformanceObserver.instance = new PerformanceObserver( function( list ) {
