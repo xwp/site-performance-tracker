@@ -114,6 +114,10 @@ apply_filters( 'site_performance_tracker_event_types', array $entry_types = [ 'p
 
 ## Changelog
 
+#### 0.3.1 - March 11, 2020
+
+* Feature: Add support to Analytics added through Google Tag Managere.
+
 #### 0.3.0 - March 11, 2020
 
 * Feature: Track 'first-delay' of over 100ms.
