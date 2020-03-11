@@ -114,6 +114,10 @@ apply_filters( 'site_performance_tracker_event_types', array $entry_types = [ 'p
 
 ## Changelog
 
+#### 0.3.0 - March 11, 2020
+
+* Feature: Track 'first-delay' of over 100ms.
+
 #### 0.2.0 - February 22, 2019
 
 * Make autoload.php optional to support project-wide autoload.
