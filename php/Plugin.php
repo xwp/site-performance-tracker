@@ -18,7 +18,7 @@ class Plugin {
 	 *
 	 * @var array
 	 */
-	protected $default_entry_types = array( 'paint', 'navigation', 'mark' );
+	protected $default_entry_types = array( 'paint', 'navigation', 'mark', 'first-input' );
 
 	/**
 	 * Initialize the plugin.
@@ -106,7 +106,13 @@ class Plugin {
 				};
 				window.sitePerformanceObserver.instance = new PerformanceObserver( function( list ) {
 					for ( var entry of list.getEntries() ) {
-						if ( 'navigation' === entry.entryType ) {
+						if ( 'first-input' === entry.entryType ) {
+							const fid = entry.processingStart - entry.startTime;
+							if ( fid > 100 ) {
+								// Only track first-input delay of over 100ms.
+								window.sitePerformanceObserver.send( entry.entryType, entry.startTime, fid );
+							}
+						} else if ( 'navigation' === entry.entryType ) {
 							for ( var metric of [ 'domContentLoadedEventEnd', 'domComplete', 'domInteractive' ] ) {
 								window.sitePerformanceObserver.send( entry.entryType + '-' + metric, entry.startTime, entry[ metric ] );
 							}
@@ -115,7 +121,9 @@ class Plugin {
 						}
 					}
 				} );
-				window.sitePerformanceObserver.instance.observe( { entryTypes: window.sitePerformanceObserver.entryTypes } );
+				window.sitePerformanceObserver.instance.observe( {
+					entryTypes: window.sitePerformanceObserver.entryTypes
+				} );
 			}
 		</script>
 		<?php
