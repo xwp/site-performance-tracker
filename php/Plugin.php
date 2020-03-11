@@ -98,13 +98,15 @@ class Plugin {
 			if ( window.PerformanceObserver ) {
 				window.sitePerformanceObserver = <?php echo wp_json_encode( $options ); ?>;
 				window.sitePerformanceObserver.send = function( name, startTime, duration ) {
+					if ( 'undefined' !== typeof( window.ga ) ) {
 						var trackerName = window.ga.getAll()[0].get('name');
-						ga(trackerName + '.send', 'event', {
+						window.ga(trackerName + '.send', 'event', {
 							eventCategory: window.sitePerformanceObserver.categoryName,
 							eventAction: name,
 							eventValue: Math.round( startTime + duration ),
 							eventLabel: Math.round( startTime + duration ),
-					} );
+						} );
+					}
 				};
 				window.sitePerformanceObserver.instance = new PerformanceObserver( function( list ) {
 					for ( var entry of list.getEntries() ) {
