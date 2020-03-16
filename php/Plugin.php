@@ -99,8 +99,11 @@ class Plugin {
 				window.sitePerformanceObserver = <?php echo wp_json_encode( $options ); ?>;
 				window.sitePerformanceObserver.send = function( name, startTime, duration ) {
 					if ( 'undefined' !== typeof( window.ga ) ) {
-						var trackerName = window.ga.getAll()[0].get('name');
-						window.ga(trackerName + '.send', 'event', {
+						var trackerName = '';
+						if ( 'undefined' !== typeof( window.ga.getAll ) ) {
+							trackerName = window.ga.getAll()[0].get('name') + '.';
+						}
+						window.ga(trackerName + 'send', 'event', {
 							eventCategory: window.sitePerformanceObserver.categoryName,
 							eventAction: name,
 							eventValue: Math.round( startTime + duration ),
