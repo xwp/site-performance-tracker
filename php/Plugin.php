@@ -116,7 +116,9 @@ class Plugin {
 						if ( 'first-input' === entry.entryType ) {
 							const fid = entry.processingStart - entry.startTime;
 							if ( fid > 100 ) {
-								// Only track first-input delay of over 100ms.
+								// Only track first-input delay of over 100ms:
+								// https://developers.google.com/web/fundamentals/performance/rail#ux
+								// > 100ms Users experience perceptible delay.
 								window.sitePerformanceObserver.send( entry.entryType, entry.startTime, fid );
 							}
 						} else if ( 'navigation' === entry.entryType ) {
