@@ -99,8 +99,11 @@ class Plugin {
 				window.sitePerformanceObserver = <?php echo wp_json_encode( $options ); ?>;
 				window.sitePerformanceObserver.send = function( name, startTime, duration ) {
 					if ( 'undefined' !== typeof( window.ga ) ) {
-						var trackerName = window.ga.getAll()[0].get('name');
-						window.ga(trackerName + '.send', 'event', {
+						var trackerName = '';
+						if ( 'undefined' !== typeof( window.ga.getAll ) ) {
+							trackerName = window.ga.getAll()[0].get('name') + '.';
+						}
+						window.ga(trackerName + 'send', 'event', {
 							eventCategory: window.sitePerformanceObserver.categoryName,
 							eventAction: name,
 							eventValue: Math.round( startTime + duration ),
@@ -113,7 +116,9 @@ class Plugin {
 						if ( 'first-input' === entry.entryType ) {
 							const fid = entry.processingStart - entry.startTime;
 							if ( fid > 100 ) {
-								// Only track first-input delay of over 100ms.
+								// Only track first-input delay of over 100ms:
+								// https://developers.google.com/web/fundamentals/performance/rail#ux
+								// > 100ms Users experience perceptible delay.
 								window.sitePerformanceObserver.send( entry.entryType, entry.startTime, fid );
 							}
 						} else if ( 'navigation' === entry.entryType ) {
