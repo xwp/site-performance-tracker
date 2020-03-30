@@ -21,6 +21,13 @@ class Plugin {
 	protected $default_entry_types = array( 'paint', 'navigation', 'mark', 'first-input' );
 
 	/**
+	 * PerformanceObserver default chance of sending performance metrics to analytics.
+	 *
+	 * @var array
+	 */
+	protected $default_chance = 1;
+
+	/**
 	 * Initialize the plugin.
 	 */
 	public function init() {
@@ -87,10 +94,18 @@ class Plugin {
 		 */
 		$entry_types = apply_filters( 'site_performance_tracker_entry_types', $this->default_entry_types );
 
+		/**
+		 * Limits the percentage of traffic chance of sending events to analytics.
+		 *
+		 * @param number $entry_chance Chance - a number between 0 and 1.
+		 */
+		$chance = apply_filters( 'site_performance_tracker_chance', $this->default_chance );
+
 		// Options object passed to JS.
 		$options = array(
 			'categoryName' => $category_name,
 			'entryTypes'   => $entry_types,
+			'chance'       => $chance,
 		);
 
 		?>
@@ -130,9 +145,13 @@ class Plugin {
 						}
 					}
 				} );
-				window.sitePerformanceObserver.instance.observe( {
-					entryTypes: window.sitePerformanceObserver.entryTypes
-				} );
+				var randNumber = Math.random();
+				if ( randNumber <= window.sitePerformanceObserver.chance ) {
+					window.sitePerformanceObserver.instance.observe( {
+						entryTypes: window.sitePerformanceObserver.entryTypes
+					} );
+				}
+
 			}
 		</script>
 		<?php
