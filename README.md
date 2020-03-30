@@ -76,6 +76,16 @@ if ( function_exists( 'get_the_performance_mark' ) ) {
 }
 ```
 
+### Limit the number of events sent
+
+Using the following filter you can send the events for a limited percentage of your traffic, this limits the performance metrics to be sent only for 5% of the traffic:
+
+```php
+add_filter( 'site_performance_tracker_chance', function() {
+	return 0.05;
+} );
+```
+
 ### Hooks
 
 There are the following hooks available to further customize the way the plugin works:
