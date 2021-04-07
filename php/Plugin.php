@@ -71,6 +71,11 @@ class Plugin {
 			add_action( 'wp_footer', array( $this, 'add_before_action_mark' ), - PHP_INT_MAX );
 			add_action( 'wp_footer', array( $this, 'add_after_action_mark' ), PHP_INT_MAX );
 		}
+
+		/**
+		 * Load web vitals analytics.
+		 */
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**
@@ -214,6 +219,22 @@ class Plugin {
 		}
 
 		return sprintf( 'performance && performance.mark( %s );', wp_json_encode( 'mark_' . $mark_slug ) );
+	}
+
+	/**
+	 * Enqueue javascript to trigger web vitals tracking.
+	 */
+	public function enqueue_scripts() {
+		$asset = include plugin_dir_path( __DIR__ ) . '/js/dist/module/web-vitals-analytics.asset.php';
+
+		// Add to footer.
+		wp_enqueue_script(
+			'web-vitals-analytics',
+			plugin_dir_url( __DIR__ ) . 'js/dist/module/web-vitals-analytics.js',
+			$asset['dependencies'],
+			$asset['version'],
+			true
+		);
 	}
 }
 
