@@ -4,11 +4,13 @@
 	<arg value="s" /><!-- Show sniffs in all reports. -->
 
 	<rule ref="WordPress-Docs" />
-	
+
 	<rule ref="WordPress-Core">
 		<exclude name="WordPress.Files.FileName" />
 		<exclude name="Generic.Formatting.MultipleStatementAlignment" />
 	</rule>
 
 	<exclude-pattern>/vendor/</exclude-pattern>
+	<exclude-pattern>*/js/dist/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
 </ruleset>
