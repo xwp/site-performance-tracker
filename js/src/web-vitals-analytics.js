@@ -167,7 +167,7 @@ export function measureReport({ state, duration, report, error }) {
 }
 
 export function initAnalytics() {
-	if (location.hostname !== "web-vitals-report.web.app") {
+	if ( 'undefined' === typeof( window.gtag ) ) {
 		window.gtag = console.log;
 	}
 
@@ -176,3 +176,17 @@ export function initAnalytics() {
 
 	measureWebVitals();
 }
+
+( function () {
+	if ( 'requestIdleCallback' in window ) {
+		requestIdleCallback( initAnalytics );
+	} else {
+		if ( 'complete' === document.readyState ) {
+			setTimeout( initAnalytics, 5000 );
+		} else {
+			window.addEventListener( 'load', () => {
+				setTimeout( initAnalytics, 5000 );
+			} );
+		}
+	}
+} )();
