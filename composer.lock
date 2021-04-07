@@ -4,30 +4,31 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43944deef41aabe41e24e4bbe6387fb5",
+    "content-hash": "906c4605fbb876df4ffd441e5391c446",
     "packages": [],
     "packages-dev": [
         {
             "name": "brainmaestro/composer-git-hooks",
-            "version": "v2.6.1",
+            "version": "v2.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BrainMaestro/composer-git-hooks.git",
-                "reference": "137dd2aec2be494918f8bdfb18f57b55ff20015e"
+                "reference": "ffed8803690ac12214082120eee3441b00aa390e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BrainMaestro/composer-git-hooks/zipball/137dd2aec2be494918f8bdfb18f57b55ff20015e",
-                "reference": "137dd2aec2be494918f8bdfb18f57b55ff20015e",
+                "url": "https://api.github.com/repos/BrainMaestro/composer-git-hooks/zipball/ffed8803690ac12214082120eee3441b00aa390e",
+                "reference": "ffed8803690ac12214082120eee3441b00aa390e",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.6 || >=7.0",
-                "symfony/console": "^3.2 || ^4.0"
+                "symfony/console": "^3.2 || ^4.0 || ^5.0"
             },
             "require-dev": {
+                "ext-json": "*",
                 "friendsofphp/php-cs-fixer": "^2.9",
-                "phpunit/phpunit": "^5.7|^7.0"
+                "phpunit/phpunit": "^5.7 || ^7.0"
             },
             "bin": [
                 "cghooks"
@@ -38,10 +39,11 @@
                     "pre-commit": "composer check-style",
                     "pre-push": [
                         "composer test",
-                        "appver=$(grep -o -P '\\d.\\d.\\d' cghooks)",
-                        "tag=$(git tag --sort=-v:refname | head -n 1 | tr -d v)",
-                        "if [ \"$tag\" != \"$appver\" ]; then",
-                        "echo \"The most recent tag v$tag does not match the application version $appver\n\"",
+                        "appver=$(grep -o -E '\\d.\\d.\\d' cghooks)",
+                        "tag=$(git describe --tags --abbrev=0)",
+                        "if [ \"$tag\" != \"v$appver\" ]; then",
+                        "echo \"The most recent tag $tag does not match the application version $appver\\n\"",
+                        "tag=${tag#v}",
                         "sed -i -E \"s/$appver/$tag/\" cghooks",
                         "exit 1",
                         "fi"
@@ -72,26 +74,30 @@
                 "composer",
                 "git"
             ],
-            "time": "2018-12-28T14:57:06+00:00"
+            "support": {
+                "issues": "https://github.com/BrainMaestro/composer-git-hooks/issues",
+                "source": "https://github.com/BrainMaestro/composer-git-hooks/tree/v2.8.5"
+            },
+            "time": "2021-02-08T15:59:11+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
-            "version": "v0.5.0",
+            "version": "v0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dealerdirect/phpcodesniffer-composer-installer.git",
-                "reference": "e749410375ff6fb7a040a68878c656c2e610b132"
+                "reference": "fe390591e0241955f22eb9ba327d137e501c771c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/e749410375ff6fb7a040a68878c656c2e610b132",
-                "reference": "e749410375ff6fb7a040a68878c656c2e610b132",
+                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/fe390591e0241955f22eb9ba327d137e501c771c",
+                "reference": "fe390591e0241955f22eb9ba327d137e501c771c",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0",
-                "php": "^5.3|^7",
-                "squizlabs/php_codesniffer": "^2|^3"
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "php": ">=5.3",
+                "squizlabs/php_codesniffer": "^2.0 || ^3.0 || ^4.0"
             },
             "require-dev": {
                 "composer/composer": "*",
@@ -138,7 +144,11 @@
                 "stylecheck",
                 "tests"
             ],
-            "time": "2018-10-26T13:21:45+00:00"
+            "support": {
+                "issues": "https://github.com/dealerdirect/phpcodesniffer-composer-installer/issues",
+                "source": "https://github.com/dealerdirect/phpcodesniffer-composer-installer"
+            },
+            "time": "2020-12-07T18:04:37+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -392,16 +402,16 @@
         },
         {
             "name": "wp-coding-standards/wpcs",
-            "version": "2.0.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git",
-                "reference": "c9eaadaafefce36b3cb7e06eb15305b8c4cae9ce"
+                "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
+                "reference": "7da1894633f168fe244afc6de00d141f27517b62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/c9eaadaafefce36b3cb7e06eb15305b8c4cae9ce",
-                "reference": "c9eaadaafefce36b3cb7e06eb15305b8c4cae9ce",
+                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/7da1894633f168fe244afc6de00d141f27517b62",
+                "reference": "7da1894633f168fe244afc6de00d141f27517b62",
                 "shasum": ""
             },
             "require": {
@@ -409,12 +419,13 @@
                 "squizlabs/php_codesniffer": "^3.3.1"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.5 || ^0.6",
                 "phpcompatibility/php-compatibility": "^9.0",
+                "phpcsstandards/phpcsdevtools": "^1.0",
                 "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
             },
             "suggest": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.4.3 || This Composer plugin will sort out the PHPCS 'installed_paths' automatically."
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.6 || This Composer plugin will sort out the PHPCS 'installed_paths' automatically."
             },
             "type": "phpcodesniffer-standard",
             "notification-url": "https://packagist.org/downloads/",
@@ -424,7 +435,7 @@
             "authors": [
                 {
                     "name": "Contributors",
-                    "homepage": "https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/graphs/contributors"
+                    "homepage": "https://github.com/WordPress/WordPress-Coding-Standards/graphs/contributors"
                 }
             ],
             "description": "PHP_CodeSniffer rules (sniffs) to enforce WordPress coding conventions",
@@ -433,7 +444,12 @@
                 "standards",
                 "wordpress"
             ],
-            "time": "2019-01-16T10:13:16+00:00"
+            "support": {
+                "issues": "https://github.com/WordPress/WordPress-Coding-Standards/issues",
+                "source": "https://github.com/WordPress/WordPress-Coding-Standards",
+                "wiki": "https://github.com/WordPress/WordPress-Coding-Standards/wiki"
+            },
+            "time": "2020-05-13T23:57:56+00:00"
         }
     ],
     "aliases": [],
@@ -442,5 +458,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
