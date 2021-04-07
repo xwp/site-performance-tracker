@@ -76,6 +76,11 @@ class Plugin {
 		 * Load web vitals analytics.
 		 */
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
+		/**
+		 * Load only for modern browsers
+		 */
+		add_filter( 'script_loader_tag', array( $this, 'optimize_scripts' ), 10, 2 );
 	}
 
 	/**
@@ -235,6 +240,26 @@ class Plugin {
 			$asset['version'],
 			true
 		);
+	}
+
+	/**
+	 * Optimize script tag attributes.
+	 *
+	 * @param string $tag    Tag mark-up.
+	 * @param string $handle Script ID.
+	 *
+	 * @return $tag
+	 */
+	public function optimize_scripts( $tag, $handle ) {
+		if ( 'web-vitals-analytics' !== $handle ) {
+			return $tag;
+		}
+
+		// Replaces only the first occurrence of src in the tag. Avoids replacing inside inline scripts.
+		if ( false !== strpos( $tag, ' src' ) ) {
+			return substr_replace( $tag, ' type="module" src', strpos( $tag, ' src' ), strlen( ' src' ) );
+		}
+		return $tag;
 	}
 }
 
