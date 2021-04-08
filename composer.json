@@ -24,9 +24,9 @@
   "type": "wordpress-plugin",
   "require": {},
   "require-dev": {
-    "wp-coding-standards/wpcs": "^2.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-    "brainmaestro/composer-git-hooks": "^2.6"
+    "wp-coding-standards/wpcs": "^2.3.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+    "brainmaestro/composer-git-hooks": "^2.8.4"
   },
   "extra": {
     "hooks": {
