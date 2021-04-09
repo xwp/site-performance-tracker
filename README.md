@@ -122,6 +122,16 @@ Filter the [entry types](https://developer.mozilla.org/en-US/docs/Web/API/Perfor
 apply_filters( 'site_performance_tracker_event_types', array $entry_types = [ 'paint', 'navigation', 'mark' ] );
 ```
 
+##### Enable web vitals tracking
+
+To send web vitals to Google Analytics in a format compatible with the [Web Vitals Report](https://web-vitals-report.web.app/), enable the following theme support and passing in the ID, both UA- and G- ID formats are supported:
+
+```php
+add_theme_support( 'site_performance_tracker_vitals', array(
+	'gtag_id' => 'UA-XXXXXXXX-Y',
+) );
+```
+
 ## Changelog
 
 #### 0.3.1 - March 11, 2020

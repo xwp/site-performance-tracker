@@ -231,15 +231,21 @@ class Plugin {
 	 */
 	public function enqueue_scripts() {
 		$asset = include plugin_dir_path( __DIR__ ) . '/js/dist/module/web-vitals-analytics.asset.php';
+		$vitals_theme_support = get_theme_support( 'site_performance_tracker_vitals' );
 
-		// Add to footer.
-		wp_enqueue_script(
-			'web-vitals-analytics',
-			plugin_dir_url( __DIR__ ) . 'js/dist/module/web-vitals-analytics.js',
-			$asset['dependencies'],
-			$asset['version'],
-			true
-		);
+		if ( $vitals_theme_support ) {
+			// Add to footer.
+			wp_enqueue_script(
+				'web-vitals-analytics',
+				plugin_dir_url( __DIR__ ) . 'js/dist/module/web-vitals-analytics.js',
+				$asset['dependencies'],
+				$asset['version'],
+				true
+			);
+
+			$analytics_data = reset( $vitals_theme_support );
+			wp_localize_script( 'web-vitals-analytics', 'sitePerformanceTrackerAnalytics', $analytics_data );
+		}
 	}
 
 	/**
