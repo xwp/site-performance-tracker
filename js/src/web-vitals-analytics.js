@@ -175,8 +175,10 @@ export function initAnalytics() {
 		window.gtag = console.log;
 	}
 
-	gtag( 'js', new Date() );
-	gtag( ...getConfig( 'UA-XXXXXXXX-Y' ) );
+	if ( 'undefined' !== typeof(sitePerformanceTrackerAnalytics) && sitePerformanceTrackerAnalytics.gtag_id ) {
+		gtag( 'js', new Date() );
+		gtag( ...getConfig( sitePerformanceTrackerAnalytics.gtag_id ) );
+	}
 
 	measureWebVitals();
 }
