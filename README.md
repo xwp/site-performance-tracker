@@ -134,6 +134,10 @@ add_theme_support( 'site_performance_tracker_vitals', array(
 
 ## Changelog
 
+#### 0.5 - April 13, 2021
+
+* Feature: Add support for sending data in the web vitals report format.
+
 #### 0.3.1 - March 11, 2020
 
 * Feature: Add support to Analytics added through Google Tag Managere.
