@@ -253,6 +253,19 @@ class Plugin {
 			}
 
 			wp_localize_script( 'web-vitals-analytics', 'webVitalsAnalyticsData', $web_vitals_analytics_data );
+
+			$web_vitals_init = "( function () {
+	if ( 'requestIdleCallback' in window ) {
+		var randNumber = Math.random();
+		if ( randNumber <= window.sitePerformanceObserver.chance ) {
+			requestIdleCallback( function() {
+				webVitalsAnalyticsScript = document.getElementById( 'web-vitals-analytics-js' );
+				webVitalsAnalyticsScript.src = webVitalsAnalyticsScript.dataset.src;
+			} );
+		}
+	}
+} )();";
+			wp_add_inline_script( 'web-vitals-analytics', $web_vitals_init );
 		}
 	}
 
@@ -271,7 +284,7 @@ class Plugin {
 
 		// Replaces only the first occurrence of src in the tag. Avoids replacing inside inline scripts.
 		if ( false !== strpos( $tag, ' src' ) ) {
-			return substr_replace( $tag, ' type="module" src', strpos( $tag, ' src' ), strlen( ' src' ) );
+			return substr_replace( $tag, ' type="module" data-src', strpos( $tag, ' src' ), strlen( ' src' ) );
 		}
 		return $tag;
 	}

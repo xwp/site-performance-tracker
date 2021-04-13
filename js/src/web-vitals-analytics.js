@@ -152,14 +152,5 @@ export function initAnalytics() {
 }
 
 ( function () {
-	if ( 'requestIdleCallback' in window ) {
-		requestIdleCallback( initAnalytics );
-	} else if ( 'complete' === document.readyState ) {
-		setTimeout( initAnalytics, 5000 );
-	} else {
-		// eslint-disable-next-line @wordpress/no-global-event-listener
-		window.addEventListener( 'load', () => {
-			setTimeout( initAnalytics, 5000 );
-		} );
-	}
+	requestIdleCallback( initAnalytics );
 } )();
