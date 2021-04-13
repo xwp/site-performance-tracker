@@ -94,11 +94,6 @@ function getDebugInfo( metricName, entries = [] ) {
 		case 'FID':
 			if ( firstEntry ) {
 				const { name } = firstEntry;
-				// Report interactions with the `google-signin2` element as that,
-				// not any of the sub-elements.
-				if ( firstEntry.target.closest( '#google-signin2' ) ) {
-					return `${ name }(#google-signin2)`;
-				}
 				return `${ name }(${ getNodePath( firstEntry.target ) })`;
 			}
 			break;
@@ -142,31 +137,6 @@ export function measureWebVitals() {
 	getFCP( sendToGoogleAnalytics );
 	getFID( sendToGoogleAnalytics );
 	getLCP( sendToGoogleAnalytics );
-}
-
-function anonymizeConfig( state ) {
-	const opts = state[ `opts:${ state.viewId }` ];
-	if ( opts && opts.active ) {
-		return [
-			`id=${ opts.metricIdDim }`,
-			`name=${ opts.metricNameDim }`,
-			`metrics=${ [ opts.lcpName, opts.fidName, opts.clsName ].join( ',' ) }`,
-			`filters=${ opts.filters }`,
-		].join( '|' );
-	}
-	return '(not set)';
-}
-
-export function measureReport( { state, duration, report, error } ) {
-	gtag( 'event', `report_${ error ? 'error' : 'success' }`, {
-		value: duration,
-		report_size: report ? report.rows.length : 0,
-		segments: [ state.segmentA, state.segmentB ].sort().join( ', ' ),
-		config: anonymizeConfig( state ),
-		event_category: 'Usage',
-		event_label: error ? error.code || error.message : '(not set)',
-		event_meta: report ? report.meta.source : '(not set)',
-	} );
 }
 
 export function initAnalytics() {
