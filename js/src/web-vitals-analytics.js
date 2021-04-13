@@ -25,16 +25,35 @@ const getConfig = id => {
 	};
 
 	if ( id.startsWith( 'UA-' ) ) {
+		const uaDimMeasurementVersion = window.webVitalsAnalyticsData
+			.measurementVersion
+			? window.webVitalsAnalyticsData.measurementVersion
+			: 'dimension1';
+		const uaDimclientId = window.webVitalsAnalyticsData.clientId
+			? window.webVitalsAnalyticsData.clientId
+			: 'dimension2';
+		const uaDimSegments = window.webVitalsAnalyticsData.segments
+			? window.webVitalsAnalyticsData.segments
+			: 'dimension3';
+		const uaDimConfig = window.webVitalsAnalyticsData.config
+			? window.webVitalsAnalyticsData.config
+			: 'dimension4';
+		const uaDimEventMeta = window.webVitalsAnalyticsData.eventMeta
+			? window.webVitalsAnalyticsData.eventMeta
+			: 'dimension5';
+		const uaDimEventDebug = window.webVitalsAnalyticsData.eventDebug
+			? window.webVitalsAnalyticsData.eventDebug
+			: 'dimension6';
 		Object.assign( config, {
 			transport_type: 'beacon',
 			custom_map: {
-				dimension1: 'measurement_version',
-				dimension2: 'client_id',
-				dimension3: 'segments',
-				dimension4: 'config',
-				dimension5: 'event_meta',
-				dimension6: 'event_debug',
-				metric1:    'report_size',
+				[ uaDimMeasurementVersion ]: 'measurement_version',
+				[ uaDimclientId ]: 'client_id',
+				[ uaDimSegments ]: 'segments',
+				[ uaDimConfig ]: 'config',
+				[ uaDimEventMeta ]: 'event_meta',
+				[ uaDimEventDebug ]: 'event_debug',
+				metric1: 'report_size',
 			},
 		} );
 	}
@@ -141,8 +160,8 @@ export function initAnalytics() {
 	}
 
 	if (
-		'undefined' !== typeof( window.webVitalsAnalyticsData ) &&
-		'undefined' !== typeof( window.webVitalsAnalyticsData.gtag_id )
+		'undefined' !== typeof window.webVitalsAnalyticsData &&
+		'undefined' !== typeof window.webVitalsAnalyticsData.gtag_id
 	) {
 		gtag( 'js', new Date() );
 		gtag( ...getConfig( window.webVitalsAnalyticsData.gtag_id ) );

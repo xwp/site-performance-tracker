@@ -245,12 +245,11 @@ class Plugin {
 
 			$analytics_data = $vitals_theme_support[0]['gtag_id'];
 			$chance = apply_filters( 'site_performance_tracker_chance', $this->default_chance );
-			$web_vitals_analytics_data = array(
-				'chance' => htmlspecialchars( $chance ),
-			);
-			if ( isset( $vitals_theme_support[0] ) && isset( $vitals_theme_support[0]['gtag_id'] ) ) {
-				$web_vitals_analytics_data['gtag_id'] = htmlspecialchars( $vitals_theme_support[0]['gtag_id'] );
+			$web_vitals_analytics_data = array();
+			if ( isset( $vitals_theme_support[0] ) ) {
+				$web_vitals_analytics_data = $vitals_theme_support[0];
 			}
+			$web_vitals_analytics_data['chance'] = htmlspecialchars( $chance );
 
 			wp_localize_script( 'web-vitals-analytics', 'webVitalsAnalyticsData', $web_vitals_analytics_data );
 
