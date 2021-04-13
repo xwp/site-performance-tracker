@@ -51,6 +51,8 @@ if ( version_compare( phpversion(), '5.3', '<' ) ) {
 // Setup the Composer auto loader for classes.
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
+} else {
+	require_once __DIR__ . '/php/Plugin.php';
 }
 
 // Load helper functions manually.
