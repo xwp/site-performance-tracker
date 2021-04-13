@@ -257,7 +257,7 @@ class Plugin {
 			$web_vitals_init = "( function () {
 	if ( 'requestIdleCallback' in window ) {
 		var randNumber = Math.random();
-		if ( randNumber <= window.sitePerformanceObserver.chance ) {
+		if ( randNumber <= window.webVitalsAnalyticsData.chance ) {
 			requestIdleCallback( function() {
 				webVitalsAnalyticsScript = document.getElementById( 'web-vitals-analytics-js' );
 				webVitalsAnalyticsScript.src = webVitalsAnalyticsScript.dataset.src;
