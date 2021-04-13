@@ -243,7 +243,6 @@ class Plugin {
 				true
 			);
 
-			$analytics_data = $vitals_theme_support[0]['gtag_id'];
 			$chance = apply_filters( 'site_performance_tracker_chance', $this->default_chance );
 			$web_vitals_analytics_data = array();
 			if ( isset( $vitals_theme_support[0] ) ) {
