@@ -238,7 +238,7 @@ class Plugin {
 			wp_enqueue_script(
 				'web-vitals-analytics',
 				plugin_dir_url( __DIR__ ) . 'js/dist/module/web-vitals-analytics.js',
-				$asset['dependencies'],
+				array(),
 				$asset['version'],
 				true
 			);
