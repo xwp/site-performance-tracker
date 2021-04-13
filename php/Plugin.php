@@ -243,8 +243,16 @@ class Plugin {
 				true
 			);
 
-			$analytics_data = reset( $vitals_theme_support );
-			wp_localize_script( 'web-vitals-analytics', 'sitePerformanceTrackerAnalytics', $analytics_data );
+			$analytics_data = $vitals_theme_support[0]['gtag_id'];
+			$chance = apply_filters( 'site_performance_tracker_chance', $this->default_chance );
+			$web_vitals_analytics_data = array(
+				'chance' => htmlspecialchars( $chance ),
+			);
+			if ( isset( $vitals_theme_support[0] ) && isset( $vitals_theme_support[0]['gtag_id'] ) ) {
+				$web_vitals_analytics_data['gtag_id'] = htmlspecialchars( $vitals_theme_support[0]['gtag_id'] );
+			}
+
+			wp_localize_script( 'web-vitals-analytics', 'webVitalsAnalyticsData', $web_vitals_analytics_data );
 		}
 	}
 

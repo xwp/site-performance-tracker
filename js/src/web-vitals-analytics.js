@@ -175,9 +175,12 @@ export function initAnalytics() {
 		window.gtag = console.log;
 	}
 
-	if ( 'undefined' !== typeof(sitePerformanceTrackerAnalytics) && sitePerformanceTrackerAnalytics.gtag_id ) {
+	if (
+		'undefined' !== typeof( window.webVitalsAnalyticsData ) &&
+		'undefined' !== typeof( window.webVitalsAnalyticsData.gtag_id )
+	) {
 		gtag( 'js', new Date() );
-		gtag( ...getConfig( sitePerformanceTrackerAnalytics.gtag_id ) );
+		gtag( ...getConfig( window.webVitalsAnalyticsData.gtag_id ) );
 	}
 
 	measureWebVitals();
