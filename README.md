@@ -132,6 +132,19 @@ add_theme_support( 'site_performance_tracker_vitals', array(
 ) );
 ```
 
+If you need to override the Google Analytics dimensions to store these under, pass them along on the add theme support initialisation:
+```php
+add_theme_support( 'site_performance_tracker_vitals', array(
+	'gtag_id'            => 'UA-XXXXXXXX-Y',
+	'measurementVersion' => 'dimension7',
+	'clientId'           => 'dimension8',
+	'segments'           => 'dimension9',
+	'config'             => 'dimension10',
+	'eventMeta'          => 'dimension11',
+	'eventDebug'         => 'dimension12',
+) );
+```
+
 ## Changelog
 
 #### 0.5 - April 13, 2021
