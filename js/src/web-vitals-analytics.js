@@ -34,14 +34,9 @@ const getConfig = id => {
 				dimension4: 'config',
 				dimension5: 'event_meta',
 				dimension6: 'event_debug',
-				metric1: 'report_size',
+				metric1:    'report_size',
 			},
 		} );
-	}
-	if ( id.startsWith( 'G-' ) ) {
-		if ( location.hostname !== 'web-vitals-report.web.app' ) {
-			config.debug_mode = true;
-		}
 	}
 	return [ 'config', id, config ];
 };
