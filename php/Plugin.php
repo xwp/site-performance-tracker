@@ -257,8 +257,9 @@ class Plugin {
 		var randNumber = Math.random();
 		if ( randNumber <= window.webVitalsAnalyticsData.chance ) {
 			requestIdleCallback( function() {
-				webVitalsAnalyticsScript = document.getElementById( 'web-vitals-analytics-js' );
+				webVitalsAnalyticsScript = document.querySelector( 'script[data-src*=\"web-vitals-analytics.js\"]' );
 				webVitalsAnalyticsScript.src = webVitalsAnalyticsScript.dataset.src;
+				delete webVitalsAnalyticsScript.dataset.src;
 			} );
 		}
 	}
