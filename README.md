@@ -126,13 +126,20 @@ apply_filters( 'site_performance_tracker_event_types', array $entry_types = [ 'p
 
 To send web vitals to Google Analytics in a format compatible with the [Web Vitals Report](https://web-vitals-report.web.app/), enable the following theme support and passing in the ID, both UA- and G- ID formats are supported:
 
+Analytics is suppored, requires passing the ID using `ga_id`:
+```php
+add_theme_support( 'site_performance_tracker_vitals', array(
+	'ga_id' => 'UA-XXXXXXXX-Y',
+) );
+```
+Gtag is suppored, requires passing the ID using `gtag_id`:
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
 	'gtag_id' => 'UA-XXXXXXXX-Y',
 ) );
 ```
 
-If you need to override the Google Analytics dimensions to store these under, pass them along on the add theme support initialisation:
+If you need to override the Google Analytics dimensions (defaults to dimensions1 through 6) to store these under, pass them along on the add theme support initialisation:
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
 	'gtag_id'            => 'UA-XXXXXXXX-Y',
