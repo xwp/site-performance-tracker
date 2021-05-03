@@ -8,7 +8,7 @@
  * Plugin Name: Site Performance Tracker
  * Plugin URI: https://github.com/xwp/site-performance-tracker
  * Description: Allows you to detect and track site performance metrics.
- * Version: 0.3.3
+ * Version: 0.5
  * Author: XWP.co
  * Author URI: https://xwp.co
  */
@@ -51,6 +51,8 @@ if ( version_compare( phpversion(), '5.3', '<' ) ) {
 // Setup the Composer auto loader for classes.
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
+} else {
+	require_once __DIR__ . '/php/Plugin.php';
 }
 
 // Load helper functions manually.

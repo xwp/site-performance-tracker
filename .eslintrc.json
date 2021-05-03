@@ -1,0 +1,48 @@
+{
+  "extends": [
+    "plugin:@wordpress/eslint-plugin/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "@wordpress/i18n-text-domain": [
+      "error",
+      {
+        "allowedTextDomain": [ "xcurrent" ]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "parenSpacing": true,
+        "trailingComma": "es5",
+        "jsxBracketSameLine": false,
+        "arrowParens": "avoid"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files":[
+        "**/__tests__/**/*.js",
+        "**/test/*.js",
+        "**/?(*.)test.js",
+        "tests/js/**/*.js"
+      ],
+      "extends": [
+        "plugin:jest/all"
+      ],
+      "rules": {
+        "jest/lowercase-name": [
+          "error",
+          {
+            "ignore": [ "describe" ]
+          }
+        ],
+        "jest/no-hooks": "off",
+        "jest/prefer-expect-assertions": "off",
+        "jest/prefer-inline-snapshots": "off"
+      }
+    }
+  ]
+}
