@@ -44,6 +44,8 @@ const uaDimEventDebug = window.webVitalsAnalyticsData.eventDebug
 	? window.webVitalsAnalyticsData.eventDebug
 	: 'dimension6';
 
+const measurementVersion = '6';
+
 const getConfig = id => {
 	const config = {
 		page_path: location.pathname,
@@ -52,7 +54,7 @@ const getConfig = id => {
 	if ( 'gtag' === window.webVitalsAnalyticsData.delivery ) {
 		Object.assign( config, {
 			transport_type: 'beacon',
-			measurement_version: '6',
+			measurement_version: measurementVersion,
 		} );
 	}
 
@@ -67,14 +69,7 @@ const getConfig = id => {
 					[ uaDimConfig ]: 'config',
 					[ uaDimEventMeta ]: 'event_meta',
 					[ uaDimEventDebug ]: 'event_debug',
-					metric1: 'report_size',
 				},
-			} );
-		}
-
-		if ( 'ga' === window.webVitalsAnalyticsData.delivery ) {
-			Object.assign( config, {
-				[ uaDimMeasurementVersion ]: '6',
 			} );
 		}
 	}
@@ -158,7 +153,6 @@ function sendToGoogleAnalytics( { name, value, delta, id, entries } ) {
 			value: Math.round( name === 'CLS' ? delta * 1000 : delta ),
 			non_interaction: true,
 			event_meta: getRating( value, vitalThresholds[ name ] ),
-			metric_rating: getRating( value, vitalThresholds[ name ] ),
 			event_debug: getDebugInfo( name, entries ),
 		} );
 	}
@@ -172,6 +166,7 @@ function sendToGoogleAnalytics( { name, value, delta, id, entries } ) {
 			transport: 'beacon',
 			[ uaDimEventMeta ]: getRating( value, vitalThresholds[ name ] ),
 			[ uaDimEventDebug ]: getDebugInfo( name, entries ),
+			[ uaDimMeasurementVersion ]: measurementVersion,
 		} );
 	}
 }
@@ -208,9 +203,6 @@ export function initAnalytics() {
 		if ( 'undefined' === typeof window.ga ) {
 			// eslint-disable-next-line no-console
 			window.ga = console.log;
-		} else {
-			ga( 'js', new Date() );
-			ga( ...getConfig( window.webVitalsAnalyticsData.ga_id ) );
 		}
 	}
 
