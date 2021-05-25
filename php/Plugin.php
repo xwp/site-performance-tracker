@@ -156,7 +156,7 @@ class Plugin {
 					}
 				} );
 				var randNumber = Math.random();
-                if ( randNumber <= parseFloat( window.sitePerformanceObserver.chance ) ) {
+				if ( randNumber <= parseFloat( window.sitePerformanceObserver.chance ) ) {
 					window.sitePerformanceObserver.instance.observe( {
 						entryTypes: window.sitePerformanceObserver.entryTypes
 					} );
