@@ -56,11 +56,9 @@ const getConfig = id => {
 			transport_type: 'beacon',
 			measurement_version: measurementVersion,
 		} );
-	}
 
-	if ( id.startsWith( 'UA-' ) ) {
 		// Only gtag suports custom maps.
-		if ( 'gtag' === window.webVitalsAnalyticsData.delivery ) {
+		if ( id.startsWith( 'UA-' ) || id.startsWith( 'G-' ) ) {
 			Object.assign( config, {
 				custom_map: {
 					[ uaDimMeasurementVersion ]: 'measurement_version',
@@ -169,6 +167,15 @@ function sendToGoogleAnalytics( { name, value, delta, id, entries } ) {
 			[ uaDimMeasurementVersion ]: measurementVersion,
 		} );
 	}
+	if ( 'undefined' !== typeof window.webVitalsAnalyticsData.ga4_id ) {
+		gtag( 'event', name, {
+			value: delta,
+			metric_id: id,
+			metric_value: Math.round( name === 'CLS' ? delta * 1000 : delta ),
+			event_meta: getRating( value, vitalThresholds[ name ] ),
+			event_debug: getDebugInfo( name, entries ),
+		} );
+	}
 }
 
 export function measureWebVitals() {
@@ -183,7 +190,10 @@ export function initAnalytics() {
 		return false;
 		// Do nothing without a config.
 	}
-	if ( 'undefined' !== typeof window.webVitalsAnalyticsData.gtag_id ) {
+	if (
+		'undefined' !== typeof window.webVitalsAnalyticsData.gtag_id ||
+		'undefined' !== typeof window.webVitalsAnalyticsData.ga4_id
+	) {
 		window.webVitalsAnalyticsData.delivery = 'gtag';
 	} else if ( 'undefined' !== typeof window.webVitalsAnalyticsData.ga_id ) {
 		window.webVitalsAnalyticsData.delivery = 'ga';
@@ -196,7 +206,13 @@ export function initAnalytics() {
 			window.gtag = console.log;
 		}
 		gtag( 'js', new Date() );
-		gtag( ...getConfig( window.webVitalsAnalyticsData.gtag_id ) );
+		gtag(
+			...getConfig(
+				'undefined' !== typeof window.webVitalsAnalyticsData.gtag_id
+					? window.webVitalsAnalyticsData.gtag_id
+					: window.webVitalsAnalyticsData.ga4_id
+			)
+		);
 	}
 
 	if ( 'ga' === window.webVitalsAnalyticsData.delivery ) {
