@@ -208,7 +208,7 @@ class Plugin {
 			return;
 		}
 
-		echo '<script>' . $mark . '</script>' . PHP_EOL; // XSS ok.
+		echo '<script>' . $mark . '</script>' . PHP_EOL; // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 
 	/**
