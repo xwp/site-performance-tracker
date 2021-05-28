@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* global ga, gtag, location, requestIdleCallback */
+/* global gtag, requestIdleCallback */
 
 import { getCLS, getFCP, getFID, getLCP } from 'web-vitals';
 
@@ -28,52 +28,39 @@ const vitalThresholds = {
 const uaDimMeasurementVersion = window.webVitalsAnalyticsData.measurementVersion
 	? window.webVitalsAnalyticsData.measurementVersion
 	: 'dimension1';
-const uaDimclientId = window.webVitalsAnalyticsData.clientId
-	? window.webVitalsAnalyticsData.cliegantId
-	: 'dimension2';
-const uaDimSegments = window.webVitalsAnalyticsData.segments
-	? window.webVitalsAnalyticsData.segments
-	: 'dimension3';
-const uaDimConfig = window.webVitalsAnalyticsData.config
-	? window.webVitalsAnalyticsData.config
-	: 'dimension4';
 const uaDimEventMeta = window.webVitalsAnalyticsData.eventMeta
 	? window.webVitalsAnalyticsData.eventMeta
-	: 'dimension5';
+	: 'dimension2';
 const uaDimEventDebug = window.webVitalsAnalyticsData.eventDebug
 	? window.webVitalsAnalyticsData.eventDebug
-	: 'dimension6';
+	: 'dimension3';
 
 const measurementVersion = '6';
 
-const getConfig = id => {
-	const config = {
-		page_path: location.pathname,
-	};
+let gtagConfigured = false;
 
-	if ( 'gtag' === window.webVitalsAnalyticsData.delivery ) {
-		Object.assign( config, {
-			transport_type: 'beacon',
-			measurement_version: measurementVersion,
-		} );
+function getDeliveryFunction( type ) {
+	// eslint-disable-next-line no-console
+	return window[ type ] || console.log;
+}
 
-		// Only gtag suports custom maps.
-		if ( id.startsWith( 'UA-' ) || id.startsWith( 'G-' ) ) {
-			Object.assign( config, {
-				custom_map: {
-					[ uaDimMeasurementVersion ]: 'measurement_version',
-					[ uaDimclientId ]: 'client_id',
-					[ uaDimSegments ]: 'segments',
-					[ uaDimConfig ]: 'config',
-					[ uaDimEventMeta ]: 'event_meta',
-					[ uaDimEventDebug ]: 'event_debug',
-				},
-			} );
-		}
+function configureGtag( id ) {
+	if ( gtagConfigured || ! window.gtag ) {
+		return;
 	}
 
-	return [ 'config', id, config ];
-};
+	gtagConfigured = true;
+
+	gtag( 'config', id, {
+		transport_type: 'beacon',
+		measurement_version: measurementVersion,
+		custom_map: {
+			[ uaDimMeasurementVersion ]: 'measurement_version',
+			[ uaDimEventMeta ]: 'event_meta',
+			[ uaDimEventDebug ]: 'event_debug',
+		},
+	} );
+}
 
 function getRating( value, thresholds ) {
 	if ( value > thresholds[ 1 ] ) {
@@ -144,8 +131,9 @@ function getDebugInfo( metricName, entries = [] ) {
 }
 
 function sendToGoogleAnalytics( { name, value, delta, id, entries } ) {
-	if ( 'undefined' !== typeof window.webVitalsAnalyticsData.gtag_id ) {
-		gtag( 'event', name, {
+	if ( window.webVitalsAnalyticsData.gtag_id ) {
+		configureGtag();
+		getDeliveryFunction( 'gtag' )( 'event', name, {
 			event_category: 'Web Vitals',
 			event_label: id,
 			value: Math.round( name === 'CLS' ? delta * 1000 : delta ),
@@ -154,8 +142,8 @@ function sendToGoogleAnalytics( { name, value, delta, id, entries } ) {
 			event_debug: getDebugInfo( name, entries ),
 		} );
 	}
-	if ( 'undefined' !== typeof window.webVitalsAnalyticsData.ga_id ) {
-		ga( 'send', 'event', {
+	if ( window.webVitalsAnalyticsData.ga_id ) {
+		getDeliveryFunction( 'ga' )( 'send', 'event', {
 			eventCategory: 'Web Vitals',
 			eventAction: name,
 			eventLabel: id,
@@ -167,13 +155,14 @@ function sendToGoogleAnalytics( { name, value, delta, id, entries } ) {
 			[ uaDimMeasurementVersion ]: measurementVersion,
 		} );
 	}
-	if ( 'undefined' !== typeof window.webVitalsAnalyticsData.ga4_id ) {
-		gtag( 'event', name, {
+	if ( window.webVitalsAnalyticsData.ga4_id ) {
+		getDeliveryFunction( 'gtag' )( 'event', name, {
 			value: delta,
 			metric_id: id,
 			metric_value: Math.round( name === 'CLS' ? delta * 1000 : delta ),
 			event_meta: getRating( value, vitalThresholds[ name ] ),
 			event_debug: getDebugInfo( name, entries ),
+			measurement_version: measurementVersion,
 		} );
 	}
 }
@@ -185,46 +174,11 @@ export function measureWebVitals() {
 	getLCP( sendToGoogleAnalytics );
 }
 
-export function initAnalytics() {
-	if ( 'undefined' === typeof window.webVitalsAnalyticsData ) {
-		return false;
-		// Do nothing without a config.
-	}
-	if (
-		'undefined' !== typeof window.webVitalsAnalyticsData.gtag_id ||
-		'undefined' !== typeof window.webVitalsAnalyticsData.ga4_id
-	) {
-		window.webVitalsAnalyticsData.delivery = 'gtag';
-	} else if ( 'undefined' !== typeof window.webVitalsAnalyticsData.ga_id ) {
-		window.webVitalsAnalyticsData.delivery = 'ga';
-	}
-
-	if ( 'gtag' === window.webVitalsAnalyticsData.delivery ) {
-		window.webVitalsAnalyticsData.type = 'gtag';
-		if ( 'undefined' === typeof window.gtag ) {
-			// eslint-disable-next-line no-console
-			window.gtag = console.log;
-		}
-		gtag( 'js', new Date() );
-		gtag(
-			...getConfig(
-				'undefined' !== typeof window.webVitalsAnalyticsData.gtag_id
-					? window.webVitalsAnalyticsData.gtag_id
-					: window.webVitalsAnalyticsData.ga4_id
-			)
-		);
-	}
-
-	if ( 'ga' === window.webVitalsAnalyticsData.delivery ) {
-		if ( 'undefined' === typeof window.ga ) {
-			// eslint-disable-next-line no-console
-			window.ga = console.log;
-		}
-	}
-
-	measureWebVitals();
-}
-
 ( function () {
-	requestIdleCallback( initAnalytics );
+	if ( 'object' !== typeof window.webVitalsAnalyticsData ) {
+		// Do nothing without a config.
+		return;
+	}
+
+	requestIdleCallback( measureWebVitals );
 } )();

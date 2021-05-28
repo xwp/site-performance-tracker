@@ -8,7 +8,7 @@
  * Plugin Name: Site Performance Tracker
  * Plugin URI: https://github.com/xwp/site-performance-tracker
  * Description: Allows you to detect and track site performance metrics.
- * Version: 0.7
+ * Version: 0.8
  * Author: XWP.co
  * Author URI: https://xwp.co
  */
