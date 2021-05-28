@@ -98,7 +98,15 @@ Programmatically disable the plugin.
 apply_filters( 'site_performance_tracker_disabled', boolean $is_disabled = false );
 ```
 
-##### Disable default hooks
+##### Disable Performance Observer
+
+This will disable Performance Observer completely, the snippet will not be added to the site
+
+```php
+apply_filters( 'site_performance_tracker_disable_performance_observer', boolean $disable_performance_observer = false );
+```
+
+##### Disable only default hooks
 
 This will prevent adding custom performance marks for `wp_head` and `wp_footer` hooks.
 
@@ -145,22 +153,24 @@ add_theme_support( 'site_performance_tracker_vitals', array(
 ) );
 ```
 
-If you need to override the Google Analytics dimensions (defaults to dimensions1 through 6) to store these under, pass them along on the add theme support initialisation:
+If you need to override the Google Analytics dimensions (defaults to dimensions1 through 3) to store these under, pass them along on the add theme support initialisation:
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
 	'gtag_id'            => 'UA-XXXXXXXX-Y',
 	'measurementVersion' => 'dimension7',
-	'clientId'           => 'dimension8',
-	'segments'           => 'dimension9',
-	'config'             => 'dimension10',
-	'eventMeta'          => 'dimension11',
-	'eventDebug'         => 'dimension12',
+	'eventMeta'          => 'dimension8',
+	'eventDebug'         => 'dimension9',
 ) );
 ```
 
 ## Changelog
 
-### 0.7 - May 26, 2021
+#### 0.8 - May 28, 2021
+
+* Add ability to disable Performance Observer Snipped
+* Code cleanup
+
+#### 0.7 - May 26, 2021
 
 * Add support for Google Analytics 4.
 
