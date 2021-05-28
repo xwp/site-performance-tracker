@@ -180,9 +180,5 @@ export function measureWebVitals() {
 		return;
 	}
 
-	if ( window.requestIdleCallback ) {
-		requestIdleCallback( measureWebVitals );
-	} else {
-		measureWebVitals();
-	}
+	requestIdleCallback( measureWebVitals );
 } )();
