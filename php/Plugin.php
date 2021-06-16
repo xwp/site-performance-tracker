@@ -108,7 +108,7 @@ class Plugin {
 
 		// Replaces only the first occurrence of src in the tag. Avoids replacing inside inline scripts.
 		if ( false !== strpos( $tag, ' src' ) ) {
-			return substr_replace( $tag, ' type="module" data-src', strpos( $tag, ' src' ), strlen( ' src' ) );
+			return substr_replace( $tag, ' type="module" defer data-src', strpos( $tag, ' src' ), strlen( ' src' ) );
 		}
 
 		return $tag;
