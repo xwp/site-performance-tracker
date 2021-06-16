@@ -46,6 +46,6 @@
 		"format:js": "npm run lint:js -- --fix"
 	},
 	"dependencies": {
-		"web-vitals": "^1.1.1"
+		"web-vitals": "^2.0.1"
 	}
 }

@@ -82,6 +82,10 @@ add_theme_support( 'site_performance_tracker_vitals', array(
 
 ## Changelog
 
+#### 0.9 - June 16, 2021
+
+* Update web vitals JS library to 2.0.1
+
 #### 0.8 - May 28, 2021
 
 * Remove Performance Observer functionality
