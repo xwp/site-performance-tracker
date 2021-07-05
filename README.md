@@ -25,6 +25,8 @@ It relies on [PSR-4 autoloading](https://getcomposer.org/doc/04-schema.md#psr-4)
 
 ## Usage
 
+The following hooks can be added to a theme or a custom plugin. To confirm they were applied look for the "webVitalsAnalyticsData" in the page source. Collected data will be available in [Web Vitals Report](https://web-vitals-report.web.app/) in a few days.
+
 ### Limit the number of events sent
 
 Using the following filter you can send the events for a limited percentage of your traffic, this limits the performance metrics to be sent only for 5% of the traffic:
@@ -57,12 +59,13 @@ add_theme_support( 'site_performance_tracker_vitals', array(
 	'ga_id' => 'UA-XXXXXXXX-Y',
 ) );
 ```
-Gtag is supported, requires passing the ID using `gtag_id`:
+Gtag is supported, requires passing the Analytics ID (not GTM-) using `gtag_id`:
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
 	'gtag_id' => 'UA-XXXXXXXX-Y',
 ) );
 ```
+
 Analytics v4 is supported, requires passing the ID using `ga4_id`:
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
