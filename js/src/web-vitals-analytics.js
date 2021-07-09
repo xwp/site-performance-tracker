@@ -132,7 +132,7 @@ function getDebugInfo( metricName, entries = [] ) {
 
 function sendToGoogleAnalytics( { name, value, delta, id, entries } ) {
 	if ( window.webVitalsAnalyticsData.gtag_id ) {
-		configureGtag();
+		configureGtag( window.webVitalsAnalyticsData.gtag_id );
 		getDeliveryFunction( 'gtag' )( 'event', name, {
 			event_category: 'Web Vitals',
 			event_label: id,
