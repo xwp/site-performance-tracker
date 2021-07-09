@@ -82,6 +82,10 @@ add_theme_support( 'site_performance_tracker_vitals', array(
 
 ## Changelog
 
+#### 0.9.1 - July 9, 2021
+
+* Fix `configureGtag` call
+
 #### 0.9 - June 16, 2021
 
 * Update web vitals JS library to 2.0.1
