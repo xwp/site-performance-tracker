@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* global gtag, requestIdleCallback */
+/* global gtag */
 
 const vitalThresholds = {
 	CLS: [ 0.1, 0.25 ],
