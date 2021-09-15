@@ -48,12 +48,15 @@ if ( version_compare( phpversion(), '5.3', '<' ) ) {
 	return;
 }
 
-// Use the local Composer autoload, if present.
-if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
-	require_once __DIR__ . '/vendor/autoload.php';
-}
-
-// Load helper functions manually.
+/**
+ * Use includes to simplify the plugin distribution and usage on
+ * platforms on platforms that don't use Composer autoloader.
+ *
+ * @todo Consider supporting Composer classmap autoload (to match
+ * the filename requirements per PHPCS) after figuring out
+ * how to handle built JS and the presence of `vendor` directory.
+ */
+require_once __DIR__ . '/php/src/class-plugin.php';
 require_once __DIR__ . '/php/helpers.php';
 
 /**
