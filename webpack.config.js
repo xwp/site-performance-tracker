@@ -31,9 +31,6 @@ const sharedConfig = {
 	optimization: {
 		minimizer: [
 			new TerserPlugin( {
-				parallel: true,
-				sourceMap: false,
-				cache: true,
 				terserOptions: {
 					output: {
 						comments: /translators:/i,
