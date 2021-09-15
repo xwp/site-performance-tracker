@@ -128,9 +128,9 @@ export function sendToAnalytics( { name, value, delta, id, entries } ) {
 	let gtagConfigured = false;
 
 	if ( window.webVitalsAnalyticsData.gtag_id ) {
-		if ( ! gtagConfogured ) {
+		if ( ! gtagConfigured ) {
 			configureGtag( window.webVitalsAnalyticsData.gtag_id );
-			gtagConfogured = true;		
+			gtagConfigured = true;		
 		}
 
 		getDeliveryFunction( 'gtag' )( 'event', name, {
