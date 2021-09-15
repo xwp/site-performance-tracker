@@ -14,7 +14,7 @@ require_once getenv( 'WP_PHPUNIT__DIR' ) . '/includes/functions.php';
 tests_add_filter(
 	'muplugins_loaded',
 	function() {
-		require dirname( __DIR__ ) . '/site-performance-tracker.php';
+		require dirname( dirname( __DIR__ ) ) . '/site-performance-tracker.php';
 	}
 );
 

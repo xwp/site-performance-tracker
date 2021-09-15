@@ -53,7 +53,7 @@
     "format:js": "npm run lint:js -- --fix",
     "format:php": "composer lint-fix",
     "test": "npm-run-all test:*",
-    "test:php": "npm run env -- run composer test"
+    "test:php": "npm run env -- run tests-cli -- bash -c 'cd wp-content/plugins/site-performance-tracker && ./vendor/bin/phpunit'"
   },
   "dependencies": {
     "web-vitals": "^2.1.0"
