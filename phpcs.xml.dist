@@ -10,6 +10,10 @@
 		<exclude name="Generic.Formatting.MultipleStatementAlignment" />
 	</rule>
 
+	<rule ref="Squiz.Commenting">
+		<exclude-pattern>/tests/phpunit/</exclude-pattern>
+	</rule>
+
 	<rule ref="WordPress-VIP-Go" />
 
 	<exclude-pattern>/vendor/</exclude-pattern>

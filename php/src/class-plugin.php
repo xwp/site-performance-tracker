@@ -147,7 +147,7 @@ class Plugin {
 	}
 } )();";
 			wp_add_inline_script( self::JS_HANDLE_ANALYTICS, $web_vitals_init );
-		}
+		}//end if
 	}
 
 	/**
@@ -183,8 +183,10 @@ class Plugin {
 			return substr_replace(
 				$tag,
 				' type="module" defer data-src',
-				strpos( $tag, ' src' ), // Offset.
-				strlen( ' src' ) // Length.
+				strpos( $tag, ' src' ), 
+				// Offset.
+				strlen( ' src' ) 
+				// Length.
 			);
 		}
 

@@ -1,6 +1,8 @@
 <?php
 /**
  * Bootstrap the WP testing environment.
+ *
+ * @package XWP\Site_Performance_Tracker
  */
 
 require_once dirname( dirname( __DIR__ ) ) . '/vendor/autoload.php';
