@@ -33,7 +33,10 @@
   "require-dev": {
     "wp-coding-standards/wpcs": "^2.3",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-    "automattic/vipwpcs": "^2.3"
+    "automattic/vipwpcs": "^2.3",
+    "phpunit/phpunit": "^5.7",
+    "wp-phpunit/wp-phpunit": "^5.8",
+    "roots/wordpress": "^5.8"
   },
   "scripts": {
     "lint": [
@@ -41,11 +44,9 @@
     ],
     "lint-fix": [
       "phpcbf"
-    ]
-  },
-  "autoload": {
-    "classmap": [
-      "php/src/"
+    ],
+    "test": [
+      "phpunit"
     ]
   }
 }
