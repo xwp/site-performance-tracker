@@ -16,6 +16,9 @@
 
 	<rule ref="WordPress-VIP-Go" />
 
+	<rule ref="PHPCompatibilityWP" />
+	<config name="testVersion" value="5.6-"/><!-- Ensure all PHP code is compatible with PHP 5.6 and higher. -->
+
 	<exclude-pattern>/vendor/</exclude-pattern>
 	<exclude-pattern>/js/dist/</exclude-pattern>
 	<exclude-pattern>/node_modules/</exclude-pattern>

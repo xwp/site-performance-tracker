@@ -36,7 +36,8 @@
     "automattic/vipwpcs": "^2.3",
     "phpunit/phpunit": "^5.7",
     "wp-phpunit/wp-phpunit": "^5.8",
-    "roots/wordpress": "^5.8"
+    "roots/wordpress": "^5.8",
+    "phpcompatibility/phpcompatibility-wp": "^2.1"
   },
   "scripts": {
     "lint": [
