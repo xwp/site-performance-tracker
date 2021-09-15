@@ -35,29 +35,23 @@ const uaDimEventDebug = window.webVitalsAnalyticsData.eventDebug
 
 const measurementVersion = '6';
 
-let gtagConfigured = false;
-
 function getDeliveryFunction( type ) {
 	// eslint-disable-next-line no-console
 	return window[ type ] || console.log;
 }
 
 function configureGtag( id ) {
-	if ( gtagConfigured || ! window.gtag ) {
-		return;
+	if ( 'gtag' in window ) {
+		gtag( 'config', id, {
+			transport_type: 'beacon',
+			measurement_version: measurementVersion,
+			custom_map: {
+				[ uaDimMeasurementVersion ]: 'measurement_version',
+				[ uaDimEventMeta ]: 'event_meta',
+				[ uaDimEventDebug ]: 'event_debug',
+			},
+		} );
 	}
-
-	gtagConfigured = true;
-
-	gtag( 'config', id, {
-		transport_type: 'beacon',
-		measurement_version: measurementVersion,
-		custom_map: {
-			[ uaDimMeasurementVersion ]: 'measurement_version',
-			[ uaDimEventMeta ]: 'event_meta',
-			[ uaDimEventDebug ]: 'event_debug',
-		},
-	} );
 }
 
 function getRating( value, thresholds ) {
@@ -131,8 +125,14 @@ function getDebugInfo( metricName, entries = [] ) {
 }
 
 export function sendToAnalytics( { name, value, delta, id, entries } ) {
+	let gtagConfigured = false;
+
 	if ( window.webVitalsAnalyticsData.gtag_id ) {
-		configureGtag( window.webVitalsAnalyticsData.gtag_id );
+		if ( ! gtagConfogured ) {
+			configureGtag( window.webVitalsAnalyticsData.gtag_id );
+			gtagConfogured = true;		
+		}
+
 		getDeliveryFunction( 'gtag' )( 'event', name, {
 			event_category: 'Web Vitals',
 			event_label: id,
