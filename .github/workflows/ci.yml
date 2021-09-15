@@ -21,11 +21,30 @@ jobs:
         with:
           node-version: ${{ steps.node_version.outputs.NODE_VERSION }}
 
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Setup PHP with Composer
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
           tools: composer:v1
+
+      - name: Set Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
 
       - name: Install
         run: npm install
