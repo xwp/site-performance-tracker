@@ -2,7 +2,7 @@
 /**
  * Site Performance Tracker
  *
- * @package Site_Performance_Tracker
+ * @package XWP\Site_Performance_Tracker
  * @license http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2 (GPL-2.0)
  *
  * Plugin Name: Site Performance Tracker
@@ -48,15 +48,28 @@ if ( version_compare( phpversion(), '5.3', '<' ) ) {
 	return;
 }
 
-// Setup the Composer auto loader for classes.
+// Use the local Composer autoload, if present.
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
-} else {
-	require_once __DIR__ . '/php/Plugin.php';
 }
 
 // Load helper functions manually.
 require_once __DIR__ . '/php/helpers.php';
 
+/**
+ * Global function to provide access to the plugin APIs.
+ *
+ * @return XWP\Site_Performance_Tracker\Plugin
+ */
+function xwp_site_performance_tracker() {
+	static $plugin;
+
+	if ( ! isset( $plugin ) ) {
+		$plugin = new XWP\Site_Performance_Tracker\Plugin( __DIR__ );
+	}
+
+	return $plugin;
+}
+
 // Initialize the plugin.
-add_action( 'init', array( new \Site_Performance_Tracker\Plugin(), 'init' ) );
+add_action( 'init', array( xwp_site_performance_tracker(), 'init' ) );

@@ -1,6 +1,6 @@
 {
   "name": "xwp/site-performance-tracker",
-  "description": "Allows you to detect and track site performance metrics",
+  "description": "Detect and track site performance metrics",
   "homepage": "https://github.com/xwp/site-performance-tracker",
   "keywords": [
     "wordpress"
@@ -22,33 +22,25 @@
     "source": "https://github.com/xwp/site-performance-tracker"
   },
   "type": "wordpress-plugin",
-  "require": {},
-  "require-dev": {
-    "wp-coding-standards/wpcs": "^2.3.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-    "brainmaestro/composer-git-hooks": "^2.8.4"
+  "require": {
+    "composer/installers": "~1.0"
   },
-  "extra": {
-    "hooks": {
-      "pre-commit": [
-        "composer run lint"
-      ]
-    }
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^2.3",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+    "automattic/vipwpcs": "^2.3"
   },
   "scripts": {
     "lint": [
-      "vendor/bin/phpcs ."
+      "phpcs"
     ],
-    "post-install-cmd": [
-      "vendor/bin/cghooks add --no-lock"
-    ],
-    "post-update-cmd": [
-      "vendor/bin/cghooks update"
+    "lint-fix": [
+      "phpcbf"
     ]
   },
   "autoload": {
-    "psr-4": {
-      "Site_Performance_Tracker\\": "php/"
-    }
+    "classmap": [
+      "php/src/"
+    ]
   }
 }
