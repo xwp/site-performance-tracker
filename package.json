@@ -31,6 +31,7 @@
 	],
 	"devDependencies": {
 		"@babel/plugin-syntax-dynamic-import": "^7.8.3",
+		"@wordpress/env": "^4.1.1",
 		"@wordpress/scripts": "^13.0.3",
 		"del": "^6.0.0",
 		"dir-archiver": "^1.1.1",
@@ -40,12 +41,21 @@
 		"webpackbar": "^5.0.0-3"
 	},
 	"scripts": {
-		"dev:js": "wp-scripts start",
+		"build": "npm-run-all build:*",
 		"build:js": "wp-scripts build",
+		"dev:js": "wp-scripts start",
+		"env": "wp-env",
+		"env:start": "wp-env start",
+		"env:stop": "wp-env stop",
+		"env:stop-all": "docker rm $(docker ps -a -q)",
+		"lint": "npm-run-all lint:*",
 		"lint:js": "wp-scripts lint-js",
-		"format:js": "npm run lint:js -- --fix"
+		"lint:php": "composer lint",
+		"format": "npm-run-all format:*",
+		"format:js": "npm run lint:js -- --fix",
+		"format:php": "composer lint-fix"
 	},
 	"dependencies": {
-		"web-vitals": "^2.0.1"
+		"web-vitals": "^2.1.0"
 	}
 }

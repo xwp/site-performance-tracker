@@ -1,4 +1,7 @@
 /vendor/
 /node_modules/
-/package-lock.json
+
+# Allow local overrides.
 /phpcs.xml
+/phpunit.xml
+/.wp-env.override.json
