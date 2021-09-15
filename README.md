@@ -84,6 +84,15 @@ Programmatically disable the plugin.
 add_filter( 'site_performance_tracker_disabled', __return_true );
 ```
 
+## Contribute
+
+All contributions are welcome! Please create [an issue](https://github.com/xwp/site-performance-tracker/issues) for bugs and feature requests, and use [pull requests](https://github.com/xwp/site-performance-tracker/pulls) for code contributions.
+
+### Project Setup  
+
+- `webpack.config.js` configures how `@wordpresss/scripts` transforms JS and CSS assets during packaging.
+
+
 ## Changelog
 
 #### 0.9.1 - July 9, 2021
