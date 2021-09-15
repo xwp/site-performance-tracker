@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/xwp/site-performance-tracker.svg?branch=master)](https://travis-ci.com/xwp/site-performance-tracker)
 
-This WordPress plugin sends CWV data to Google Analytics. It is compatible with [Web Vitals Report](https://github.com/GoogleChromeLabs/web-vitals-report)
+This WordPress plugin sends [Core Web Vitals](https://web.dev/vitals/) data to Google Analytics. It is compatible with [Web Vitals Report](https://github.com/GoogleChromeLabs/web-vitals-report)
 
 ---
 
