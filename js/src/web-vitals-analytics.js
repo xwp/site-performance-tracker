@@ -112,13 +112,15 @@ function getDebugInfo( metricName, entries = [] ) {
 					return a && a.value > b.value ? a : b;
 				} );
 				if ( largestShift && largestShift.sources ) {
-					const largestSource = largestShift.sources.reduce( ( a, b ) => {
-						return a.node &&
-							a.previousRect.width * a.previousRect.height >
-								b.previousRect.width * b.previousRect.height
-							? a
-							: b;
-					} );
+					const largestSource = largestShift.sources.reduce(
+						( a, b ) => {
+							return a.node &&
+								a.previousRect.width * a.previousRect.height >
+									b.previousRect.width * b.previousRect.height
+								? a
+								: b;
+						}
+					);
 					if ( largestSource ) {
 						return getNodePath( largestSource.node );
 					}
@@ -175,7 +177,10 @@ export function measureWebVitals() {
 }
 
 ( function () {
-	if ( 'requestIdleCallback' in window && 'object' === typeof window.webVitalsAnalyticsData ) {
+	if (
+		'requestIdleCallback' in window &&
+		'object' === typeof window.webVitalsAnalyticsData
+	) {
 		requestIdleCallback( measureWebVitals );
 	}
 } )();

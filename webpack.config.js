@@ -46,7 +46,7 @@ const sharedConfig = {
 	plugins: [ ...defaultConfig.plugins ],
 };
 
-const configureBabelLoader = browserlist => {
+const configureBabelLoader = ( browserlist ) => {
 	return {
 		test: /\.js$/,
 		use: {
