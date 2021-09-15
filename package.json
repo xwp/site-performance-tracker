@@ -33,10 +33,6 @@
 		"@babel/plugin-syntax-dynamic-import": "^7.8.3",
 		"@wordpress/env": "^4.1.1",
 		"@wordpress/scripts": "^13.0.3",
-		"del": "^6.0.0",
-		"dir-archiver": "^1.1.1",
-		"gulp": "^4.0.2",
-		"gulp-rename": "^2.0.0",
 		"npm-run-all": "^4.1.5",
 		"webpackbar": "^5.0.0-3"
 	},
