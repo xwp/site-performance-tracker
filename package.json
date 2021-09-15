@@ -31,6 +31,7 @@
   ],
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@wordpress/babel-preset-default": "^6.3.2",
     "@wordpress/env": "^4.1.1",
     "@wordpress/eslint-plugin": "^9.1.2",
     "@wordpress/scripts": "18.0.1",
