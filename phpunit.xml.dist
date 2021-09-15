@@ -13,6 +13,6 @@
         </testsuite>
     </testsuites>
     <php>
-        <env name="WP_PHPUNIT__TESTS_CONFIG" value="tests/wp-config.php" />
+        <env name="WP_PHPUNIT__TESTS_CONFIG" value="tests/phpunit/wp-config.php" />
     </php>
 </phpunit>
