@@ -22,6 +22,11 @@
     "source": "https://github.com/xwp/site-performance-tracker"
   },
   "type": "wordpress-plugin",
+  "config": {
+    "platform": {
+      "php": "5.6.20"
+    }
+  },
   "require": {
     "composer/installers": "~1.0"
   },
