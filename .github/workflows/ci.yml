@@ -52,9 +52,6 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Start the Docker testing environment
-        run: npm run env start
-
       - name: Test
         run: npm run test
 
