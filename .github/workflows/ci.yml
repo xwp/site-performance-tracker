@@ -1,11 +1,11 @@
-name: Theme
+name: Test and Build
 
 on: push
 
 jobs:
 
   test:
-    name: Test and Build
+    name: Lint, Test and Build
     runs-on: ubuntu-20.04
     steps:
 
