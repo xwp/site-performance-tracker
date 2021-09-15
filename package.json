@@ -9,7 +9,7 @@
 		"Plugin"
 	],
 	"engines": {
-		"node": ">=14.0.0"
+		"node": ">=14"
 	},
 	"homepage": "https://github.com/xwp/site-performance-tracker#readme",
 	"repository": {
