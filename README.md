@@ -20,60 +20,41 @@ This plugin can be installed as [a Composer dependency](https://packagist.org/pa
 composer require xwp/site-performance-tracker
 ```
 
-It relies on [PSR-4 autoloading](https://getcomposer.org/doc/04-schema.md#psr-4) as defined in the [`composer.json` file](composer.json).
+or by downloading a plugin ZIP file from the [releases page](https://github.com/xwp/site-performance-tracker/releases).
 
 
 ## Usage
 
-The following hooks can be added to a theme or a custom plugin. To confirm they were applied look for the "webVitalsAnalyticsData" in the page source. Collected data will be available in [Web Vitals Report](https://web-vitals-report.web.app/) in a few days.
+The plugin must be configured by setting the `site_performance_tracker_vitals` theme feature with your Analytics IDs. Collected data will be available in [Web Vitals Report](https://web-vitals-report.web.app) in a few days.
 
-### Limit the number of events sent
+To send Web Vitals metrics to Google Analytics in a format compatible with the [Web Vitals Report](https://web-vitals-report.web.app), enable the following theme support and passing in the ID:
 
-Using the following filter you can send the events for a limited percentage of your traffic, this limits the performance metrics to be sent only for 5% of the traffic:
+[Google Analytics (analytics.js)](https://support.google.com/analytics/answer/7476135) is supported, requires passing the ID using `ga_id`:
 
-```php
-add_filter( 'site_performance_tracker_chance', function() {
-	return 0.05;
-} );
-```
-
-### Hooks
-
-There are the following hooks available to further customize the way the plugin works:
-
-##### Disable the plugin
-
-Programmatically disable the plugin.
-
-```php
-apply_filters( 'site_performance_tracker_disabled', boolean $is_disabled = false );
-```
-
-##### Enable web vitals tracking
-
-To send web vitals to Google Analytics in a format compatible with the [Web Vitals Report](https://web-vitals-report.web.app/), enable the following theme support and passing in the ID, both UA- and G- ID formats are supported:
-
-Analytics is supported, requires passing the ID using `ga_id`:
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
 	'ga_id' => 'UA-XXXXXXXX-Y',
 ) );
 ```
-Gtag is supported, requires passing the Analytics ID (not GTM-) using `gtag_id`:
+
+[Global Site Tag](https://support.google.com/analytics/answer/1008080) is supported, requires passing the Analytics ID (starting with `UA-` not `GTM-`) using `gtag_id`:
+
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
 	'gtag_id' => 'UA-XXXXXXXX-Y',
 ) );
 ```
 
-Analytics v4 is supported, requires passing the ID using `ga4_id`:
+[GA4 Analytics](https://support.google.com/analytics/answer/9304153) is supported, requires passing the ID using `ga4_id`:
+
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
 	'ga4_id' => 'G-XXXXXXXXXX',
 ) );
 ```
 
-If you need to override the Google Analytics dimensions (defaults to dimensions1 through 3) to store these under, pass them along on the add theme support initialisation:
+If you need to override the Google Analytics dimensions (defaults to `dimensions1` through `dimension3`) to store these under, pass them along on the add theme support initialisation:
+
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
 	'gtag_id'            => 'UA-XXXXXXXX-Y',
@@ -81,6 +62,26 @@ add_theme_support( 'site_performance_tracker_vitals', array(
 	'eventMeta'          => 'dimension8',
 	'eventDebug'         => 'dimension9',
 ) );
+```
+
+The following hooks can be added to a theme or a custom plugin to configure the plugin. To confirm they were applied look for the `webVitalsAnalyticsData` global variable in the page source.
+
+### Limit the number of events sent
+
+The following filter can be used to limit the number of tracking events to a percentage of your traffic. For example, to limit the tracking events to 5% of requests, use the following logic:
+
+```php
+add_filter( 'site_performance_tracker_chance', function() {
+	return 0.05;
+} );
+```
+
+### Disable the tracking
+
+Programmatically disable the plugin.
+
+```php
+add_filter( 'site_performance_tracker_disabled', __return_true );
 ```
 
 ## Changelog
