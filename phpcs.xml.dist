@@ -15,4 +15,5 @@
 	<exclude-pattern>/vendor/</exclude-pattern>
 	<exclude-pattern>/js/dist/</exclude-pattern>
 	<exclude-pattern>/node_modules/</exclude-pattern>
+	<exclude-pattern>/wordpress/</exclude-pattern>
 </ruleset>
