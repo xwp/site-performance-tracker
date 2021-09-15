@@ -1,6 +1,6 @@
 {
 	"name": "site-performance-tracker",
-	"version": "1.0.0",
+	"private": true,
 	"description": "Site Performance Tracker",
 	"author": "XWP",
 	"license": "GPL-2.0-or-later",
