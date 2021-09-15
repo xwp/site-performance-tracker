@@ -175,10 +175,7 @@ export function measureWebVitals() {
 }
 
 ( function () {
-	if ( 'object' !== typeof window.webVitalsAnalyticsData ) {
-		// Do nothing without a config.
-		return;
+	if ( 'requestIdleCallback' in window && 'object' === typeof window.webVitalsAnalyticsData ) {
+		requestIdleCallback( measureWebVitals );
 	}
-
-	requestIdleCallback( measureWebVitals );
 } )();
