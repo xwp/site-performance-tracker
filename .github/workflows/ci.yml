@@ -52,6 +52,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Start the wp-env environment
+        run: npm run env start
+
       - name: Test
         run: npm run test
 
