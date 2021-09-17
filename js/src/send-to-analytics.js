@@ -130,7 +130,7 @@ export function sendToAnalytics( { name, value, delta, id, entries } ) {
 	if ( window.webVitalsAnalyticsData.gtag_id ) {
 		if ( ! gtagConfigured ) {
 			configureGtag( window.webVitalsAnalyticsData.gtag_id );
-			gtagConfigured = true;		
+			gtagConfigured = true;
 		}
 
 		getDeliveryFunction( 'gtag' )( 'event', name, {
