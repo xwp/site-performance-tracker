@@ -90,7 +90,11 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ### Project Setup  
 
+- We use [`wp-env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) for local development environment. See all the `env:*` scripts in `package.json` for supported commands and helpers.
+
 - `webpack.config.js` configures how `@wordpresss/scripts` transforms JS and CSS assets during packaging.
+
+- We use the `@wordpress/eslint-plugin/recommended-with-formatting` ruleset for JS linting since the Prettier integration is [currently unreliable in `@wordpress/scripts`](https://github.com/WordPress/gutenberg/issues/21872).
 
 
 ## Changelog
