@@ -81,7 +81,7 @@ add_filter( 'site_performance_tracker_chance', function() {
 Programmatically disable the plugin.
 
 ```php
-add_filter( 'site_performance_tracker_disabled', __return_true );
+add_filter( 'site_performance_tracker_disabled', '__return_true' );
 ```
 
 ## Contribute
