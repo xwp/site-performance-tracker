@@ -126,9 +126,9 @@ function getDebugInfo( metricName, entries = [] ) {
 
 export function sendToAnalytics( { name, value, delta, id, entries } ) {
 	let gtagConfigured = false;
-	const analyticsData = window.webVitalsAnalyticsData[0];
+	const analyticsData = window.webVitalsAnalyticsData[ 0 ];
 
-	if ( analyticsData.gtag_id ) {
+	if ( analyticsData && analyticsData.gtag_id ) {
 		if ( ! gtagConfigured ) {
 			configureGtag( analyticsData.gtag_id );
 			gtagConfigured = true;
@@ -143,7 +143,7 @@ export function sendToAnalytics( { name, value, delta, id, entries } ) {
 			event_debug: getDebugInfo( name, entries ),
 		} );
 	}
-	if ( analyticsData.ga_id ) {
+	if ( analyticsData && analyticsData.ga_id ) {
 		getDeliveryFunction( 'ga' )( 'send', 'event', {
 			eventCategory: 'Web Vitals',
 			eventAction: name,
@@ -156,7 +156,7 @@ export function sendToAnalytics( { name, value, delta, id, entries } ) {
 			[ uaDimMeasurementVersion ]: measurementVersion,
 		} );
 	}
-	if ( analyticsData.ga4_id ) {
+	if ( analyticsData && analyticsData.ga4_id ) {
 		getDeliveryFunction( 'gtag' )( 'event', name, {
 			value: delta,
 			metric_id: id,
