@@ -46,7 +46,7 @@ class Plugin {
 	/**
 	 * Setup the plugin
 	 *
-	 * @param string $dir Absolute path to the plugin directory root.
+	 * @param string $dir_path Absolute path to the plugin directory root.
 	 */
 	public function __construct( $dir_path ) {
 		$this->dir_path = rtrim( $dir_path, '\\/' );
