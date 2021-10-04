@@ -1,16 +1,26 @@
 <?xml version="1.0"?>
 <ruleset name="WordPress coding standards">
+	<file>.</file><!-- Lint everything in the project root directory by default. -->
+
 	<arg name="extensions" value="php" />
-	<arg value="s" /><!-- Show sniffs in all reports. -->
+	<arg name="basepath" value="." /><!-- Report all file paths relative to the project directory. -->
+	<arg value="nps" /><!-- Show sniffs in all reports. -->
 
-	<rule ref="WordPress-Docs" />
-
-	<rule ref="WordPress-Core">
-		<exclude name="WordPress.Files.FileName" />
+	<rule ref="WordPress">
 		<exclude name="Generic.Formatting.MultipleStatementAlignment" />
 	</rule>
 
+	<rule ref="Squiz.Commenting">
+		<exclude-pattern>/tests/phpunit/</exclude-pattern>
+	</rule>
+
+	<rule ref="WordPress-VIP-Go" />
+
+	<rule ref="PHPCompatibilityWP" />
+	<config name="testVersion" value="5.6-"/><!-- Ensure all PHP code is compatible with PHP 5.6 and higher. -->
+
 	<exclude-pattern>/vendor/</exclude-pattern>
-	<exclude-pattern>*/js/dist/*</exclude-pattern>
-	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>/js/dist/</exclude-pattern>
+	<exclude-pattern>/node_modules/</exclude-pattern>
+	<exclude-pattern>/wordpress/</exclude-pattern>
 </ruleset>

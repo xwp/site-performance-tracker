@@ -2,13 +2,13 @@
 /**
  * Site Performance Tracker
  *
- * @package Site_Performance_Tracker
+ * @package XWP\Site_Performance_Tracker
  * @license http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2 (GPL-2.0)
  *
  * Plugin Name: Site Performance Tracker
  * Plugin URI: https://github.com/xwp/site-performance-tracker
  * Description: Allows you to detect and track site performance metrics.
- * Version: 0.9.1
+ * Version: 1.0.0
  * Author: XWP.co
  * Author URI: https://xwp.co
  */
@@ -48,15 +48,31 @@ if ( version_compare( phpversion(), '5.3', '<' ) ) {
 	return;
 }
 
-// Setup the Composer auto loader for classes.
-if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
-	require_once __DIR__ . '/vendor/autoload.php';
-} else {
-	require_once __DIR__ . '/php/Plugin.php';
-}
-
-// Load helper functions manually.
+/**
+ * Use includes to simplify the plugin distribution and usage on
+ * platforms on platforms that don't use Composer autoloader.
+ *
+ * @todo Consider supporting Composer classmap autoload (to match
+ * the filename requirements per PHPCS) after figuring out
+ * how to handle built JS and the presence of `vendor` directory.
+ */
+require_once __DIR__ . '/php/src/class-plugin.php';
 require_once __DIR__ . '/php/helpers.php';
 
+/**
+ * Global function to provide access to the plugin APIs.
+ *
+ * @return XWP\Site_Performance_Tracker\Plugin
+ */
+function xwp_site_performance_tracker() {
+	static $plugin;
+
+	if ( ! isset( $plugin ) ) {
+		$plugin = new XWP\Site_Performance_Tracker\Plugin( __DIR__ );
+	}
+
+	return $plugin;
+}
+
 // Initialize the plugin.
-add_action( 'init', array( new \Site_Performance_Tracker\Plugin(), 'init' ) );
+add_action( 'init', array( xwp_site_performance_tracker(), 'init' ) );

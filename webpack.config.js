@@ -31,9 +31,6 @@ const sharedConfig = {
 	optimization: {
 		minimizer: [
 			new TerserPlugin( {
-				parallel: true,
-				sourceMap: false,
-				cache: true,
 				terserOptions: {
 					output: {
 						comments: /translators:/i,
@@ -46,7 +43,7 @@ const sharedConfig = {
 	plugins: [ ...defaultConfig.plugins ],
 };
 
-const configureBabelLoader = browserlist => {
+const configureBabelLoader = ( browserlist ) => {
 	return {
 		test: /\.js$/,
 		use: {

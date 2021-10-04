@@ -1,6 +1,6 @@
 {
   "name": "xwp/site-performance-tracker",
-  "description": "Allows you to detect and track site performance metrics",
+  "description": "Detect and track site performance metrics",
   "homepage": "https://github.com/xwp/site-performance-tracker",
   "keywords": [
     "wordpress"
@@ -22,33 +22,33 @@
     "source": "https://github.com/xwp/site-performance-tracker"
   },
   "type": "wordpress-plugin",
-  "require": {},
-  "require-dev": {
-    "wp-coding-standards/wpcs": "^2.3.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-    "brainmaestro/composer-git-hooks": "^2.8.4"
-  },
-  "extra": {
-    "hooks": {
-      "pre-commit": [
-        "composer run lint"
-      ]
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "5.6.20"
     }
+  },
+  "require": {
+    "composer/installers": "~1.0"
+  },
+  "require-dev": {
+    "automattic/vipwpcs": "^2.3",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "phpunit/phpunit": "^5.7",
+    "roots/wordpress": "^5.8",
+    "wp-coding-standards/wpcs": "^2.3",
+    "wp-phpunit/wp-phpunit": "^5.8"
   },
   "scripts": {
     "lint": [
-      "vendor/bin/phpcs ."
+      "phpcs"
     ],
-    "post-install-cmd": [
-      "vendor/bin/cghooks add --no-lock"
+    "lint-fix": [
+      "phpcbf"
     ],
-    "post-update-cmd": [
-      "vendor/bin/cghooks update"
+    "test": [
+      "phpunit"
     ]
-  },
-  "autoload": {
-    "psr-4": {
-      "Site_Performance_Tracker\\": "php/"
-    }
   }
 }
