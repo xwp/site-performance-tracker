@@ -37,12 +37,20 @@ class Plugin {
 	protected $dir;
 
 	/**
+	 * Plugin directory URL.
+	 *
+	 * @var string
+	 */
+	protected $dir_url;
+
+	/**
 	 * Setup the plugin
 	 *
 	 * @param string $dir Absolute path to the plugin directory root.
 	 */
 	public function __construct( $dir ) {
 		$this->dir = rtrim( $dir, '\\/' );
+		$this->dir_url  = content_url( str_replace( WP_CONTENT_DIR, '', $this->dir ) );
 	}
 
 	/**
@@ -87,7 +95,7 @@ class Plugin {
 		return sprintf(
 			'%s/%s',
 			$this->dir,
-			ltrim( $path_relative, '\\/' )
+			ltrim( $path_relative, '\/' )
 		);
 	}
 
@@ -101,7 +109,7 @@ class Plugin {
 	protected function uri_to( $path_relative ) {
 		return sprintf(
 			'%s/%s',
-			plugin_dir_url( $this->dir ),
+			$this->dir_url,
 			ltrim( $path_relative, '\\/' )
 		);
 	}
@@ -119,7 +127,7 @@ class Plugin {
 			// Add to footer.
 			wp_enqueue_script(
 				self::JS_HANDLE_ANALYTICS,
-				$this->uri_to( 'js/dist/module/web-vitals-analytics.js' ),
+				$this->uri_to( '/js/dist/module/web-vitals-analytics.js' ),
 				array(),
 				$asset_meta['version'],
 				true
@@ -183,9 +191,9 @@ class Plugin {
 			return substr_replace(
 				$tag,
 				' type="module" defer data-src',
-				strpos( $tag, ' src' ), 
+				strpos( $tag, ' src' ),
 				// Offset.
-				strlen( ' src' ) 
+				strlen( ' src' )
 				// Length.
 			);
 		}
