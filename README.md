@@ -99,6 +99,14 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ## Changelog
 
+#### 1.0.0 - October 4, 2021
+
+* Update docs to start the "Usage" section with the required configuration for the plugin to do anything.
+* Switch to basic PHP includes for loading the PHP files instead of Composer autoload. 
+* Introduce helper methods for working with asset paths and URLs.
+* Introduce VIP Go coding standards.
+* Introduce PHP unit testing.
+
 #### 0.9.1 - July 9, 2021
 
 * Fix `configureGtag` call
