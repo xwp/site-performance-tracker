@@ -23,14 +23,14 @@ const vitalThresholds = {
 	LCP: [ 2500, 4000 ],
 };
 
-const uaDimMeasurementVersion = window.webVitalsAnalyticsData.measurementVersion
-	? window.webVitalsAnalyticsData.measurementVersion
+const uaDimMeasurementVersion = window.webVitalsAnalyticsData[ 0 ].measurementVersion
+	? window.webVitalsAnalyticsData[ 0 ].measurementVersion
 	: 'dimension1';
-const uaDimEventMeta = window.webVitalsAnalyticsData.eventMeta
-	? window.webVitalsAnalyticsData.eventMeta
+const uaDimEventMeta = window.webVitalsAnalyticsData[ 0 ].eventMeta
+	? window.webVitalsAnalyticsData[ 0 ].eventMeta
 	: 'dimension2';
-const uaDimEventDebug = window.webVitalsAnalyticsData.eventDebug
-	? window.webVitalsAnalyticsData.eventDebug
+const uaDimEventDebug = window.webVitalsAnalyticsData[ 0 ].eventDebug
+	? window.webVitalsAnalyticsData[ 0 ].eventDebug
 	: 'dimension3';
 
 const measurementVersion = '6';
