@@ -30,11 +30,11 @@ class Plugin {
 	const TRACKING_DEFAULT_CHANCE = 1;
 
 	/**
-	 * Path to the plugin directory.
+	 * Plugin directory path.
 	 *
 	 * @var string
 	 */
-	protected $dir;
+	protected $dir_path;
 
 	/**
 	 * Plugin directory URL.
@@ -48,9 +48,9 @@ class Plugin {
 	 *
 	 * @param string $dir Absolute path to the plugin directory root.
 	 */
-	public function __construct( $dir ) {
-		$this->dir = rtrim( $dir, '\\/' );
-		$this->dir_url  = content_url( str_replace( WP_CONTENT_DIR, '', $this->dir ) );
+	public function __construct( $dir_path ) {
+		$this->dir_path = rtrim( $dir_path, '\\/' );
+		$this->dir_url  = content_url( str_replace( WP_CONTENT_DIR, '', $this->dir_path ) );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class Plugin {
 	protected function path_to( $path_relative ) {
 		return sprintf(
 			'%s/%s',
-			$this->dir,
+			$this->dir_path,
 			ltrim( $path_relative, '\/' )
 		);
 	}
