@@ -79,6 +79,11 @@ class Plugin {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		/**
+		 * Load styles for settings UI in Admin.
+		 */
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+
+		/**
 		 * Load only for modern browsers
 		 */
 		add_filter( 'script_loader_tag', array( $this, 'optimize_scripts' ), 10, 2 );
@@ -156,6 +161,22 @@ class Plugin {
 } )();";
 			wp_add_inline_script( self::JS_HANDLE_ANALYTICS, $web_vitals_init );
 		}//end if
+	}
+
+	/**
+	 * Enqueue styles for the UI.
+	 */
+	public function enqueue_styles() {
+		$vitals_theme_support = get_theme_support( 'site_performance_tracker_vitals' );
+		$asset_meta_file = $this->path_to( 'css/styles.css' );
+
+		if ( $vitals_theme_support && file_exists( $asset_meta_file ) ) {
+			wp_enqueue_style(
+				'site-performance-tracker-styles',
+				$this->uri_to( '/css/styles.css' ),
+				array(),
+			);
+		}
 	}
 
 	/**
