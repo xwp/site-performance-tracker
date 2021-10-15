@@ -167,10 +167,9 @@ class Plugin {
 	 * Enqueue styles for the UI.
 	 */
 	public function enqueue_styles() {
-		$vitals_theme_support = get_theme_support( 'site_performance_tracker_vitals' );
 		$asset_meta_file = $this->path_to( 'css/styles.css' );
 
-		if ( $vitals_theme_support && file_exists( $asset_meta_file ) ) {
+		if ( file_exists( $asset_meta_file ) ) {
 			wp_enqueue_style(
 				'site-performance-tracker-styles',
 				$this->uri_to( '/css/styles.css' ),
