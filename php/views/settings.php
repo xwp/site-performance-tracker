@@ -19,20 +19,34 @@
 
 			<div class="form-element">
 				<label for="analytics_id">Analytics ID:</label>
-				<input type="text" id="analytics_id" name="analytics_id" pattern="[A-Z]+-[A-Z0-9].*" value="" placeholder="UA-XXXXXXXX-Y" aria-label="analytics id" required>
+				<input type="text" id="analytics_id" name="analytics_id" pattern="[UA|GTM|G]+-[A-Z|0-9]+.*" value="" placeholder="UA-XXXXXXXX-Y" aria-label="analytics id" required>
 			</div>
 
 			<div class="form-element">
-				<label for="custom_dimensions">Custom Dimensions:</label>
-				<input type="text" id="custom_dimensions" name="custom_dimensions" pattern="dimension[0-9]{10,12}" value="" placeholder="dimension1" aria-label="custom dimensions" required>
+				<label for="measurement_version_dimension">Measurement Version Dimension:</label>
+				<input type="text" id="measurement_version_dimension" name="measurement_version_dimension" pattern="[dimension]+[0-9]{1,2}" value="" placeholder="dimension1" aria-label="measurement version dimension" required>
+			</div>
+
+			<div class="form-element">
+				<label for="event_meta_dimension">Event Meta Dimension:</label>
+				<input type="text" id="event_meta_dimension" name="event_meta_dimension" pattern="[dimension]+[0-9]{1,2}" value="" placeholder="dimension2" aria-label="event meta dimension" required>
+			</div>
+
+			<div class="form-element">
+				<label for="event_debug_dimension">Event Debug Dimension:</label>
+				<input type="text" id="event_debug_dimension" name="event_debug_dimension" pattern="[dimension]+[0-9]{1,2}" value="" placeholder="dimension3" aria-label="event debug dimension" required>
 			</div>
 
 			<div class="form-element">
 				<label for="tracking_ratio">Web Vitals Tracking Ratio:</label>
-				<input type="number" id="tracking_ratio" name="tracking_ratio" pattern=".{1,}" value="" placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" required>
+				<input type="number" id="tracking_ratio" name="tracking_ratio" min="0" max="1" step="any" value="" placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" required>
 			</div>
 
 			<input type="submit" value="Submit">
 		</form>
+	</div>
+
+	<div class="content">
+		<p>You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.</p>
 	</div>
 </div>
