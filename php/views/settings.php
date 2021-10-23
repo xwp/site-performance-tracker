@@ -2,51 +2,138 @@
 /**
  * Site Performance Tracker settings page.
  */
-?>
 
-<div class="container">
-	<h1>Site Performance Tracker Settings</h1>
-	<div class="form">
-		<form action="" method="POST" class="settings-form">
-			<div class="form-element">
-				<label for="analytics_types">Analytics Types:</label>
-				<select name="analytics_types" id="analytics_types" required>
-					<option value="ga">Google Analytics</option>
-					<option value="gtag">Global Site Tag</option>
-					<option value="ga4">GA4 Analytics</option>
-				</select>
-			</div>
+add_action( 'admin_menu', 'spt_add_admin_menu' );
+add_action( 'admin_init', 'spt_settings_init' );
 
-			<div class="form-element">
-				<label for="analytics_id">Analytics ID:</label>
-				<input type="text" id="analytics_id" name="analytics_id" pattern="[UA|GTM|G]+-[A-Z|0-9]+.*" value="" placeholder="UA-XXXXXXXX-Y" aria-label="analytics id" required>
-			</div>
+function spt_add_admin_menu() { 
+	add_options_page( 'Site Performance Tracker', 'Site Performance Tracker', 'manage_options', 'site_performance_tracker', 'spt_options_page' );
+}
 
-			<div class="form-element">
-				<label for="measurement_version_dimension">Measurement Version Dimension:</label>
-				<input type="text" id="measurement_version_dimension" name="measurement_version_dimension" pattern="[dimension]+[0-9]{1,2}" value="" placeholder="dimension1" aria-label="measurement version dimension" required>
-			</div>
+function spt_settings_init() { 
+	register_setting( 'pluginPage', 'spt_settings' );
 
-			<div class="form-element">
-				<label for="event_meta_dimension">Event Meta Dimension:</label>
-				<input type="text" id="event_meta_dimension" name="event_meta_dimension" pattern="[dimension]+[0-9]{1,2}" value="" placeholder="dimension2" aria-label="event meta dimension" required>
-			</div>
+	add_settings_section(
+		'spt_pluginPage_section', 
+		null, 
+		'spt_settings_section_callback', 
+		'pluginPage'
+	);
 
-			<div class="form-element">
-				<label for="event_debug_dimension">Event Debug Dimension:</label>
-				<input type="text" id="event_debug_dimension" name="event_debug_dimension" pattern="[dimension]+[0-9]{1,2}" value="" placeholder="dimension3" aria-label="event debug dimension" required>
-			</div>
+	add_settings_field( 
+		'analytics_types', 
+		__( 'Analytics Types', 'site-performance-tracker' ), 
+		'analytics_types_render', 
+		'pluginPage', 
+		'spt_pluginPage_section' 
+	);
 
-			<div class="form-element">
-				<label for="tracking_ratio">Web Vitals Tracking Ratio:</label>
-				<input type="number" id="tracking_ratio" name="tracking_ratio" min="0" max="1" step="any" value="" placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" required>
-			</div>
+	add_settings_field( 
+		'analytics_id', 
+		__( 'Analytics ID', 'site-performance-tracker' ), 
+		'analytics_id_render', 
+		'pluginPage', 
+		'spt_pluginPage_section' 
+	);
 
-			<input type="submit" value="Submit">
-		</form>
-	</div>
+	add_settings_field( 
+		'measurement_version_dimension', 
+		__( 'Measurement Version Dimension', 'site-performance-tracker' ), 
+		'measurement_version_dimension_render', 
+		'pluginPage', 
+		'spt_pluginPage_section' 
+	);
+
+	add_settings_field( 
+		'event_meta_dimension', 
+		__( 'Event Meta Dimension', 'site-performance-tracker' ), 
+		'event_meta_dimension_render', 
+		'pluginPage', 
+		'spt_pluginPage_section' 
+	);
+
+	add_settings_field( 
+		'event_debug_dimension', 
+		__( 'Event Debug Dimension', 'site-performance-tracker' ), 
+		'event_debug_dimension_render', 
+		'pluginPage', 
+		'spt_pluginPage_section' 
+	);
+
+	add_settings_field( 
+		'web_vitals_tracking_ratio', 
+		__( 'Web Vitals Tracking Ratio', 'site-performance-tracker' ), 
+		'web_vitals_tracking_ratio_render', 
+		'pluginPage', 
+		'spt_pluginPage_section' 
+	);
+}
+
+function analytics_types_render() { 
+	$options = get_option( 'spt_settings' );
+	?>
+	<select name='spt_settings[analytics_types]' required>
+		<option value="ga" <?php selected( $options['analytics_types'], 1 ); ?>>Google Analytics</option>
+		<option value="gtag" <?php selected( $options['analytics_types'], 2 ); ?>>Global Site Tag</option>
+		<option value="ga4" <?php selected( $options['analytics_types'], 3 ); ?>>GA4 Analytics</option>
+	</select>
+<?php
+}
+
+function analytics_id_render() { 
+	$options = get_option( 'spt_settings' );
+	?>
+	<input type='text' name='spt_settings[analytics_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*" value='<?php echo $options['analytics_id']; ?>' placeholder="UA-XXXXXXXX-Y" aria-label="analytics id" required>
+<?php
+}
+
+function measurement_version_dimension_render() { 
+	$options = get_option( 'spt_settings' );
+	?>
+	<input type='text' name='spt_settings[measurement_version_dimension]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo $options['measurement_version_dimension']; ?>' placeholder="dimension1" aria-label="measurement version dimension" required>
+<?php
+}
+
+function event_meta_dimension_render() { 
+	$options = get_option( 'spt_settings' );
+	?>
+	<input type='text' name='spt_settings[event_meta_dimension]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo $options['event_meta_dimension']; ?>' placeholder="dimension2" aria-label="event meta dimension" required>
+<?php
+}
+
+function event_debug_dimension_render() { 
+	$options = get_option( 'spt_settings' );
+	?>
+	<input type='text' name='spt_settings[event_debug_dimension]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo $options['event_debug_dimension']; ?>' placeholder="dimension3" aria-label="event debug dimension" required>
+<?php
+}
+
+function web_vitals_tracking_ratio_render() { 
+	$options = get_option( 'spt_settings' );
+	?>
+	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' min="0" max="1" step="any" value='<?php echo $options['web_vitals_tracking_ratio']; ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" required>
+<?php
+}
+
+function spt_settings_section_callback() { 
+	echo __( 'Update Site Performance Tracker settings', 'site-performance-tracker' );
+}
+
+function spt_options_page() { 
+	?>
+	<form action='options.php' method='post'>
+		<h1><?php echo __( "Site Performance Tracker Settings", "site-performance-tracker" ); ?></h1>
+		
+		<?php
+		settings_fields( 'pluginPage' );
+		do_settings_sections( 'pluginPage' );
+		submit_button();
+		?>
+	</form>
 
 	<div class="content">
 		<p>You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.</p>
 	</div>
-</div>
+<?php
+}
+

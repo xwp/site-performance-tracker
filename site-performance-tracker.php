@@ -60,25 +60,12 @@ require_once __DIR__ . '/php/src/class-plugin.php';
 require_once __DIR__ . '/php/helpers.php';
 
 /**
- * Create the Admin Panel Menu.
+ * Create the Settings Page.
  * 
  * This is where all the settings for the plugin can be added/edited
  * through an interface.
  */
-add_action('admin_menu', 'xwp_site_performance_tracker_menu');
-function xwp_site_performance_tracker_menu() {
-	add_menu_page(
-		__( 'Site Performance Tracker Settings', 'site-performance-tracker' ),
-		__( 'Site Performance Tracker', 'site-performance-tracker' ),
-		'manage_options',
-		'site-performance-tracker',
-		'settings_view_init'
-	);
-}
-
-function settings_view_init(){
-    require_once __DIR__ . '/php/views/settings.php';
-}
+require_once __DIR__ . '/php/views/settings.php';
 
 /**
  * Global function to provide access to the plugin APIs.
