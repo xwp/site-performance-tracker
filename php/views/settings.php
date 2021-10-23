@@ -77,42 +77,42 @@ function analytics_types_render() {
 		<option value="gtag" <?php selected( $options['analytics_types'], 2 ); ?>>Global Site Tag</option>
 		<option value="ga4" <?php selected( $options['analytics_types'], 3 ); ?>>GA4 Analytics</option>
 	</select>
-<?php
+	<?php
 }
 
 function analytics_id_render() { 
 	$options = get_option( 'spt_settings' );
 	?>
 	<input type='text' name='spt_settings[analytics_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*" value='<?php echo $options['analytics_id']; ?>' placeholder="UA-XXXXXXXX-Y" aria-label="analytics id" required>
-<?php
+	<?php
 }
 
 function measurement_version_dimension_render() { 
 	$options = get_option( 'spt_settings' );
 	?>
 	<input type='text' name='spt_settings[measurement_version_dimension]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo $options['measurement_version_dimension']; ?>' placeholder="dimension1" aria-label="measurement version dimension" required>
-<?php
+	<?php
 }
 
 function event_meta_dimension_render() { 
 	$options = get_option( 'spt_settings' );
 	?>
 	<input type='text' name='spt_settings[event_meta_dimension]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo $options['event_meta_dimension']; ?>' placeholder="dimension2" aria-label="event meta dimension" required>
-<?php
+	<?php
 }
 
 function event_debug_dimension_render() { 
 	$options = get_option( 'spt_settings' );
 	?>
 	<input type='text' name='spt_settings[event_debug_dimension]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo $options['event_debug_dimension']; ?>' placeholder="dimension3" aria-label="event debug dimension" required>
-<?php
+	<?php
 }
 
 function web_vitals_tracking_ratio_render() { 
 	$options = get_option( 'spt_settings' );
 	?>
 	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' min="0" max="1" step="any" value='<?php echo $options['web_vitals_tracking_ratio']; ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" required>
-<?php
+	<?php
 }
 
 function spt_settings_section_callback() { 
@@ -122,7 +122,7 @@ function spt_settings_section_callback() {
 function spt_options_page() { 
 	?>
 	<form action='options.php' method='post'>
-		<h1><?php echo __( "Site Performance Tracker Settings", "site-performance-tracker" ); ?></h1>
+		<h1><?php echo __( 'Site Performance Tracker Settings', 'site-performance-tracker' ); ?></h1>
 		
 		<?php
 		settings_fields( 'pluginPage' );
@@ -134,6 +134,5 @@ function spt_options_page() {
 	<div class="content">
 		<p>You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.</p>
 	</div>
-<?php
+	<?php
 }
-
