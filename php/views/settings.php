@@ -14,12 +14,15 @@ use XWP\Site_Performance_Tracker\Plugin;
  */
 function print_readonly() {
 	$web_vitals_plugin = new Plugin( __DIR__ );
-	$trackers = array_keys( $web_vitals_plugin->get_tracker_config()[0] );
+	$tracker_config    = $web_vitals_plugin->get_tracker_config();
+	$trackers          = isset( $tracker_config[0] ) ? array_keys( $tracker_config[0] ) : null;
 
-	$type = get_option( 'spt_settings' )['analytics_types'];
-	
-	foreach ( $trackers as $tracker ) {
-		return print( $tracker === $type ) ? 'readonly' : null;
+	if ( isset( $trackers ) ) {
+		$type = get_option( 'spt_settings' )['analytics_types'] ?? '';
+
+		foreach ( $trackers as $tracker ) {
+			return print( $tracker === $type ) ? 'readonly' : null;
+		}
 	}
 }
 
