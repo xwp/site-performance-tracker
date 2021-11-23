@@ -165,7 +165,7 @@ function event_debug_dimension_render() {
 function web_vitals_tracking_ratio_render() {
 	$options = get_option( 'spt_settings' );
 	?>
-	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' value='0.00' min='0.01' max='1' value='<?php echo esc_attr( $options['web_vitals_tracking_ratio'] ); ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" <?php print_readonly(); ?> required>
+	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1' value='<?php echo esc_attr( $options['web_vitals_tracking_ratio'] ); ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" <?php print_readonly(); ?> required>
 	<?php
 }
 
