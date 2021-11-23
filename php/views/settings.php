@@ -106,13 +106,13 @@ function analytics_types_render() {
 	$options = get_option( 'spt_settings' );
 	?>
 	<select name='spt_settings[analytics_types]' required>
-		<option value="ga_id" <?php selected( $options['analytics_types'], 1 ); ?>>
+		<option value="ga_id" <?php selected( $options['analytics_types'], 'ga_id' ); ?>>
 			<?php esc_html_e( 'Google Analytics', 'site-performance-tracker' ); ?>
 		</option>
-		<option value="gtm" <?php selected( $options['analytics_types'], 2 ); ?>>
+		<option value="gtm" <?php selected( $options['analytics_types'], 'gtm' ); ?>>
 			<?php esc_html_e( 'Global Site Tag', 'site-performance-tracker' ); ?>
 		</option>
-		<option value="ga4" <?php selected( $options['analytics_types'], 3 ); ?>>
+		<option value="ga4" <?php selected( $options['analytics_types'], 'ga4' ); ?>>
 			<?php esc_html_e( 'GA4 Analytics', 'site-performance-tracker' ); ?>
 		</option>
 	</select>
