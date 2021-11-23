@@ -125,7 +125,7 @@ function analytics_types_render() {
 function analytics_id_render() {
 	$options = get_option( 'spt_settings' );
 	?>
-	<input type='text' name='spt_settings[analytics_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*" value='<?php echo esc_attr( $options['analytics_id'] ); ?>' placeholder="UA-XXXXXXXX-Y" aria-label="analytics id" <?php print_readonly(); ?> required>
+	<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*" value='<?php echo esc_attr( $options['gtag_id'] ); ?>' placeholder="UA-XXXXXXXX-Y" aria-label="analytics id" <?php print_readonly(); ?> required>
 	<?php
 }
 
@@ -135,7 +135,7 @@ function analytics_id_render() {
 function measurement_version_dimension_render() {
 	$options = get_option( 'spt_settings' );
 	?>
-	<input type='text' name='spt_settings[measurement_version_dimension]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['measurement_version_dimension'] ); ?>' placeholder="dimension1" aria-label="measurement version dimension" <?php print_readonly(); ?> required>
+	<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['measurementVersion'] ); ?>' placeholder="dimension1" aria-label="measurement version dimension" <?php print_readonly(); ?> required>
 	<?php
 }
 
@@ -145,7 +145,7 @@ function measurement_version_dimension_render() {
 function event_meta_dimension_render() {
 	$options = get_option( 'spt_settings' );
 	?>
-	<input type='text' name='spt_settings[event_meta_dimension]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['event_meta_dimension'] ); ?>' placeholder="dimension2" aria-label="event meta dimension" <?php print_readonly(); ?> required>
+	<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventMeta'] ); ?>' placeholder="dimension2" aria-label="event meta dimension" <?php print_readonly(); ?> required>
 	<?php
 }
 
@@ -155,7 +155,7 @@ function event_meta_dimension_render() {
 function event_debug_dimension_render() {
 	$options = get_option( 'spt_settings' );
 	?>
-	<input type='text' name='spt_settings[event_debug_dimension]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['event_debug_dimension'] ); ?>' placeholder="dimension3" aria-label="event debug dimension" <?php print_readonly(); ?> required>
+	<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventDebug'] ); ?>' placeholder="dimension3" aria-label="event debug dimension" <?php print_readonly(); ?> required>
 	<?php
 }
 
