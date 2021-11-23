@@ -106,9 +106,15 @@ function analytics_types_render() {
 	$options = get_option( 'spt_settings' );
 	?>
 	<select name='spt_settings[analytics_types]' required>
-		<option value="ga_id" <?php selected( $options['analytics_types'], 1 ); ?>>Google Analytics</option>
-		<option value="gtm" <?php selected( $options['analytics_types'], 2 ); ?>>Global Site Tag</option>
-		<option value="ga4" <?php selected( $options['analytics_types'], 3 ); ?>>GA4 Analytics</option>
+		<option value="ga_id" <?php selected( $options['analytics_types'], 1 ); ?>>
+			<?php esc_html_e( 'Google Analytics', 'site-performance-tracker' ); ?>
+		</option>
+		<option value="gtm" <?php selected( $options['analytics_types'], 2 ); ?>>
+			<?php esc_html_e( 'Global Site Tag', 'site-performance-tracker' ); ?>
+		</option>
+		<option value="ga4" <?php selected( $options['analytics_types'], 3 ); ?>>
+			<?php esc_html_e( 'GA4 Analytics', 'site-performance-tracker' ); ?>
+		</option>
 	</select>
 	<?php
 }
@@ -186,7 +192,9 @@ function spt_options_page() {
 	</form>
 
 	<div class="content">
-		<p>You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.</p>
+		<p>
+			<?php esc_html_e( 'You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.', 'site-performance-tracker' ); ?>	
+		</p>
 	</div>
 	<?php
 }
