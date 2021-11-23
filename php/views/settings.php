@@ -193,7 +193,7 @@ function spt_options_page() {
 
 	<div class="content">
 		<p>
-			<?php esc_html_e( 'You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.', 'site-performance-tracker' ); ?>	
+			<?php _e( 'You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.', 'site-performance-tracker' ); ?>	
 		</p>
 	</div>
 	<?php
