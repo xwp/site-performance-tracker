@@ -170,13 +170,11 @@ class Plugin {
 		$asset_meta_file = $this->path_to( 'css/styles.css' );
 
 		if ( file_exists( $asset_meta_file ) ) {
-			$asset_meta = require $asset_meta_file;
-			
 			wp_enqueue_style(
 				'site-performance-tracker-styles',
 				$this->uri_to( '/css/styles.css' ),
 				array(),
-				$asset_meta['version']
+				time()
 			);
 		}
 	}
