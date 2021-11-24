@@ -186,21 +186,16 @@ class Plugin {
 	 * @return array
 	 */
 	public function get_tracker_config() {
-		$vitals_config = array();
-		$site_config   = get_theme_support( 'site_performance_tracker_vitals' );
-		$chance        = apply_filters( 'site_performance_tracker_chance', self::TRACKING_DEFAULT_CHANCE );
+		$options       = get_option( 'spt_settings' ) ? get_option( 'spt_settings' ) : array();
+		$site_config   = isset( get_theme_support( 'site_performance_tracker_vitals' )[0] ) ? get_theme_support( 'site_performance_tracker_vitals' )[0] : array();
+		$vitals_config = array( array_merge( $options, $site_config ) );
 
-		if ( ! $site_config ) {
-			$options       = get_option( 'spt_settings' );
-			$site_config[] = $options ? $options : false;
-			$chance        = isset( $options['web_vitals_tracking_ratio'] ) ? $options['web_vitals_tracking_ratio'] : $chance;
+		if ( has_filter( 'site_performance_tracker_chance' ) ) {
+			$chance                  = apply_filters( 'site_performance_tracker_chance', self::TRACKING_DEFAULT_CHANCE );
+			$vitals_config['chance'] = floatval( $chance );
+		} else {
+			$vitals_config['chance'] = isset( $options['web_vitals_tracking_ratio'] ) ? floatval( $options['web_vitals_tracking_ratio'] ) : floatval( self::TRACKING_DEFAULT_CHANCE );
 		}
-
-		if ( is_array( $site_config ) && isset( $site_config[0] ) ) {
-			$vitals_config = array_merge( $vitals_config, $site_config );
-		}
-
-		$vitals_config['chance'] = floatval( $chance );
 
 		return $vitals_config;
 	}
