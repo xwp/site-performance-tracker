@@ -18,7 +18,8 @@ function print_readonly() {
 	$trackers          = isset( $tracker_config[0] ) ? array_keys( $tracker_config[0] ) : null;
 
 	if ( isset( $trackers ) ) {
-		$type = get_option( 'spt_settings' )['analytics_types'] ?? '';
+		$spt_settings = get_option( 'spt_settings' );
+		$type         = isset( $spt_settings['analytics_types'] ) ? $spt_settings['analytics_types'] : '';
 
 		foreach ( $trackers as $tracker ) {
 			return print( $tracker === $type ) ? 'readonly' : null;
