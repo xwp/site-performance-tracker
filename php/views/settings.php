@@ -7,23 +7,17 @@
 
 use XWP\Site_Performance_Tracker\Plugin;
 
+// Get options set via add_theme_support
+$tracker_config = isset( get_theme_support( 'site_performance_tracker_vitals' )[0] ) ? get_theme_support( 'site_performance_tracker_vitals' )[0] : array();
 /**
  * Get available trackers and print 'readonly' in the form inputs.
  *
  * @return string|null "readonly" or null.
  */
-function print_readonly() {
-	$web_vitals_plugin = new Plugin( __DIR__ );
-	$tracker_config    = $web_vitals_plugin->get_tracker_config();
-	$trackers          = isset( $tracker_config[0] ) ? array_keys( $tracker_config[0] ) : null;
-
-	if ( isset( $trackers ) ) {
-		$spt_settings = get_option( 'spt_settings' );
-		$type         = isset( $spt_settings['analytics_types'] ) ? $spt_settings['analytics_types'] : '';
-
-		foreach ( $trackers as $tracker ) {
-			return print( $tracker === $type ) ? 'readonly' : null;
-		}
+function print_readonly( $prop_name ) {
+	global $tracker_config;
+	if ( isset( $tracker_config[ $prop_name ] ) ) {
+		echo esc_attr( 'readonly' );
 	}
 }
 
@@ -105,8 +99,20 @@ function spt_settings_init() {
  */
 function analytics_types_render() {
 	$options = get_option( 'spt_settings' );
+	global $tracker_config;
+	$set = false;
+	if ( isset( $tracker_config['ga_id'] ) ) {
+		$options['analytics_types'] = 'ga_id';
+		$set = true;
+	} elseif ( isset( $tracker_config['gtag_id'] ) ) {
+		$options['analytics_types'] = 'gtm';
+		$set = true;
+	} elseif ( isset( $tracker_config['ga4_id'] ) ) {
+		$options['analytics_types'] = 'ga4';
+		$set = true;
+	}
 	?>
-	<select name='spt_settings[analytics_types]' required>
+	<select name='spt_settings[analytics_types]' <?php if ( $set ) echo esc_attr( 'disabled' ) ?> required>
 		<option value="ga_id" <?php selected( $options['analytics_types'], 'ga_id' ); ?>>
 			<?php esc_html_e( 'Google Analytics', 'site-performance-tracker' ); ?>
 		</option>
@@ -118,6 +124,10 @@ function analytics_types_render() {
 		</option>
 	</select>
 	<?php
+	if ( $set ) {
+	?>
+		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
+	<?php }
 }
 
 /**
@@ -125,9 +135,28 @@ function analytics_types_render() {
  */
 function analytics_id_render() {
 	$options = get_option( 'spt_settings' );
+	global $tracker_config;
+	$set = false;
+	$prop = 'gtag_id';
+	if ( isset( $tracker_config['ga_id'] ) ) {
+		$options['gtag_id'] = $tracker_config['ga_id'];
+		$prop = 'ga_id';
+		$set = true;
+	} elseif ( isset( $tracker_config['gtag_id'] ) ) {
+		$options['gtag_id'] = $tracker_config['gtag_id'];
+		$set = true;
+	} elseif ( isset( $tracker_config['ga4_id'] ) ) {
+		$options['gtag_id'] = $tracker_config['ga4_id'];
+		$prop = 'ga4_id';
+		$set = true;
+	}
 	?>
-	<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*" value='<?php echo esc_attr( $options['gtag_id'] ); ?>' placeholder="UA-XXXXXXXX-Y" aria-label="analytics id" <?php print_readonly(); ?> required>
+	<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*" value='<?php echo esc_attr( $options['gtag_id'] ); ?>' placeholder="UA-XXXXXXXX-Y" aria-label="analytics id" <?php print_readonly( $prop ); ?> required>
 	<?php
+	if ( $set ) {
+	?>
+		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
+	<?php }
 }
 
 /**
@@ -135,9 +164,19 @@ function analytics_id_render() {
  */
 function measurement_version_dimension_render() {
 	$options = get_option( 'spt_settings' );
+	global $tracker_config;
+	$set = false;
+	if ( isset( $tracker_config['measurementVersion'] ) ) {
+		$options['measurementVersion'] = $tracker_config['measurementVersion'];
+		$set = true;
+	}
 	?>
-	<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['measurementVersion'] ); ?>' placeholder="dimension1" aria-label="measurement version dimension" <?php print_readonly(); ?> required>
+	<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['measurementVersion'] ); ?>' placeholder="dimension1" aria-label="measurement version dimension" <?php print_readonly( 'measurementVersion' ); ?> required>
 	<?php
+	if ( $set ) {
+	?>
+		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
+	<?php }
 }
 
 /**
@@ -145,9 +184,19 @@ function measurement_version_dimension_render() {
  */
 function event_meta_dimension_render() {
 	$options = get_option( 'spt_settings' );
+	global $tracker_config;
+	$set = false;
+	if ( isset( $tracker_config['eventMeta'] ) ) {
+		$options['eventMeta'] = $tracker_config['eventMeta'];
+		$set = true;
+	}
 	?>
-	<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventMeta'] ); ?>' placeholder="dimension2" aria-label="event meta dimension" <?php print_readonly(); ?> required>
+	<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventMeta'] ); ?>' placeholder="dimension2" aria-label="event meta dimension" <?php print_readonly( 'eventMeta' ); ?> required>
 	<?php
+	if ( $set ) {
+	?>
+		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
+	<?php }
 }
 
 /**
@@ -155,9 +204,19 @@ function event_meta_dimension_render() {
  */
 function event_debug_dimension_render() {
 	$options = get_option( 'spt_settings' );
+	global $tracker_config;
+	$set = false;
+	if ( isset( $tracker_config['eventDebug'] ) ) {
+		$options['eventDebug'] = $tracker_config['eventDebug'];
+		$set = true;
+	}
 	?>
-	<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventDebug'] ); ?>' placeholder="dimension3" aria-label="event debug dimension" <?php print_readonly(); ?> required>
+	<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventDebug'] ); ?>' placeholder="dimension3" aria-label="event debug dimension" <?php print_readonly( 'eventDebug' ); ?> required>
 	<?php
+	if ( $set ) {
+	?>
+		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
+	<?php }
 }
 
 /**
@@ -166,7 +225,7 @@ function event_debug_dimension_render() {
 function web_vitals_tracking_ratio_render() {
 	$options = get_option( 'spt_settings' );
 	?>
-	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1' value='<?php echo esc_attr( $options['web_vitals_tracking_ratio'] ); ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" <?php print_readonly(); ?> required>
+	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1' value='<?php echo esc_attr( $options['web_vitals_tracking_ratio'] ); ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" required>
 	<?php
 }
 
@@ -184,7 +243,7 @@ function spt_options_page() {
 	?>
 	<form action='options.php' method='post'>
 		<h1><?php echo esc_html( __( 'Site Performance Tracker Settings', 'site-performance-tracker' ) ); ?></h1>
-		
+
 		<?php
 		settings_fields( 'pluginPage' );
 		do_settings_sections( 'pluginPage' );
@@ -194,7 +253,7 @@ function spt_options_page() {
 
 	<div class="content">
 		<p>
-			<?php _e( 'You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.', 'site-performance-tracker' ); ?>	
+			<?php _e( 'You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.', 'site-performance-tracker' ); ?>
 		</p>
 	</div>
 	<?php
