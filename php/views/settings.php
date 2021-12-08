@@ -7,12 +7,13 @@
 
 use XWP\Site_Performance_Tracker\Plugin;
 
-// Get options set via add_theme_support
+// Get options set via add_theme_support.
 $tracker_config = isset( get_theme_support( 'site_performance_tracker_vitals' )[0] ) ? get_theme_support( 'site_performance_tracker_vitals' )[0] : array();
+
 /**
- * Get available trackers and print 'readonly' in the form inputs.
+ * Get available trackers and print 'readonly' in the form inputs if the setting is defined in theme files
  *
- * @return string|null "readonly" or null.
+ * @param  string      $prop_name The property name
  */
 function print_readonly( $prop_name ) {
 	global $tracker_config;
@@ -112,7 +113,7 @@ function analytics_types_render() {
 		$set = true;
 	}
 	?>
-	<select name='spt_settings[analytics_types]' <?php if ( $set ) echo esc_attr( 'disabled' ) ?> required>
+	<select name='spt_settings[analytics_types]' <?php echo ( $set ) ? esc_attr( 'disabled' ) : ''; ?> required>
 		<option value="ga_id" <?php selected( $options['analytics_types'], 'ga_id' ); ?>>
 			<?php esc_html_e( 'Google Analytics', 'site-performance-tracker' ); ?>
 		</option>
@@ -125,9 +126,10 @@ function analytics_types_render() {
 	</select>
 	<?php
 	if ( $set ) {
-	?>
+		?>
 		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-	<?php }
+	<?php
+	}
 }
 
 /**
@@ -154,9 +156,10 @@ function analytics_id_render() {
 	<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*" value='<?php echo esc_attr( $options['gtag_id'] ); ?>' placeholder="UA-XXXXXXXX-Y" aria-label="analytics id" <?php print_readonly( $prop ); ?> required>
 	<?php
 	if ( $set ) {
-	?>
+		?>
 		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-	<?php }
+	<?php
+	}
 }
 
 /**
@@ -174,9 +177,10 @@ function measurement_version_dimension_render() {
 	<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['measurementVersion'] ); ?>' placeholder="dimension1" aria-label="measurement version dimension" <?php print_readonly( 'measurementVersion' ); ?> required>
 	<?php
 	if ( $set ) {
-	?>
+		?>
 		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-	<?php }
+	<?php
+	}
 }
 
 /**
@@ -194,9 +198,10 @@ function event_meta_dimension_render() {
 	<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventMeta'] ); ?>' placeholder="dimension2" aria-label="event meta dimension" <?php print_readonly( 'eventMeta' ); ?> required>
 	<?php
 	if ( $set ) {
-	?>
+		?>
 		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-	<?php }
+	<?php
+	}
 }
 
 /**
@@ -214,9 +219,10 @@ function event_debug_dimension_render() {
 	<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventDebug'] ); ?>' placeholder="dimension3" aria-label="event debug dimension" <?php print_readonly( 'eventDebug' ); ?> required>
 	<?php
 	if ( $set ) {
-	?>
+		?>
 		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-	<?php }
+	<?php
+	}
 }
 
 /**
