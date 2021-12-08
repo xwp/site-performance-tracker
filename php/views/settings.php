@@ -13,7 +13,7 @@ $tracker_config = isset( get_theme_support( 'site_performance_tracker_vitals' )[
 /**
  * Get available trackers and print 'readonly' in the form inputs if the setting is defined in theme files
  *
- * @param  string      $prop_name The property name
+ * @param  string $prop_name The property name to be tested.
  */
 function print_readonly( $prop_name ) {
 	global $tracker_config;
@@ -128,7 +128,7 @@ function analytics_types_render() {
 	if ( $set ) {
 		?>
 		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-	<?php
+		<?php
 	}
 }
 
@@ -158,7 +158,7 @@ function analytics_id_render() {
 	if ( $set ) {
 		?>
 		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-	<?php
+		<?php
 	}
 }
 
@@ -179,7 +179,7 @@ function measurement_version_dimension_render() {
 	if ( $set ) {
 		?>
 		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-	<?php
+		<?php
 	}
 }
 
@@ -200,7 +200,7 @@ function event_meta_dimension_render() {
 	if ( $set ) {
 		?>
 		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-	<?php
+		<?php
 	}
 }
 
@@ -221,7 +221,7 @@ function event_debug_dimension_render() {
 	if ( $set ) {
 		?>
 		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-	<?php
+		<?php
 	}
 }
 
