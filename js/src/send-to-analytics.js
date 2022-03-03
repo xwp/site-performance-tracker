@@ -45,6 +45,7 @@ function getDeliveryFunction( type ) {
 function configureGtag( id ) {
 	if ( 'gtag' in window ) {
 		gtag( 'config', id, {
+			send_page_view: false,
 			transport_type: 'beacon',
 			measurement_version: measurementVersion,
 			custom_map: {
