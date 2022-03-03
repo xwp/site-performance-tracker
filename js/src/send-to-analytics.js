@@ -35,6 +35,8 @@ const uaDimEventDebug = window.webVitalsAnalyticsData[ 0 ].eventDebug
 
 const measurementVersion = '6';
 
+let gtagConfigured = false;
+
 function getDeliveryFunction( type ) {
 	// eslint-disable-next-line no-console
 	return window[ type ] || console.log;
@@ -125,7 +127,6 @@ function getDebugInfo( metricName, entries = [] ) {
 }
 
 export function sendToAnalytics( { name, value, delta, id, entries } ) {
-	let gtagConfigured = false;
 	const analyticsData = window.webVitalsAnalyticsData[ 0 ];
 
 	if ( analyticsData && analyticsData.gtag_id ) {
