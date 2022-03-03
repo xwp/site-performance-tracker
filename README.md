@@ -99,6 +99,15 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ## Changelog
 
+#### 1.1.1 - March 6, 2022
+
+Fix duplicitous page views when using gtag.
+Fix PHP notices.
+
+#### 1.1.0 - January 6, 2022
+
+Introduces an UI in WordPress Admin for easier configuration. If any config parameters are set in the theme files, the UI will not allow changing those parameters.
+
 #### 1.0.0 - October 4, 2021
 
 * Update docs to start the "Usage" section with the required configuration for the plugin to do anything.
