@@ -99,7 +99,7 @@ function spt_settings_init() {
  * Render Analytics Types form dropdown.
  */
 function analytics_types_render() {
-	$options = get_option( 'spt_settings' );
+	$options = spt_get_settings();
 	global $tracker_config;
 	$set = false;
 	if ( isset( $tracker_config['ga_id'] ) ) {
@@ -136,7 +136,7 @@ function analytics_types_render() {
  * Render Analytics ID form input.
  */
 function analytics_id_render() {
-	$options = get_option( 'spt_settings' );
+	$options = spt_get_settings();
 	global $tracker_config;
 	$set = false;
 	$prop = 'gtag_id';
@@ -166,7 +166,7 @@ function analytics_id_render() {
  * Render Measurement Version Dimension form input.
  */
 function measurement_version_dimension_render() {
-	$options = get_option( 'spt_settings' );
+	$options = spt_get_settings();
 	global $tracker_config;
 	$set = false;
 	if ( isset( $tracker_config['measurementVersion'] ) ) {
@@ -174,7 +174,7 @@ function measurement_version_dimension_render() {
 		$set = true;
 	}
 	?>
-	<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['measurementVersion'] ); ?>' placeholder="dimension1" aria-label="measurement version dimension" <?php print_readonly( 'measurementVersion' ); ?> required>
+	<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['measurementVersion'] ); ?>' placeholder="dimension1" aria-label="measurement version dimension" <?php print_readonly( 'measurementVersion' ); ?>>
 	<?php
 	if ( $set ) {
 		?>
@@ -187,7 +187,7 @@ function measurement_version_dimension_render() {
  * Render Event Meta Dimension form input.
  */
 function event_meta_dimension_render() {
-	$options = get_option( 'spt_settings' );
+	$options = spt_get_settings();
 	global $tracker_config;
 	$set = false;
 	if ( isset( $tracker_config['eventMeta'] ) ) {
@@ -195,7 +195,7 @@ function event_meta_dimension_render() {
 		$set = true;
 	}
 	?>
-	<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventMeta'] ); ?>' placeholder="dimension2" aria-label="event meta dimension" <?php print_readonly( 'eventMeta' ); ?> required>
+	<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventMeta'] ); ?>' placeholder="dimension2" aria-label="event meta dimension" <?php print_readonly( 'eventMeta' ); ?>>
 	<?php
 	if ( $set ) {
 		?>
@@ -208,7 +208,7 @@ function event_meta_dimension_render() {
  * Render Event Debug Dimension form input.
  */
 function event_debug_dimension_render() {
-	$options = get_option( 'spt_settings' );
+	$options = spt_get_settings();
 	global $tracker_config;
 	$set = false;
 	if ( isset( $tracker_config['eventDebug'] ) ) {
@@ -216,7 +216,7 @@ function event_debug_dimension_render() {
 		$set = true;
 	}
 	?>
-	<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventDebug'] ); ?>' placeholder="dimension3" aria-label="event debug dimension" <?php print_readonly( 'eventDebug' ); ?> required>
+	<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}" value='<?php echo esc_attr( $options['eventDebug'] ); ?>' placeholder="dimension3" aria-label="event debug dimension" <?php print_readonly( 'eventDebug' ); ?>>
 	<?php
 	if ( $set ) {
 		?>
@@ -229,9 +229,9 @@ function event_debug_dimension_render() {
  * Render Tracking Ratio form input.
  */
 function web_vitals_tracking_ratio_render() {
-	$options = get_option( 'spt_settings' );
+	$options = spt_get_settings();
 	?>
-	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1' value='<?php echo esc_attr( $options['web_vitals_tracking_ratio'] ); ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" required>
+	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1' value='<?php echo esc_attr( $options['web_vitals_tracking_ratio'] ); ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio">
 	<?php
 }
 
@@ -263,4 +263,22 @@ function spt_options_page() {
 		</p>
 	</div>
 	<?php
+}
+
+/**
+ * Returns the plugin settings.
+ */
+function spt_get_settings() {
+	$options = get_option( 'spt_settings', array() );
+
+	return array_merge(
+		array(
+			'gtag_id' => '',
+			'measurementVersion' => '',
+			'eventMeta' => '',
+			'eventDebug' => '',
+			'web_vitals_tracking_ratio' => Plugin::TRACKING_DEFAULT_CHANCE,
+		),
+		$options
+	);
 }
