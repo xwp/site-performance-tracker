@@ -99,7 +99,11 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ## Changelog
 
-#### 1.1.1 - March 6, 2022
+#### 1.1.2 - March 4, 2022
+
+Fix duplicated page view when using gtag.
+
+#### 1.1.1 - March 3, 2022
 
 Fix duplicitous page views when using gtag.
 Fix PHP notices.
