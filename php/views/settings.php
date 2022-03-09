@@ -8,7 +8,11 @@
 use XWP\Site_Performance_Tracker\Plugin;
 
 // Get options set via add_theme_support.
-$tracker_config = isset( get_theme_support( 'site_performance_tracker_vitals' )[0] ) ? get_theme_support( 'site_performance_tracker_vitals' )[0] : array();
+function ga_xwp() {
+	global $tracker_config;
+	$tracker_config = isset( get_theme_support( 'site_performance_tracker_vitals' )[0] ) ? get_theme_support( 'site_performance_tracker_vitals' )[0] : array();
+}
+add_action( 'after_setup_theme', 'ga_xwp', PHP_INT_MAX );
 
 /**
  * Get available trackers and print 'readonly' in the form inputs if the setting is defined in theme files
@@ -22,12 +26,10 @@ function print_readonly( $prop_name ) {
 	}
 }
 
-add_action( 'admin_menu', 'spt_add_admin_menu' );
-add_action( 'admin_init', 'spt_settings_init' );
-
 /**
  * Add tracker as a settings menu item.
  */
+add_action( 'admin_menu', 'spt_add_admin_menu' );
 function spt_add_admin_menu() {
 	add_options_page( 'Site Performance Tracker', 'Site Performance Tracker', 'manage_options', 'site_performance_tracker', 'spt_options_page' );
 }
@@ -36,6 +38,7 @@ function spt_add_admin_menu() {
  * Initialize tracker settings by registering it and adding
  * sections and fields.
  */
+add_action( 'admin_init', 'spt_settings_init' );
 function spt_settings_init() {
 	register_setting( 'pluginPage', 'spt_settings' );
 
@@ -230,9 +233,20 @@ function event_debug_dimension_render() {
  */
 function web_vitals_tracking_ratio_render() {
 	$options = spt_get_settings();
+	global $tracker_config;
+	$set = false;
+	if ( isset( $tracker_config['web_vitals_tracking_ratio'] ) ) {
+		$options['web_vitals_tracking_ratio'] = $tracker_config['web_vitals_tracking_ratio'];
+		$set = true;
+	}
 	?>
-	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1' value='<?php echo esc_attr( $options['web_vitals_tracking_ratio'] ); ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio">
+	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1' value='<?php echo esc_attr( $options['web_vitals_tracking_ratio'] ); ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" <?php print_readonly( 'web_vitals_tracking_ratio' ); ?>>
 	<?php
+	if ( $set ) {
+		?>
+		<br /><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
+		<?php
+	}
 }
 
 /**
