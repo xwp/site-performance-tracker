@@ -7,12 +7,14 @@
 
 use XWP\Site_Performance_Tracker\Plugin;
 
-// Get options set via add_theme_support.
-function ga_xwp() {
+/**
+ * Get options set via add_theme_support.
+ */
+function get_hardcoded_tracker_config() {
 	global $tracker_config;
 	$tracker_config = isset( get_theme_support( 'site_performance_tracker_vitals' )[0] ) ? get_theme_support( 'site_performance_tracker_vitals' )[0] : array();
 }
-add_action( 'after_setup_theme', 'ga_xwp', PHP_INT_MAX );
+add_action( 'after_setup_theme', 'get_hardcoded_tracker_config', PHP_INT_MAX );
 
 /**
  * Get available trackers and print 'readonly' in the form inputs if the setting is defined in theme files
@@ -29,16 +31,15 @@ function print_readonly( $prop_name ) {
 /**
  * Add tracker as a settings menu item.
  */
-add_action( 'admin_menu', 'spt_add_admin_menu' );
 function spt_add_admin_menu() {
 	add_options_page( 'Site Performance Tracker', 'Site Performance Tracker', 'manage_options', 'site_performance_tracker', 'spt_options_page' );
 }
+add_action( 'admin_menu', 'spt_add_admin_menu' );
 
 /**
  * Initialize tracker settings by registering it and adding
  * sections and fields.
  */
-add_action( 'admin_init', 'spt_settings_init' );
 function spt_settings_init() {
 	register_setting( 'pluginPage', 'spt_settings' );
 
@@ -97,6 +98,7 @@ function spt_settings_init() {
 		'spt_pluginPage_section'
 	);
 }
+add_action( 'admin_init', 'spt_settings_init' );
 
 /**
  * Render Analytics Types form dropdown.
