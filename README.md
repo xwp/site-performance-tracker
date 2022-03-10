@@ -84,6 +84,16 @@ Programmatically disable the plugin.
 add_filter( 'site_performance_tracker_disabled', '__return_true' );
 ```
 
+### Delay script loading
+
+Programmatically delay web vitals tracking to improve TBT. By default, delay is set to 500ms, it can be easily modified.
+
+```php
+add_filter( 'site_performance_tracker_web_vitals_delay', function() {
+	return 1000;
+} );
+```
+
 ## Contribute
 
 All contributions are welcome! Please create [an issue](https://github.com/xwp/site-performance-tracker/issues) for bugs and feature requests, and use [pull requests](https://github.com/xwp/site-performance-tracker/pulls) for code contributions.
@@ -98,6 +108,10 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 
 ## Changelog
+
+#### 1.1.4 - March 10, 2022
+
+Improving performance adding delay to script execution.
 
 #### 1.1.3 - March 9, 2022
 
