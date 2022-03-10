@@ -55,6 +55,9 @@
     ],
     "test": [
       "phpunit"
+    ],
+    "release": [
+      "composer install --no-dev --prefer-dist --optimize-autoloader"
     ]
   }
 }
