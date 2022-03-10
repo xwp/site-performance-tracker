@@ -5,6 +5,8 @@ Fixes #
 
 - [x] One important change that has been implemented.
 - [ ] Another thing still left to do.
+- [ ] Added PHP tests.
+- [ ] Added JS tests.
 
 
 ## Describe the Approach
