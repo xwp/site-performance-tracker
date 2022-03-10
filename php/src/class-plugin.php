@@ -32,11 +32,11 @@ class Plugin {
 	/**
 	 * Delay ms to execute requestIdleCallback.
 	 *
-	 * Set to 500ms by default.
+	 * Set to 5000ms by default.
 	 *
 	 * @var int
 	 */
-	const WEB_VITALS_INIT_DELAY = 500;
+	const WEB_VITALS_INIT_DELAY = 5000;
 
 	/**
 	 * Plugin directory path.
@@ -154,7 +154,7 @@ class Plugin {
 				$this->get_tracker_config()
 			);
 
-			$web_vitals_delay = apply_filters( 'site_performance_tracker_web_vitals_delay', self::WEB_VITALS_INIT_DELAY );
+			$web_vitals_delay = (int) apply_filters( 'site_performance_tracker_web_vitals_delay', self::WEB_VITALS_INIT_DELAY );
 
 			/**
 			 * Load the tracker JS file only when needed per chance setting.
