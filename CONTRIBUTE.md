@@ -4,6 +4,8 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ## Project Setup  
 
+- Build artifacts are tracked in the repository until we create a dedicated distribution repository that can be used for storing the Composer packages.
+
 - We use [`wp-env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) for local development environment. See all the `env:*` scripts in `package.json` for supported commands and helpers.
 
 - `webpack.config.js` configures how `@wordpresss/scripts` transforms JS and CSS assets during packaging.
@@ -15,6 +17,8 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 See the `scripts` section in `package.json` for the list of all the available scripts.
 
 ## Releases Guidelines
+
+1. Confirm that the latest build artifacts for JS and CSS are up-to-date and tracked in the repository by running `npm run build` and confirming that git doesn't see any changes.
 
 1. Create a new pull request to `master` for reach release that increments the plugin version and adds the release changelog to the README.
 
