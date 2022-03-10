@@ -38,12 +38,12 @@
   },
   "require-dev": {
     "automattic/vipwpcs": "^2.3",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
     "phpcompatibility/phpcompatibility-wp": "^2.1",
     "phpunit/phpunit": "^5.7",
-    "roots/wordpress": "^5.8",
+    "roots/wordpress": "^5.9",
     "wp-coding-standards/wpcs": "^2.3",
-    "wp-phpunit/wp-phpunit": "^5.8"
+    "wp-phpunit/wp-phpunit": "^5.9"
   },
   "scripts": {
     "lint": [
