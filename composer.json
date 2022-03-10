@@ -43,7 +43,8 @@
     "phpunit/phpunit": "^5.7",
     "roots/wordpress": "^5.9",
     "wp-coding-standards/wpcs": "^2.3",
-    "wp-phpunit/wp-phpunit": "^5.9"
+    "wp-phpunit/wp-phpunit": "^5.9",
+    "yoast/phpunit-polyfills": "^1.0"
   },
   "scripts": {
     "lint": [
