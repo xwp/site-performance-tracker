@@ -57,7 +57,9 @@
     "format:php": "composer lint-fix",
     "test": "npm-run-all test:*",
     "test:js": "wp-scripts test-unit-js ./js/src",
-    "test:php": "wp-env run tests-cli 'bash -c \"cd wp-content/plugins/site-performance-tracker && vendor/bin/phpunit\"'"
+    "test:php": "wp-env run tests-cli 'bash -c \"cd wp-content/plugins/site-performance-tracker && vendor/bin/phpunit\"'",
+    "release": "npm-run-all build zip",
+    "zip": "gulp zip"
   },
   "dependencies": {
     "web-vitals": "^2.1.4"

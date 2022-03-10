@@ -1,6 +1,7 @@
 /vendor/
 /node_modules/
 /wordpress/
+/site-performance-tracker.zip
 
 # Allow local overrides.
 /phpcs.xml
