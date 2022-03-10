@@ -20,7 +20,7 @@ See the `scripts` section in `package.json` for the list of all the available sc
 
 1. Confirm that the latest build artifacts for JS and CSS are up-to-date and tracked in the repository by running `npm run build` and confirming that git doesn't see any changes.
 
-1. Create a new pull request to `master` for reach release that increments the plugin version and adds the release changelog to the README.
+1. Create a new pull request to `master` for the release specific changes that increment the plugin version and add the release changelog to the README.
 
 1. Follow the Release Checklist in the [pull request template](.github/pull_request_template.md) when preparing the release.
 
