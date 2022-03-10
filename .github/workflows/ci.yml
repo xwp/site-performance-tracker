@@ -12,21 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Parse Node requirements
-        id: node_version
-        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
-
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ steps.node_version.outputs.NODE_VERSION }}
-
-      - uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Setup PHP with Composer
         uses: shivammathur/setup-php@v2
