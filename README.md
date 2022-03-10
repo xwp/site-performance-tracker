@@ -4,14 +4,6 @@
 
 This WordPress plugin sends [Core Web Vitals](https://web.dev/vitals/) data to Google Analytics. It is compatible with [Web Vitals Report](https://github.com/GoogleChromeLabs/web-vitals-report)
 
----
-
-**License:** [GPLv2](LICENSE)
-
-**Contributors:** [delawski](https://github.com/delawski), [kasparsd](https://github.com/kasparsd), [xwp](https://github.com/xwp)
-
-
-
 ## Installation
 
 This plugin can be installed as [a Composer dependency](https://packagist.org/packages/xwp/site-performance-tracker):
@@ -83,19 +75,6 @@ Programmatically disable the plugin.
 ```php
 add_filter( 'site_performance_tracker_disabled', '__return_true' );
 ```
-
-## Contribute
-
-All contributions are welcome! Please create [an issue](https://github.com/xwp/site-performance-tracker/issues) for bugs and feature requests, and use [pull requests](https://github.com/xwp/site-performance-tracker/pulls) for code contributions.
-
-### Project Setup  
-
-- We use [`wp-env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) for local development environment. See all the `env:*` scripts in `package.json` for supported commands and helpers.
-
-- `webpack.config.js` configures how `@wordpresss/scripts` transforms JS and CSS assets during packaging.
-
-- We use the `@wordpress/eslint-plugin/recommended-with-formatting` ruleset for JS linting since the Prettier integration is [currently unreliable in `@wordpress/scripts`](https://github.com/WordPress/gutenberg/issues/21872).
-
 
 ## Changelog
 
@@ -178,3 +157,13 @@ using static functions inside the class.
 #### 0.1.0 - February 15, 2019
 
 * Initial release.
+
+
+## Contribute
+
+Please follow the [contribution guide](CONTRIBUTE.md).
+
+
+## Credits
+
+Created by [XWP](https://xwp.co) and [contributors](https://github.com/xwp/site-performance-tracker/graphs/contributors). Licensed under [GNU General Public License v2.0 or later](LICENSE).

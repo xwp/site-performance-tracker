@@ -26,6 +26,11 @@
     "sort-packages": true,
     "platform": {
       "php": "5.6.20"
+    },
+    "allow-plugins": {
+      "composer/installers": true,
+      "roots/wordpress-core-installer": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
   "require": {
@@ -33,12 +38,13 @@
   },
   "require-dev": {
     "automattic/vipwpcs": "^2.3",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
     "phpcompatibility/phpcompatibility-wp": "^2.1",
     "phpunit/phpunit": "^5.7",
-    "roots/wordpress": "^5.8",
+    "roots/wordpress": "^5.9",
     "wp-coding-standards/wpcs": "^2.3",
-    "wp-phpunit/wp-phpunit": "^5.8"
+    "wp-phpunit/wp-phpunit": "^5.9",
+    "yoast/phpunit-polyfills": "^1.0"
   },
   "scripts": {
     "lint": [
@@ -49,6 +55,9 @@
     ],
     "test": [
       "phpunit"
+    ],
+    "release": [
+      "composer install --no-dev --prefer-dist --optimize-autoloader"
     ]
   }
 }
