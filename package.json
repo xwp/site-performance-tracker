@@ -31,11 +31,14 @@
   ],
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@wordpress/env": "^4.1.1",
-    "@wordpress/scripts": "^18.0.1",
-    "jest": "^27.2.0",
+    "@wordpress/env": "^4.2.2",
+    "@wordpress/scripts": "^22.1.0",
+    "gulp": "^4.0.2",
+    "gulp-rename": "^2.0.0",
+    "gulp-zip": "^5.1.0",
+    "jest": "^27.5.1",
     "npm-run-all": "^4.1.5",
-    "webpackbar": "^5.0.0-3"
+    "webpackbar": "^5.0.2"
   },
   "scripts": {
     "postinstall": "composer install",
@@ -57,6 +60,6 @@
     "test:php": "wp-env run tests-cli 'bash -c \"cd wp-content/plugins/site-performance-tracker && vendor/bin/phpunit\"'"
   },
   "dependencies": {
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.4"
   }
 }
