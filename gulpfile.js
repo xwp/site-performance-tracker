@@ -28,7 +28,7 @@ function zipBundle() {
 				return filePath;
 			} )
 		)
-		.pipe( zip( bundleDirName + '.zip' ) )
+		.pipe( zip( `${ bundleDirName }.zip` ) )
 		.pipe( gulp.dest( __dirname ) );
 }
 
