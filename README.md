@@ -64,7 +64,7 @@ add_theme_support( 'site_performance_tracker_vitals', array(
 ) );
 ```
 
-The following hooks can be added to a theme or a custom plugin to configure the plugin. To confirm they were applied look for the `webVitalsAnalyticsData` global variable in the page source.
+The following hooks can be added to a theme or a custom plugin to configure the plugin, alternatively you can configure the plugin through the settings screen, in case of duplication, plugin will take programmatically set settings. To confirm they were applied look for the `webVitalsAnalyticsData` global variable in the page source.
 
 ### Limit the number of events sent
 
@@ -98,6 +98,10 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 
 ## Changelog
+
+#### 1.1.3 - March 9, 2022
+
+Fix UI to prefill configured data.
 
 #### 1.1.2 - March 4, 2022
 
