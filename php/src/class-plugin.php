@@ -21,15 +21,6 @@ class Plugin {
 	const JS_HANDLE_ANALYTICS = 'web-vitals-analytics';
 
 	/**
-	 * PerformanceObserver default chance of sending performance metrics to analytics.
-	 *
-	 * Set to 100% which sends analytics on every request.
-	 *
-	 * @var float|int
-	 */
-	const TRACKING_DEFAULT_CHANCE = 1;
-
-	/**
 	 * Plugin directory path.
 	 *
 	 * @var string
@@ -44,6 +35,13 @@ class Plugin {
 	protected $dir_url;
 
 	/**
+	 * List of all plugin settings.
+	 *
+	 * @var Settings
+	 */
+	protected $settings;
+
+	/**
 	 * Setup the plugin
 	 *
 	 * @param string $dir_path Absolute path to the plugin directory root.
@@ -51,12 +49,15 @@ class Plugin {
 	public function __construct( $dir_path ) {
 		$this->dir_path = rtrim( $dir_path, '\\/' );
 		$this->dir_url  = content_url( str_replace( WP_CONTENT_DIR, '', $this->dir_path ) );
+		$this->settings = new Plugin_Settings( $this );
 	}
 
 	/**
 	 * Initialize the plugin.
 	 */
 	public function init() {
+		$this->settings->init();
+
 		/**
 		 * Check if the performance tracking should be disabled globally.
 		 *
@@ -79,11 +80,6 @@ class Plugin {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		/**
-		 * Load styles for settings UI in Admin.
-		 */
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-
-		/**
 		 * Load only for modern browsers
 		 */
 		add_filter( 'script_loader_tag', array( $this, 'optimize_scripts' ), 10, 2 );
@@ -96,7 +92,7 @@ class Plugin {
 	 *
 	 * @return string
 	 */
-	protected function path_to( $path_relative ) {
+	public function path_to( $path_relative ) {
 		return sprintf(
 			'%s/%s',
 			$this->dir_path,
@@ -111,7 +107,7 @@ class Plugin {
 	 *
 	 * @return string
 	 */
-	protected function uri_to( $path_relative ) {
+	public function uri_to( $path_relative ) {
 		return sprintf(
 			'%s/%s',
 			$this->dir_url,
@@ -162,22 +158,6 @@ class Plugin {
 } )();";
 			wp_add_inline_script( self::JS_HANDLE_ANALYTICS, $web_vitals_init );
 		}//end if
-	}
-
-	/**
-	 * Enqueue styles for the UI.
-	 */
-	public function enqueue_styles() {
-		$asset_meta_file = $this->path_to( 'css/styles.css' );
-
-		if ( file_exists( $asset_meta_file ) ) {
-			wp_enqueue_style(
-				'site-performance-tracker-styles',
-				$this->uri_to( '/css/styles.css' ),
-				array(),
-				time()
-			);
-		}
 	}
 
 	/**
