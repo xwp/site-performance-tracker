@@ -4,14 +4,6 @@
 
 This WordPress plugin sends [Core Web Vitals](https://web.dev/vitals/) data to Google Analytics. It is compatible with [Web Vitals Report](https://github.com/GoogleChromeLabs/web-vitals-report)
 
----
-
-**License:** [GPLv2](LICENSE)
-
-**Contributors:** [delawski](https://github.com/delawski), [kasparsd](https://github.com/kasparsd), [xwp](https://github.com/xwp)
-
-
-
 ## Installation
 
 This plugin can be installed as [a Composer dependency](https://packagist.org/packages/xwp/site-performance-tracker):
@@ -192,3 +184,13 @@ using static functions inside the class.
 #### 0.1.0 - February 15, 2019
 
 * Initial release.
+
+
+## Contribute
+
+Please follow the [contribution guide](CONTRIBUTE.md).
+
+
+## Credits
+
+Created by [XWP](https://xwp.co) and [contributors](https://github.com/xwp/site-performance-tracker/graphs/contributors). Licensed under [GNU General Public License v2.0 or later](LICENSE).

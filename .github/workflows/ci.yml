@@ -12,21 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Parse Node requirements
-        id: node_version
-        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
-
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ steps.node_version.outputs.NODE_VERSION }}
-
-      - uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Setup PHP with Composer
         uses: shivammathur/setup-php@v2
@@ -36,15 +26,13 @@ jobs:
 
       - name: Set Composer Cache Directory
         id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+          restore-keys: ${{ runner.os }}-composer-
 
       - name: Install
         run: npm install
@@ -60,3 +48,12 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Release
+        run: npm run release
+
+      - name: Add release ZIP
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: site-performance-tracker.zip
