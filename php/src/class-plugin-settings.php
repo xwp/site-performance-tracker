@@ -102,7 +102,7 @@ class Plugin_Settings {
 			self::SETTINGS_VITALS_FIELD_TRACKING_RATIO => array(
 				'title' => __( 'Web Vitals Tracking Ratio', 'site-performance-tracker' ),
 				'callback' => array( $this, 'render_web_vitals_field_tracking_ratio' ),
-				'setting' => new Setting( 'floatval' ),
+				'setting' => new Setting( array( $this, 'sanitize_web_vitals_field_tracking_ratio' ) ),
 			),
 		);
 	}
@@ -485,6 +485,24 @@ class Plugin_Settings {
 		}
 
 		return $setting->get();
+	}
+
+	/**
+	 * Ensure the tracking ratio can be stored as empty to
+	 * use the default value.
+	 *
+	 * @param mixed $value Value to be saved.
+	 *
+	 * @return float|null
+	 */
+	public function sanitize_web_vitals_field_tracking_ratio( $value ) {
+		$value = trim( $value );
+
+		if ( is_numeric( $value ) ) {
+			return floatval( max( min( $value, 1 ), 0 ) );
+		}
+
+		return null;
 	}
 
 	/**
