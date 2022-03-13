@@ -315,14 +315,14 @@ class Plugin_Settings {
 			type="text"
 			class="regular-text"
 			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_GTAG_ID ) ); ?>"
-			pattern="[UA|GTM|G]-[a-zA-Z0-9]"
+			pattern="[UA|GTM|G]\-[a-zA-Z0-9\-]"
 			value="<?php echo esc_attr( $value ); ?>"
 			placeholder="UA-XXXXXXXX-Y"
 			required
 			<?php disabled( ! empty( $theme_setting_value ) ); ?>
 		/>
 		<p class="description">
-			<?php esc_html_e( 'Specify the Google Universal Analytics (UA-XXXXXXXX) or Google Analytics 4 (G-XXXXXXX) tracking ID.' ); ?>
+			<?php esc_html_e( 'Specify the Google Universal Analytics (UA-XXXXXXX-X) or Google Analytics 4 (G-XXXXXXX) tracking ID.' ); ?>
 		</p>
 		<?php
 	}
