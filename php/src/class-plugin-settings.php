@@ -230,7 +230,7 @@ class Plugin_Settings {
 		return sprintf(
 			'%s[%s]',
 			self::SETTINGS_VITALS_SECTION_ID,
-			sanitize_key( $key )
+			$key
 		);
 	}
 
