@@ -389,7 +389,7 @@ class Plugin_Settings {
 			<?php disabled( ! empty( $theme_setting_value ) ); ?>
 		/>
 		<p class="description">
-			<?php esc_html_e( 'Specify the custom dimension used for sending the measurement version.' ); ?>
+			<?php esc_html_e( 'Analytics dimension for passing the measurement version. Defaults to dimension1.' ); ?>
 		</p>
 		<?php
 	}
