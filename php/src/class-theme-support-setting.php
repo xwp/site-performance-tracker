@@ -13,12 +13,29 @@ namespace XWP\Site_Performance_Tracker;
  */
 class Theme_Support_Setting {
 
+	/**
+	 * Feature ID.
+	 *
+	 * @var string
+	 */
 	protected $feature;
 
+	/**
+	 * Setup the theme support setting by ID.
+	 *
+	 * @param string $feature Feature ID.
+	 */
 	public function __construct( $feature ) {
-		$this->feature = $feature;
+		$this->feature = strval( $feature );
 	}
 
+	/**
+	 * Get the feature parameter by key.
+	 *
+	 * @param string $key Feature parameter ID.
+	 *
+	 * @return mixed|null
+	 */
 	public function get( $key ) {
 		$setings = get_theme_support( $this->feature );
 
