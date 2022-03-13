@@ -319,7 +319,6 @@ class Plugin_Settings {
 			pattern="[UA|GTM|G]\-[a-zA-Z0-9\-]"
 			value="<?php echo esc_attr( $value ); ?>"
 			placeholder="UA-XXXXXXXX-Y"
-			required
 			<?php disabled( ! empty( $theme_setting_value ) ); ?>
 		/>
 		<p class="description">
