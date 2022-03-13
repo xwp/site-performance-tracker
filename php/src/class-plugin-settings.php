@@ -82,7 +82,7 @@ class Plugin_Settings {
 			self::SETTINGS_VITALS_FIELD_DIMENSION_EVENT_META => array(
 				'title' => __( 'Event Meta Dimension', 'site-performance-tracker' ),
 				'callback' => array( $this, 'render_web_vitals_field_dimension_event_meta' ),
-				'setting' => new Setting( 'sanitize_text_field' )
+				'setting' => new Setting( 'sanitize_text_field' ),
 			),
 			self::SETTINGS_VITALS_FIELD_DIMENSION_EVENT_DEBUG => array(
 				'title' => __( 'Event Debug Dimension', 'site-performance-tracker' ),
@@ -129,11 +129,16 @@ class Plugin_Settings {
 	 */
 	public function register_settings_page() {
 		$this->option_page_id = add_options_page(
-			__( 'Site Performance Tracker', 'site-performance-tracker' ), // Page head title.
-			__( 'Site Performance Tracker', 'site-performance-tracker' ), // Menu title.
-			'manage_options', // Capability.
-			self::SETTINGS_PAGE_ID, // Menu slug.
-			array( $this, 'render_settings_page' ) // Callback.
+			__( 'Site Performance Tracker', 'site-performance-tracker' ),
+			// Page head title.
+			__( 'Site Performance Tracker', 'site-performance-tracker' ),
+			// Menu title.
+			'manage_options',
+			// Capability.
+			self::SETTINGS_PAGE_ID,
+			// Menu slug.
+			array( $this, 'render_settings_page' )
+			// Callback.
 		);
 	}
 
@@ -260,7 +265,7 @@ class Plugin_Settings {
 			array(
 				$this->theme_settings->get( 'ga_id' ),
 				$this->theme_settings->get( 'gtag_id' ),
-				$this->theme_settings->get( 'ga4_id' )
+				$this->theme_settings->get( 'ga4_id' ),
 			)
 		);
 
@@ -299,7 +304,7 @@ class Plugin_Settings {
 		<input
 			type="text"
 			class="regular-text"
-			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_GTAG_ID ) ) ?>"
+			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_GTAG_ID ) ); ?>"
 			pattern="[UA|GTM|G]-[a-zA-Z0-9]"
 			value="<?php echo esc_attr( $value ); ?>"
 			placeholder="UA-XXXXXXXX-Y"
@@ -338,7 +343,7 @@ class Plugin_Settings {
 		<input
 			type="text"
 			class="regular-text"
-			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_DIMENSION_MEASUREMENT_VERSION ) ) ?>"
+			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_DIMENSION_MEASUREMENT_VERSION ) ); ?>"
 			pattern="dimension[0-9]{1,}"
 			value="<?php echo esc_attr( $value ); ?>"
 			placeholder="dimension1"
@@ -376,7 +381,7 @@ class Plugin_Settings {
 		<input
 			type="text"
 			class="regular-text"
-			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_DIMENSION_EVENT_META ) ) ?>"
+			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_DIMENSION_EVENT_META ) ); ?>"
 			pattern="dimension[0-9]{1,}"
 			value="<?php echo esc_attr( $value ); ?>"
 			placeholder="dimension2"
@@ -414,7 +419,7 @@ class Plugin_Settings {
 		<input
 			type="text"
 			class="regular-text"
-			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_DIMENSION_EVENT_DEBUG ) ) ?>"
+			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_DIMENSION_EVENT_DEBUG ) ); ?>"
 			pattern="dimension[0-9]{1,}"
 			value="<?php echo esc_attr( $value ); ?>"
 			placeholder="dimension3"
@@ -460,7 +465,7 @@ class Plugin_Settings {
 			step="0.01"
 			max="1"
 			min="0"
-			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_DIMENSION_EVENT_DEBUG ) ) ?>"
+			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_DIMENSION_EVENT_DEBUG ) ); ?>"
 			pattern="dimension[0-9]{1,2}"
 			value="<?php echo esc_attr( $value ); ?>"
 			<?php disabled( has_filter( 'site_performance_tracker_chance' ) ); ?>
