@@ -128,7 +128,8 @@ class Plugin_Settings {
 		$options = (array) get_option( self::SETTINGS_VITALS_SECTION_ID, array() );
 
 		foreach ( $this->web_vitals_settings as $key => $setting ) {
-			if ( isset( $options[ $key ] ) ) {
+			// Set if the option has anything stored for it.
+			if ( array_key_exists( $key, $options ) ) {
 				$setting['setting']->set( $options[ $key ] );
 			}
 		}
