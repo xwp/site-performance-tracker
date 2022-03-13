@@ -202,7 +202,7 @@ class Plugin_Settings {
 		$messages = array();
 		$current_screen = get_current_screen();
 
-		if ( ! isset( $this->option_page_id ) || ! isset( $current_screen->id ) || $current_screen->id !== $this->option_page_id ) {			return;
+		if ( ! isset( $this->option_page_id ) || ! isset( $current_screen->id ) || $current_screen->id !== $this->option_page_id ) {
 			return;
 		}
 
