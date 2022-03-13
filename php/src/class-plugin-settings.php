@@ -208,7 +208,7 @@ class Plugin_Settings {
 			$setting = $field_settings['setting'];
 
 			// Set the updated value, if received.
-			if ( isset( $new_settings[ $field_id ] ) ) {
+			if ( array_key_exists( $field_id, $new_settings ) ) {
 				$setting->set( $new_settings[ $field_id ] );
 			}
 
