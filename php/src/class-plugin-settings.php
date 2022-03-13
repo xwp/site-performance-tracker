@@ -475,6 +475,7 @@ class Plugin_Settings {
 			min="0"
 			max="1"
 			step="0.01"
+			placeholder="1"
 			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_TRACKING_RATIO ) ); ?>"
 			value="<?php echo esc_attr( $value ); ?>"
 			<?php disabled( has_filter( 'site_performance_tracker_chance' ) ); ?>
