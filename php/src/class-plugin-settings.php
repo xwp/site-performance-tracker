@@ -472,11 +472,10 @@ class Plugin_Settings {
 		<input
 			type="number"
 			class="small-text"
-			step="0.01"
-			max="1"
 			min="0"
-			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_DIMENSION_EVENT_DEBUG ) ); ?>"
-			pattern="dimension[0-9]{1,2}"
+			max="1"
+			step="0.01"
+			name="<?php echo esc_attr( $this->get_web_vitals_setting_field_name( self::SETTINGS_VITALS_FIELD_TRACKING_RATIO ) ); ?>"
 			value="<?php echo esc_attr( $value ); ?>"
 			<?php disabled( has_filter( 'site_performance_tracker_chance' ) ); ?>
 		/>
