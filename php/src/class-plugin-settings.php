@@ -53,6 +53,11 @@ class Plugin_Settings {
 
 	const SETTINGS_VITALS_FIELD_TRACKING_RATIO = 'web_vitals_tracking_ratio';
 
+	/**
+	 * Option page ID.
+	 *
+	 * @var string
+	 */
 	protected $option_page_id;
 
 	/**
@@ -62,6 +67,11 @@ class Plugin_Settings {
 	 */
 	protected $theme_settings;
 
+	/**
+	 * Settings page.
+	 *
+	 * @param Plugin $plugin Plugin instance.
+	 */
 	public function __construct( $plugin ) {
 		$this->plugin = $plugin;
 

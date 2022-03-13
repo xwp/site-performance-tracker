@@ -38,7 +38,7 @@ class Setting {
 	 * Setup the setting.
 	 *
 	 * @param mixed $sanitizer Sanitizer callback.
-	 * @param mixed $value
+	 * @param mixed $value Setting value.
 	 */
 	public function __construct( $sanitizer, $value = null ) {
 		$this->sanitizer = $sanitizer;
@@ -48,7 +48,7 @@ class Setting {
 	/**
 	 * Specify the validator callback.
 	 *
-	 * @param mixed $validator
+	 * @param mixed $validator Validator callback.
 	 */
 	public function with_validator( $validator ) {
 		if ( is_callable( $validator ) ) {
@@ -59,8 +59,7 @@ class Setting {
 	/**
 	 * Set the value and pass it through the sanitizer.
 	 *
-	 * @param mixed $value
-	 * @return void
+	 * @param mixed $value Setting value.
 	 */
 	public function set( $value ) {
 		$this->value = call_user_func( $this->sanitizer, $value );
