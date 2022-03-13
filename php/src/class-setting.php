@@ -13,31 +13,73 @@ namespace XWP\Site_Performance_Tracker;
  */
 class Setting {
 
+	/**
+	 * Sanitized value.
+	 *
+	 * @var mixed
+	 */
 	protected $value;
 
+	/**
+	 * Sanitizer callback.
+	 *
+	 * @var mixed
+	 */
 	protected $sanitizer;
 
+	/**
+	 * Validator callback.
+	 *
+	 * @var mixed
+	 */
 	protected $validator;
 
+	/**
+	 * Setup the setting.
+	 *
+	 * @param mixed $sanitizer Sanitizer callback.
+	 * @param mixed $value
+	 */
 	public function __construct( $sanitizer, $value = null ) {
 		$this->sanitizer = $sanitizer;
 		$this->set( $value );
 	}
 
+	/**
+	 * Specify the validator callback.
+	 *
+	 * @param mixed $validator
+	 */
 	public function with_validator( $validator ) {
 		if ( is_callable( $validator ) ) {
 			$this->validator = $validator;
 		}
 	}
 
+	/**
+	 * Set the value and pass it through the sanitizer.
+	 *
+	 * @param mixed $value
+	 * @return void
+	 */
 	public function set( $value ) {
 		$this->value = call_user_func( $this->sanitizer, $value );
 	}
 
+	/**
+	 * Fetch the sanitized value.
+	 *
+	 * @return mixed
+	 */
 	public function get() {
 		return $this->value;
 	}
 
+	/**
+	 * Check if the value is valid according to the validator callback.
+	 *
+	 * @return bool
+	 */
 	public function valid() {
 		if ( is_callable( $this->validator ) ) {
 			return call_user_func( $this->validator, $this->value );
