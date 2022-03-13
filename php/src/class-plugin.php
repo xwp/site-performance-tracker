@@ -166,18 +166,13 @@ class Plugin {
 	 * @return array
 	 */
 	public function get_tracker_config() {
-		$options       = get_option( 'spt_settings' ) ? get_option( 'spt_settings' ) : array();
-		$site_config   = isset( get_theme_support( 'site_performance_tracker_vitals' )[0] ) ? get_theme_support( 'site_performance_tracker_vitals' )[0] : array();
-		$vitals_config = array( array_merge( $options, $site_config ) );
-
-		if ( has_filter( 'site_performance_tracker_chance' ) ) {
-			$chance                  = apply_filters( 'site_performance_tracker_chance', self::TRACKING_DEFAULT_CHANCE );
-			$vitals_config['chance'] = floatval( $chance );
-		} else {
-			$vitals_config['chance'] = isset( $options['web_vitals_tracking_ratio'] ) ? floatval( $options['web_vitals_tracking_ratio'] ) : floatval( self::TRACKING_DEFAULT_CHANCE );
-		}
-
-		return $vitals_config;
+		return array(
+			'gtag_id' => $this->settings->get_web_vitals_gtag_id(),
+			'measurementVersion' => $this->settings->get_web_vitals_dimension_measurement_version(),
+			'eventMeta' => $this->settings->get_web_vitals_dimension_event_meta(),
+			'eventDebug' => $this->settings->get_web_vitals_dimension_event_debug(),
+			'chance' => floatval( $this->settings->get_web_vitals_tracking_ratio() ),
+		);
 	}
 
 	/**
