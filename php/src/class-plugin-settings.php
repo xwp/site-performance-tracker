@@ -480,7 +480,7 @@ class Plugin_Settings {
 			<?php disabled( has_filter( 'site_performance_tracker_chance' ) ); ?>
 		/>
 		<p class="description">
-			<?php esc_html_e( 'Specify the ratio of requests to enable the tracking. For example, set to 0.5 to enable tracking on 50% of the requests.' ); ?>
+			<?php esc_html_e( 'Specify the ratio of requests to enable the tracking. For example, set to 0.5 to enable tracking on 50% of the requests. Defaults to 1 or 100%.' ); ?>
 		</p>
 		<?php
 	}
