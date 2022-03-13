@@ -117,6 +117,7 @@ class Plugin_Settings {
 
 		add_action( 'admin_menu', array( $this, 'register_settings_page' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
 
 	/**
@@ -189,6 +190,34 @@ class Plugin_Settings {
 					self::SETTINGS_VITALS_SECTION_ID
 				);
 			}
+		}
+	}
+
+	/**
+	 * Display validation errors on the settings page.
+	 *
+	 * @return void
+	 */
+	public function admin_notices() {
+		$messages = array();
+		$current_screen = get_current_screen();
+
+		if ( ! isset( $this->option_page_id ) || ! isset( $current_screen->id ) || $current_screen->id !== $this->option_page_id ) {			return;
+			return;
+		}
+
+		$gtag_id = $this->get_web_vitals_gtag_id();
+
+		if ( empty( $gtag_id ) ) {
+			$messages[] = __( 'Google Analytics ID must be specified for the Web Vitals tracking to work.', 'site-performance-tracker' );
+		}
+
+		if ( ! empty( $messages ) ) {
+			?>
+			<div class="notice notice-error">
+				<p><?php echo esc_html( implode( ' ', $messages ) ); ?></p>
+			</div>
+			<?php
 		}
 	}
 
