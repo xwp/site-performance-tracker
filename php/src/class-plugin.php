@@ -30,6 +30,15 @@ class Plugin {
 	const TRACKING_DEFAULT_CHANCE = 1;
 
 	/**
+	 * Delay ms to execute requestIdleCallback.
+	 *
+	 * Set to 5000ms by default.
+	 *
+	 * @var int
+	 */
+	const WEB_VITALS_INIT_DELAY = 5000;
+
+	/**
 	 * Plugin directory path.
 	 *
 	 * @var string
@@ -145,6 +154,8 @@ class Plugin {
 				$this->get_tracker_config()
 			);
 
+			$web_vitals_delay = (int) apply_filters( 'site_performance_tracker_web_vitals_delay', self::WEB_VITALS_INIT_DELAY );
+
 			/**
 			 * Load the tracker JS file only when needed per chance setting.
 			 */
@@ -152,11 +163,15 @@ class Plugin {
 	if ( 'requestIdleCallback' in window ) {
 		var randNumber = Math.random();
 		if ( randNumber <= parseFloat( window.webVitalsAnalyticsData.chance ) ) {
-			requestIdleCallback( function() {
-				webVitalsAnalyticsScript = document.querySelector( 'script[data-src*=\"web-vitals-analytics.js\"]' );
-				webVitalsAnalyticsScript.src = webVitalsAnalyticsScript.dataset.src;
-				delete webVitalsAnalyticsScript.dataset.src;
-			} );
+			window.addEventListener( 'load', function() {
+				setTimeout( function() {
+					requestIdleCallback( function() {
+						webVitalsAnalyticsScript = document.querySelector( 'script[data-src*=\"web-vitals-analytics.js\"]' );
+						webVitalsAnalyticsScript.src = webVitalsAnalyticsScript.dataset.src;
+						delete webVitalsAnalyticsScript.dataset.src;
+					} );
+				}, $web_vitals_delay );
+			});
 		}
 	}
 } )();";
