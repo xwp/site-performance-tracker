@@ -8,12 +8,11 @@ This WordPress plugin sends [Core Web Vitals](https://web.dev/vitals/) data to G
 
 This plugin can be installed as [a Composer dependency](https://packagist.org/packages/xwp/site-performance-tracker):
 
-```
+```bash
 composer require xwp/site-performance-tracker
 ```
 
 or by downloading a plugin ZIP file from the [releases page](https://github.com/xwp/site-performance-tracker/releases).
-
 
 ## Usage
 
@@ -25,7 +24,7 @@ To send Web Vitals metrics to Google Analytics in a format compatible with the [
 
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
-	'ga_id' => 'UA-XXXXXXXX-Y',
+  'ga_id' => 'UA-XXXXXXXX-Y',
 ) );
 ```
 
@@ -33,7 +32,7 @@ add_theme_support( 'site_performance_tracker_vitals', array(
 
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
-	'gtag_id' => 'UA-XXXXXXXX-Y',
+  'gtag_id' => 'UA-XXXXXXXX-Y',
 ) );
 ```
 
@@ -41,7 +40,7 @@ add_theme_support( 'site_performance_tracker_vitals', array(
 
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
-	'ga4_id' => 'G-XXXXXXXXXX',
+  'ga4_id' => 'G-XXXXXXXXXX',
 ) );
 ```
 
@@ -49,10 +48,10 @@ If you need to override the Google Analytics dimensions (defaults to `dimensions
 
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
-	'gtag_id'            => 'UA-XXXXXXXX-Y',
-	'measurementVersion' => 'dimension7',
-	'eventMeta'          => 'dimension8',
-	'eventDebug'         => 'dimension9',
+  'gtag_id'            => 'UA-XXXXXXXX-Y',
+  'measurementVersion' => 'dimension7',
+  'eventMeta'          => 'dimension8',
+  'eventDebug'         => 'dimension9',
 ) );
 ```
 
@@ -64,7 +63,7 @@ The following filter can be used to limit the number of tracking events to a per
 
 ```php
 add_filter( 'site_performance_tracker_chance', function() {
-	return 0.05;
+  return 0.05;
 } );
 ```
 
@@ -82,7 +81,7 @@ Programmatically delay web vitals tracking to improve TBT. By default, delay is 
 
 ```php
 add_filter( 'site_performance_tracker_web_vitals_delay', function() {
-	return 1000;
+  return 1000;
 } );
 ```
 
@@ -98,98 +97,96 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 - We use the `@wordpress/eslint-plugin/recommended-with-formatting` ruleset for JS linting since the Prettier integration is [currently unreliable in `@wordpress/scripts`](https://github.com/WordPress/gutenberg/issues/21872).
 
-
-## Changelog
+### Changelog
 
 #### 1.1.4 - March 10, 2022
 
-Improving performance adding delay to script execution.
+- Improve performance by loading and executing the script in quiter periods.
+- Make chunk hash a part of the output filename.
 
 #### 1.1.3 - March 9, 2022
 
-Fix UI to prefill configured data.
+- Fix UI to prefill configured data.
 
 #### 1.1.2 - March 4, 2022
 
-Fix duplicated page view when using gtag.
+- Fix duplicated page view when using gtag.
 
 #### 1.1.1 - March 3, 2022
 
-Fix duplicitous page views when using gtag.
-Fix PHP notices.
+- Fix duplicitous page views when using gtag.
+- Fix PHP notices.
 
 #### 1.1.0 - January 6, 2022
 
-Introduces an UI in WordPress Admin for easier configuration. If any config parameters are set in the theme files, the UI will not allow changing those parameters.
+- Introduces an UI in WordPress Admin for easier configuration. If any config parameters are set in the theme files, the UI will not allow changing those parameters.
 
 #### 1.0.0 - October 4, 2021
 
-* Update docs to start the "Usage" section with the required configuration for the plugin to do anything.
-* Switch to basic PHP includes for loading the PHP files instead of Composer autoload. 
-* Introduce helper methods for working with asset paths and URLs.
-* Introduce VIP Go coding standards.
-* Introduce PHP unit testing.
+- Update docs to start the "Usage" section with the required configuration for the plugin to do anything.
+- Switch to basic PHP includes for loading the PHP files instead of Composer autoload. 
+- Introduce helper methods for working with asset paths and URLs.
+- Introduce VIP Go coding standards.
+- Introduce PHP unit testing.
 
 #### 0.9.1 - July 9, 2021
 
-* Fix `configureGtag` call
+- Fix `configureGtag` call
 
 #### 0.9 - June 16, 2021
 
-* Update web vitals JS library to 2.0.1
+- Update web vitals JS library to 2.0.1
 
 #### 0.8 - May 28, 2021
 
-* Remove Performance Observer functionality
-* Code cleanup
+- Remove Performance Observer functionality
+- Code cleanup
 
 #### 0.7 - May 26, 2021
 
-* Add support for Google Analytics 4.
+- Add support for Google Analytics 4.
 
 #### 0.6 - May 25, 2021
 
-* Fix Google Analytics support.
-* Code cleanup - remove unused metric and dimension.
+- Fix Google Analytics support.
+- Code cleanup - remove unused metric and dimension.
 
 #### 0.5 - April 13, 2021
 
-* Feature: Add support for sending data in the web vitals report format.
+- Feature: Add support for sending data in the web vitals report format.
 
 #### 0.3.1 - March 11, 2020
 
-* Feature: Add support to Analytics added through Google Tag Managere.
+- Feature: Add support to Analytics added through Google Tag Managere.
 
 #### 0.3.0 - March 11, 2020
 
-* Feature: Track 'first-delay' of over 100ms.
+- Feature: Track 'first-delay' of over 100ms.
 
 #### 0.2.0 - February 22, 2019
 
-* Make autoload.php optional to support project-wide autoload.
-* Add an action `xwp/performance_tracker/render_mark` as an alternative way for adding
+- Make autoload.php optional to support project-wide autoload.
+- Add an action `xwp/performance_tracker/render_mark` as an alternative way for adding
 performance marks in the front-end.
-* Bugfix: Use proper JS escaping (as per WordPress VIP review).
+- Bugfix: Use proper JS escaping (as per WordPress VIP review).
 
 #### 0.1.1 - February 18, 2019
 
-* The plugin is no longer using a singleton pattern. Instead it is just
+- The plugin is no longer using a singleton pattern. Instead it is just
 a regular class that is being instantiated in the main plugin file.
-* Namespace has been added.
-* The PHP version check has been added (>= 5.3).
-* The helper functions are extracted to a separate file and they are now
+- Namespace has been added.
+- The PHP version check has been added (>= 5.3).
+- The helper functions are extracted to a separate file and they are now
 using static functions inside the class.
-* The `$default_entry_types` array is no longer defined as static.
+- The `$default_entry_types` array is no longer defined as static.
 
 #### 0.1.0 - February 15, 2019
 
-* Initial release.
-
+- Initial release.
 
 ## Contribute
 
 Please follow the [contribution guide](CONTRIBUTE.md).
-
 
 ## Credits
 
