@@ -77,7 +77,7 @@ add_filter( 'site_performance_tracker_disabled', '__return_true' );
 
 ### Delay script loading
 
-Programmatically delay web vitals tracking to improve TBT. By default, delay is set to 5000ms, it can be easily modified.
+Programmatically delay web vitals tracking to minimise impact on interactivity. By default, an idle callback request is postponed by 5000ms, a value which can be adjusted via a filter:
 
 ```php
 add_filter( 'site_performance_tracker_web_vitals_delay', function() {
