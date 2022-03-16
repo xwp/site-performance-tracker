@@ -88,11 +88,6 @@ class Plugin {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		/**
-		 * Load styles for settings UI in Admin.
-		 */
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-
-		/**
 		 * Load only for modern browsers
 		 */
 		add_filter( 'script_loader_tag', array( $this, 'optimize_scripts' ), 10, 2 );
@@ -185,22 +180,6 @@ class Plugin {
 	}
 
 	/**
-	 * Enqueue styles for the UI.
-	 */
-	public function enqueue_styles() {
-		$asset_meta_file = $this->path_to( 'css/styles.css' );
-
-		if ( file_exists( $asset_meta_file ) ) {
-			wp_enqueue_style(
-				'site-performance-tracker-styles',
-				$this->uri_to( '/css/styles.css' ),
-				array(),
-				time()
-			);
-		}
-	}
-
-	/**
 	 * Get tracker config to pass to JS.
 	 *
 	 * @return array
@@ -244,4 +223,3 @@ class Plugin {
 		return $tag;
 	}
 }
-
