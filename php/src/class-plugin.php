@@ -129,7 +129,7 @@ class Plugin {
 
 		if ( $site_config && file_exists( $asset_meta_file ) ) {
 			$asset_meta = require $asset_meta_file;
-			$web_vitals_path = sprintf(
+			$web_vitals_analytics_js_path = sprintf(
 				'/js/dist/module/web-vitals-analytics.%s.js',
 				$asset_meta['version']
 			);
@@ -138,7 +138,7 @@ class Plugin {
 			// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 			wp_enqueue_script(
 				self::JS_HANDLE_ANALYTICS,
-				$this->uri_to( $web_vitals_path ),
+				$this->uri_to( $web_vitals_analytics_js_path ),
 				array(),
 				null,
 				true
