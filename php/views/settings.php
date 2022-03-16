@@ -241,8 +241,15 @@ function web_vitals_tracking_ratio_render() {
 		$options['web_vitals_tracking_ratio'] = $tracker_config['web_vitals_tracking_ratio'];
 		$set = true;
 	}
+	if ( has_filter( 'site_performance_tracker_chance' ) ) {
+		$options['web_vitals_tracking_ratio'] = apply_filters( 'site_performance_tracker_chance', 1 );
+		$set = true;
+	}
 	?>
-	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1' value='<?php echo esc_attr( $options['web_vitals_tracking_ratio'] ); ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio" <?php print_readonly( 'web_vitals_tracking_ratio' ); ?>>
+	<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1' value='<?php echo esc_attr( $options['web_vitals_tracking_ratio'] ); ?>' placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio"
+		<?php if ( $set ) { ?>
+			readonly
+		<?php } ?>>
 	<?php
 	if ( $set ) {
 		?>
