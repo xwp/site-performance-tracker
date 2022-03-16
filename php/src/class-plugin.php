@@ -129,13 +129,18 @@ class Plugin {
 
 		if ( $site_config && file_exists( $asset_meta_file ) ) {
 			$asset_meta = require $asset_meta_file;
+			$web_vitals_path = sprintf(
+				'/js/dist/module/web-vitals-analytics.%s.js',
+				$asset_meta['version']
+			);
 
-			// Add to footer.
+			// File name contains a calculated hash = no need to use the version parameter.
+			// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 			wp_enqueue_script(
 				self::JS_HANDLE_ANALYTICS,
-				$this->uri_to( '/js/dist/module/web-vitals-analytics.js' ),
+				$this->uri_to( $web_vitals_path ),
 				array(),
-				$asset_meta['version'],
+				null,
 				true
 			);
 
@@ -153,7 +158,7 @@ class Plugin {
 		var randNumber = Math.random();
 		if ( randNumber <= parseFloat( window.webVitalsAnalyticsData.chance ) ) {
 			requestIdleCallback( function() {
-				webVitalsAnalyticsScript = document.querySelector( 'script[data-src*=\"web-vitals-analytics.js\"]' );
+				webVitalsAnalyticsScript = document.querySelector( 'script[data-src*=\"web-vitals-analytics.\"]' );
 				webVitalsAnalyticsScript.src = webVitalsAnalyticsScript.dataset.src;
 				delete webVitalsAnalyticsScript.dataset.src;
 			} );
