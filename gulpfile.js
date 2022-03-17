@@ -13,6 +13,7 @@ function zipBundle() {
 				'README.md',
 				'css/**/*.css',
 				'js/dist/**/*.js',
+				'js/dist/**/*.php',
 				'php/**/*.php',
 			],
 			{
