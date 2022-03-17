@@ -99,6 +99,10 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ### Changelog
 
+#### 1.1.5 - March 17, 2022
+
+- Adding TTFB.
+
 #### 1.1.4 - March 10, 2022
 
 - Improve performance by loading and executing the script in quiter periods.
