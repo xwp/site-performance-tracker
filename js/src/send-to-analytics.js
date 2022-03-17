@@ -21,7 +21,7 @@ const vitalThresholds = {
 	FCP: [ 1800, 3000 ],
 	FID: [ 100, 300 ],
 	LCP: [ 2500, 4000 ],
-	TTFB: [ 501, 1500 ]
+	TTFB: [ 501, 1500 ],
 };
 
 const uaDimMeasurementVersion = window.webVitalsAnalyticsData[ 0 ].measurementVersion
