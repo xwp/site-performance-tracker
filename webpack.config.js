@@ -10,6 +10,8 @@ const TerserPlugin = require( 'terser-webpack-plugin' );
 const path = require( 'path' );
 const WebpackBar = require( 'webpackbar' );
 
+const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
+
 const config = {
 	srcDir: '/js/src/',
 	distDirModern: 'js/dist/module/',
@@ -26,6 +28,17 @@ config.legacyJsEntries = {};
  * WordPress dependencies
  */
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+
+/**
+ * Remove the default `DependencyExtractionWebpackPlugin` instance from
+ * plugins and instantiate a new one with our own options.
+ */
+defaultConfig.plugins = defaultConfig.plugins.filter(
+	( plugin ) => plugin.constructor.name !== 'DependencyExtractionWebpackPlugin'
+);
+defaultConfig.plugins.push( new DependencyExtractionWebpackPlugin( {
+	outputFilename: '[name].asset.php',
+} ) );
 
 const sharedConfig = {
 	optimization: {
@@ -75,8 +88,12 @@ const configureBabelLoader = ( browserlist ) => {
 const modernConfig = {
 	output: {
 		path: path.join( __dirname, config.distDirModern ),
-		filename: `[name].js`,
-		chunkFilename: `[name].js`,
+		filename: `[name].[chunkhash].js`,
+		chunkFilename: `[name].[chunkhash].js`,
+
+		// Needed for [chunkhash] length to match the hard-coded
+		// settings in `DependencyExtractionWebpackPlugin`.
+		hashDigestLength: 32,
 	},
 	module: {
 		rules: [
