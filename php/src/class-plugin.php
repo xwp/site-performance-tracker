@@ -240,6 +240,11 @@ class Plugin {
 			unset( $value['gtag_id'] );
 		}
 
+		if ( isset( $value['analytics_types'] ) && 'ga4' == $value['analytics_types'] ) {
+			$value['ga4_id'] = $value['gtag_id'];
+			unset( $value['gtag_id'] );
+		}
+
 		return $value;
 	}
 }
