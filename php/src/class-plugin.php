@@ -91,6 +91,11 @@ class Plugin {
 		 * Load only for modern browsers
 		 */
 		add_filter( 'script_loader_tag', array( $this, 'optimize_scripts' ), 10, 2 );
+
+		/**
+		 * Update and validate settings before updating
+		 */
+		add_filter( 'pre_update_option_spt_settings', array( $this, 'pre_update_option' ), 10, 1 );
 	}
 
 	/**
@@ -221,5 +226,20 @@ class Plugin {
 		}
 
 		return $tag;
+	}
+
+	/**
+	 * Filter the spt_settings options before updated
+	 *
+	 * @param array $value The new, unserialized option value.
+	 * @return array $value
+	 */
+	public function pre_update_option( $value ) {
+		if ( isset( $value['analytics_types'] ) && 'ga_id' == $value['analytics_types'] ) {
+			$value['ga_id'] = $value['gtag_id'];
+			unset( $value['gtag_id'] );
+		}
+
+		return $value;
 	}
 }
