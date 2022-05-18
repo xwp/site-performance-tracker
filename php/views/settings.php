@@ -145,6 +145,11 @@ function analytics_id_render() {
 	global $tracker_config;
 	$set = false;
 	$prop = 'gtag_id';
+
+	if ( isset( $options['ga_id'] ) ) {
+		$options['gtag_id'] = $options['ga_id'];
+	}
+
 	if ( isset( $tracker_config['ga_id'] ) ) {
 		$options['gtag_id'] = $tracker_config['ga_id'];
 		$prop = 'ga_id';
