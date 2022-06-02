@@ -147,6 +147,7 @@ export function sendToAnalytics( { name, value, delta, id, entries } ) {
 		} );
 	}
 	if ( analyticsData && analyticsData.ga_id ) {
+		getDeliveryFunction( 'ga' )( 'create', analyticsData.ga_id, 'auto' );
 		getDeliveryFunction( 'ga' )( 'send', 'event', {
 			eventCategory: 'Web Vitals',
 			eventAction: name,
