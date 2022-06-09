@@ -53,6 +53,13 @@ class Plugin {
 	protected $dir_url;
 
 	/**
+	 * Plugin settings.
+	 *
+	 * @var Settings
+	 */
+	protected $settings;
+
+	/**
 	 * Setup the plugin
 	 *
 	 * @param string $dir_path Absolute path to the plugin directory root.
@@ -60,6 +67,8 @@ class Plugin {
 	public function __construct( $dir_path ) {
 		$this->dir_path = rtrim( $dir_path, '\\/' );
 		$this->dir_url  = content_url( str_replace( WP_CONTENT_DIR, '', $this->dir_path ) );
+
+		$this->settings = new Settings();
 	}
 
 	/**
@@ -75,6 +84,7 @@ class Plugin {
 
 		if ( ! $is_disabled ) {
 			$this->register_hooks();
+			$this->settings->init();
 		}
 	}
 
@@ -137,7 +147,7 @@ class Plugin {
 		$asset_meta_file      = $this->path_to( 'js/dist/module/web-vitals-analytics.asset.php' );
 
 		if ( $site_config && file_exists( $asset_meta_file ) ) {
-			$asset_meta = require $asset_meta_file;
+			$asset_meta                   = require $asset_meta_file;
 			$web_vitals_analytics_js_path = sprintf(
 				'/js/dist/module/web-vitals-analytics.%s.js',
 				$asset_meta['version']
@@ -232,6 +242,7 @@ class Plugin {
 	 * Filter the spt_settings options before updated
 	 *
 	 * @param array $value The new, unserialized option value.
+	 *
 	 * @return array $value
 	 */
 	public function pre_update_option( $value ) {

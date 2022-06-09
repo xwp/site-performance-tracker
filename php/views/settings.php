@@ -28,12 +28,7 @@ function print_readonly( $prop_name ) {
 	}
 }
 
-/**
- * Add tracker as a settings menu item.
- */
-function spt_add_admin_menu() {
-	add_options_page( 'Site Performance Tracker', 'Site Performance Tracker', 'manage_options', 'site_performance_tracker', 'spt_options_page' );
-}
+
 add_action( 'admin_menu', 'spt_add_admin_menu' );
 
 /**

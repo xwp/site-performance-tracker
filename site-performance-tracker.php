@@ -57,6 +57,7 @@ if ( version_compare( phpversion(), '5.3', '<' ) ) {
  * how to handle built JS and the presence of `vendor` directory.
  */
 require_once __DIR__ . '/php/src/class-plugin.php';
+require_once __DIR__ . '/php/src/class-settings.php';
 require_once __DIR__ . '/php/helpers.php';
 
 /**

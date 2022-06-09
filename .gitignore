@@ -7,3 +7,8 @@
 /phpcs.xml
 /phpunit.xml
 /.wp-env.override.json
+
+# IDE
+.idea
+.vscode
+.history
