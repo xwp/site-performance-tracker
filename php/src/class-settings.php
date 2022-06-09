@@ -1,6 +1,9 @@
 <?php
 /**
- * Plugin Settings file.
+ * Create the Settings Page.
+ *
+ * This is where all the settings for the plugin can be added/edited
+ * through an interface.
  *
  * @package XWP\Site_Performance_Tracker
  * @license http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2 (GPL-2.0)

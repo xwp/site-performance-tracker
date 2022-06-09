@@ -61,14 +61,6 @@ require_once __DIR__ . '/php/src/class-settings.php';
 require_once __DIR__ . '/php/helpers.php';
 
 /**
- * Create the Settings Page.
- *
- * This is where all the settings for the plugin can be added/edited
- * through an interface.
- */
-require_once __DIR__ . '/php/views/settings.php';
-
-/**
  * Global function to provide access to the plugin APIs.
  *
  * @return XWP\Site_Performance_Tracker\Plugin
