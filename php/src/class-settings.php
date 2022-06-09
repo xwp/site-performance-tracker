@@ -13,6 +13,20 @@ namespace XWP\Site_Performance_Tracker;
  */
 class Settings {
 	/**
+	 * Plugin Settings page ID.
+	 *
+	 * @var string
+	 */
+	const PAGE_ID = 'pluginPage';
+
+	/**
+	 * Settings option name.
+	 *
+	 * @var string
+	 */
+	const OPTION_NAME = 'spt_settings';
+
+	/**
 	 * Initialize settings.
 	 */
 	public function init() {
@@ -49,7 +63,7 @@ class Settings {
 			array(
 				$this,
 				'render_settings_page',
-			) 
+			)
 		);
 	}
 
@@ -58,20 +72,20 @@ class Settings {
 	 * sections and fields.
 	 */
 	public function settings_init() {
-		register_setting( 'pluginPage', 'spt_settings' );
+		register_setting( self::PAGE_ID, self::OPTION_NAME );
 
 		add_settings_section(
 			'spt_pluginPage_section',
 			null,
 			array( $this, 'settings_section_callback' ),
-			'pluginPage'
+			self::PAGE_ID
 		);
 
 		add_settings_field(
 			'analytics_types',
 			__( 'Analytics Types', 'site-performance-tracker' ),
 			array( $this, 'analytics_types_render' ),
-			'pluginPage',
+			self::PAGE_ID,
 			'spt_pluginPage_section'
 		);
 
@@ -79,7 +93,7 @@ class Settings {
 			'analytics_id',
 			__( 'Analytics ID', 'site-performance-tracker' ),
 			array( $this, 'analytics_id_render' ),
-			'pluginPage',
+			self::PAGE_ID,
 			'spt_pluginPage_section'
 		);
 
@@ -87,7 +101,7 @@ class Settings {
 			'measurement_version_dimension',
 			__( 'Measurement Version Dimension', 'site-performance-tracker' ),
 			array( $this, 'measurement_version_dimension_render' ),
-			'pluginPage',
+			self::PAGE_ID,
 			'spt_pluginPage_section'
 		);
 
@@ -95,7 +109,7 @@ class Settings {
 			'event_meta_dimension',
 			__( 'Event Meta Dimension', 'site-performance-tracker' ),
 			array( $this, 'event_meta_dimension_render' ),
-			'pluginPage',
+			self::PAGE_ID,
 			'spt_pluginPage_section'
 		);
 
@@ -103,7 +117,7 @@ class Settings {
 			'event_debug_dimension',
 			__( 'Event Debug Dimension', 'site-performance-tracker' ),
 			array( $this, 'event_debug_dimension_render' ),
-			'pluginPage',
+			self::PAGE_ID,
 			'spt_pluginPage_section'
 		);
 
@@ -111,7 +125,7 @@ class Settings {
 			'web_vitals_tracking_ratio',
 			__( 'Web Vitals Tracking Ratio', 'site-performance-tracker' ),
 			array( $this, 'web_vitals_tracking_ratio_render' ),
-			'pluginPage',
+			self::PAGE_ID,
 			'spt_pluginPage_section'
 		);
 	}
@@ -305,8 +319,8 @@ class Settings {
 			<h1><?php echo esc_html( __( 'Site Performance Tracker Settings', 'site-performance-tracker' ) ); ?></h1>
 
 			<?php
-			settings_fields( 'pluginPage' );
-			do_settings_sections( 'pluginPage' );
+			settings_fields( self::PAGE_ID );
+			do_settings_sections( self::PAGE_ID );
 			submit_button();
 			?>
 		</form>
@@ -335,7 +349,7 @@ class Settings {
 	 * Returns the plugin settings.
 	 */
 	private function get_settings() {
-		$options = get_option( 'spt_settings', array() );
+		$options = get_option( self::OPTION_NAME, array() );
 
 		return array_merge(
 			array(
