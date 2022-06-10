@@ -170,11 +170,8 @@ class Settings {
 			</option>
 		</select>
 		<?php
-		if ( $set ) {
-			?>
-			<br/><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-			<?php
-		}
+
+		$this->show_theme_warning( $set );
 	}
 
 	/**
@@ -207,11 +204,8 @@ class Settings {
 			   value='<?php echo esc_attr( $options['gtag_id'] ); ?>' placeholder="UA-XXXXXXXX-Y"
 			   aria-label="analytics id" <?php $this->print_readonly( $prop ); ?> required>
 		<?php
-		if ( $set ) {
-			?>
-			<br/><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-			<?php
-		}
+
+		$this->show_theme_warning( $set );
 	}
 
 	/**
@@ -230,11 +224,8 @@ class Settings {
 			   value='<?php echo esc_attr( $options['measurementVersion'] ); ?>' placeholder="dimension1"
 			   aria-label="measurement version dimension" <?php $this->print_readonly( 'measurementVersion' ); ?>>
 		<?php
-		if ( $set ) {
-			?>
-			<br/><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-			<?php
-		}
+
+		$this->show_theme_warning( $set );
 	}
 
 	/**
@@ -253,11 +244,8 @@ class Settings {
 			   value='<?php echo esc_attr( $options['eventMeta'] ); ?>' placeholder="dimension2"
 			   aria-label="event meta dimension" <?php $this->print_readonly( 'eventMeta' ); ?>>
 		<?php
-		if ( $set ) {
-			?>
-			<br/><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-			<?php
-		}
+
+		$this->show_theme_warning( $set );
 	}
 
 	/**
@@ -276,11 +264,8 @@ class Settings {
 			   value='<?php echo esc_attr( $options['eventDebug'] ); ?>' placeholder="dimension3"
 			   aria-label="event debug dimension" <?php $this->print_readonly( 'eventDebug' ); ?>>
 		<?php
-		if ( $set ) {
-			?>
-			<br/><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-			<?php
-		}
+
+		$this->show_theme_warning( $set );
 	}
 
 	/**
@@ -306,11 +291,8 @@ class Settings {
 					readonly
 				<?php } ?>>
 		<?php
-		if ( $set ) {
-			?>
-			<br/><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
-			<?php
-		}
+
+		$this->show_theme_warning( $set );
 	}
 
 	/**
@@ -364,5 +346,18 @@ class Settings {
 			),
 			$options
 		);
+	}
+
+	/**
+	 * Show warning that configured via theme files
+	 *
+	 * @param bool $show indicate if message should be displayed.
+	 */
+	private function show_theme_warning( $show ) {
+		if ( $show ) {
+			?>
+			<br/><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
+			<?php
+		}
 	}
 }
