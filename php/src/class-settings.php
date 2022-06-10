@@ -23,11 +23,67 @@ class Settings {
 	const PAGE_ID = 'pluginPage';
 
 	/**
+	 * Plugin Settings section ID.
+	 *
+	 * @var string
+	 */
+	const SECTION_ID = 'spt_pluginPage_section';
+
+	/**
 	 * Settings option name.
 	 *
 	 * @var string
 	 */
 	const OPTION_NAME = 'spt_settings';
+
+	/**
+	 * Hardcoded tracker config feature name.
+	 *
+	 * @var string
+	 */
+	const HARDCODED_TRACKER_CONFIG_FEATURE = 'site_performance_tracker_vitals';
+
+	/**
+	 * Option gtag_id name
+	 *
+	 * @var string
+	 */
+	const OPTION_TAG_ID = 'gtag_id';
+
+	/**
+	 * Option analytics_types name
+	 *
+	 * @var string
+	 */
+	const OPTION_ANALYTICS_TYPES = 'analytics_types';
+
+	/**
+	 * Option measurementVersion name
+	 *
+	 * @var string
+	 */
+	const OPTION_MEASUREMENT_VERSION = 'measurementVersion';
+
+	/**
+	 * Option eventMeta  name
+	 *
+	 * @var string
+	 */
+	const OPTION_EVENT_META = 'eventMeta';
+
+	/**
+	 * Option eventDebug name
+	 *
+	 * @var string
+	 */
+	const OPTION_EVENT_DEBUG = 'eventDebug';
+
+	/**
+	 * Option web_vitals_tracking_ratio name
+	 *
+	 * @var string
+	 */
+	const OPTION_WEB_VITALS_TRACKING_RATIO = 'web_vitals_tracking_ratio';
 
 	/**
 	 * Initialize settings.
@@ -51,7 +107,7 @@ class Settings {
 	 */
 	public function get_hardcoded_tracker_config() {
 		global $tracker_config;
-		$tracker_config = isset( get_theme_support( 'site_performance_tracker_vitals' )[0] ) ? get_theme_support( 'site_performance_tracker_vitals' )[0] : array();
+		$tracker_config = isset( get_theme_support( self::HARDCODED_TRACKER_CONFIG_FEATURE )[0] ) ? get_theme_support( self::HARDCODED_TRACKER_CONFIG_FEATURE )[0] : array();
 	}
 
 	/**
@@ -78,58 +134,58 @@ class Settings {
 		register_setting( self::PAGE_ID, self::OPTION_NAME );
 
 		add_settings_section(
-			'spt_pluginPage_section',
+			self::SECTION_ID,
 			null,
 			array( $this, 'settings_section_callback' ),
 			self::PAGE_ID
 		);
 
 		add_settings_field(
-			'analytics_types',
+			self::OPTION_ANALYTICS_TYPES,
 			__( 'Analytics Types', 'site-performance-tracker' ),
 			array( $this, 'analytics_types_render' ),
 			self::PAGE_ID,
-			'spt_pluginPage_section'
+			self::SECTION_ID
 		);
 
 		add_settings_field(
-			'analytics_id',
+			self::OPTION_TAG_ID,
 			__( 'Analytics ID', 'site-performance-tracker' ),
 			array( $this, 'analytics_id_render' ),
 			self::PAGE_ID,
-			'spt_pluginPage_section'
+			self::SECTION_ID
 		);
 
 		add_settings_field(
-			'measurement_version_dimension',
+			self::OPTION_MEASUREMENT_VERSION,
 			__( 'Measurement Version Dimension', 'site-performance-tracker' ),
 			array( $this, 'measurement_version_dimension_render' ),
 			self::PAGE_ID,
-			'spt_pluginPage_section'
+			self::SECTION_ID
 		);
 
 		add_settings_field(
-			'event_meta_dimension',
+			self::OPTION_EVENT_META,
 			__( 'Event Meta Dimension', 'site-performance-tracker' ),
 			array( $this, 'event_meta_dimension_render' ),
 			self::PAGE_ID,
-			'spt_pluginPage_section'
+			self::SECTION_ID
 		);
 
 		add_settings_field(
-			'event_debug_dimension',
+			self::OPTION_EVENT_DEBUG,
 			__( 'Event Debug Dimension', 'site-performance-tracker' ),
 			array( $this, 'event_debug_dimension_render' ),
 			self::PAGE_ID,
-			'spt_pluginPage_section'
+			self::SECTION_ID
 		);
 
 		add_settings_field(
-			'web_vitals_tracking_ratio',
+			self::OPTION_WEB_VITALS_TRACKING_RATIO,
 			__( 'Web Vitals Tracking Ratio', 'site-performance-tracker' ),
 			array( $this, 'web_vitals_tracking_ratio_render' ),
 			self::PAGE_ID,
-			'spt_pluginPage_section'
+			self::SECTION_ID
 		);
 	}
 
@@ -148,24 +204,24 @@ class Settings {
 		global $tracker_config;
 		$set = false;
 		if ( isset( $tracker_config['ga_id'] ) ) {
-			$options['analytics_types'] = 'ga_id';
-			$set                        = true;
-		} elseif ( isset( $tracker_config['gtag_id'] ) ) {
-			$options['analytics_types'] = 'gtm';
-			$set                        = true;
+			$options[ self::OPTION_ANALYTICS_TYPES ] = 'ga_id';
+			$set                                     = true;
+		} elseif ( isset( $tracker_config[ self::OPTION_TAG_ID ] ) ) {
+			$options[ self::OPTION_ANALYTICS_TYPES ] = 'gtm';
+			$set                                     = true;
 		} elseif ( isset( $tracker_config['ga4_id'] ) ) {
-			$options['analytics_types'] = 'ga4';
-			$set                        = true;
+			$options[ self::OPTION_ANALYTICS_TYPES ] = 'ga4';
+			$set                                     = true;
 		}
 		?>
-		<select name='spt_settings[analytics_types]' <?php echo ( $set ) ? esc_attr( 'disabled' ) : ''; ?> required>
-			<option value="ga_id" <?php selected( $options['analytics_types'], 'ga_id' ); ?>>
+		<select name='spt_settings[<?php echo esc_attr( self::OPTION_ANALYTICS_TYPES ); ?>]' <?php echo ( $set ) ? esc_attr( 'disabled' ) : ''; ?> required>
+			<option value="ga_id" <?php selected( $options[ self::OPTION_ANALYTICS_TYPES ], 'ga_id' ); ?>>
 				<?php esc_html_e( 'Google Analytics', 'site-performance-tracker' ); ?>
 			</option>
-			<option value="gtm" <?php selected( $options['analytics_types'], 'gtm' ); ?>>
+			<option value="gtm" <?php selected( $options[ self::OPTION_ANALYTICS_TYPES ], 'gtm' ); ?>>
 				<?php esc_html_e( 'Global Site Tag', 'site-performance-tracker' ); ?>
 			</option>
-			<option value="ga4" <?php selected( $options['analytics_types'], 'ga4' ); ?>>
+			<option value="ga4" <?php selected( $options[ self::OPTION_ANALYTICS_TYPES ], 'ga4' ); ?>>
 				<?php esc_html_e( 'GA4 Analytics', 'site-performance-tracker' ); ?>
 			</option>
 		</select>
@@ -181,27 +237,27 @@ class Settings {
 		$options = $this->get_settings();
 		global $tracker_config;
 		$set  = false;
-		$prop = 'gtag_id';
+		$prop = self::OPTION_TAG_ID;
 
 		if ( isset( $options['ga_id'] ) ) {
-			$options['gtag_id'] = $options['ga_id'];
+			$options[ self::OPTION_TAG_ID ] = $options['ga_id'];
 		}
 
 		if ( isset( $tracker_config['ga_id'] ) ) {
-			$options['gtag_id'] = $tracker_config['ga_id'];
-			$prop               = 'ga_id';
-			$set                = true;
-		} elseif ( isset( $tracker_config['gtag_id'] ) ) {
-			$options['gtag_id'] = $tracker_config['gtag_id'];
-			$set                = true;
+			$options[ self::OPTION_TAG_ID ] = $tracker_config['ga_id'];
+			$prop                           = 'ga_id';
+			$set                            = true;
+		} elseif ( isset( $tracker_config[ self::OPTION_TAG_ID ] ) ) {
+			$options[ self::OPTION_TAG_ID ] = $tracker_config[ self::OPTION_TAG_ID ];
+			$set                            = true;
 		} elseif ( isset( $tracker_config['ga4_id'] ) ) {
-			$options['gtag_id'] = $tracker_config['ga4_id'];
-			$prop               = 'ga4_id';
-			$set                = true;
+			$options[ self::OPTION_TAG_ID ] = $tracker_config['ga4_id'];
+			$prop                           = 'ga4_id';
+			$set                            = true;
 		}
 		?>
-		<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-			   value='<?php echo esc_attr( $options['gtag_id'] ); ?>' placeholder="UA-XXXXXXXX-Y"
+		<input type='text' name='spt_settings[<?php echo esc_attr( self::OPTION_TAG_ID ); ?>]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
+			   value='<?php echo esc_attr( $options[ self::OPTION_TAG_ID ] ); ?>' placeholder="UA-XXXXXXXX-Y"
 			   aria-label="analytics id" <?php $this->print_readonly( $prop ); ?> required>
 		<?php
 
@@ -215,14 +271,14 @@ class Settings {
 		$options = $this->get_settings();
 		global $tracker_config;
 		$set = false;
-		if ( isset( $tracker_config['measurementVersion'] ) ) {
-			$options['measurementVersion'] = $tracker_config['measurementVersion'];
+		if ( isset( $tracker_config[ self::OPTION_MEASUREMENT_VERSION ] ) ) {
+			$options[ self::OPTION_MEASUREMENT_VERSION ] = $tracker_config[ self::OPTION_MEASUREMENT_VERSION ];
 			$set                           = true;
 		}
 		?>
-		<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}"
-			   value='<?php echo esc_attr( $options['measurementVersion'] ); ?>' placeholder="dimension1"
-			   aria-label="measurement version dimension" <?php $this->print_readonly( 'measurementVersion' ); ?>>
+		<input type='text' name='spt_settings[<?php echo esc_attr( self::OPTION_MEASUREMENT_VERSION ); ?>]' pattern="[dimension]+[0-9]{1,2}"
+			   value='<?php echo esc_attr( $options[ self::OPTION_MEASUREMENT_VERSION ] ); ?>' placeholder="dimension1"
+			   aria-label="measurement version dimension" <?php $this->print_readonly( self::OPTION_MEASUREMENT_VERSION ); ?>>
 		<?php
 
 		$this->show_theme_warning( $set );
@@ -235,14 +291,14 @@ class Settings {
 		$options = $this->get_settings();
 		global $tracker_config;
 		$set = false;
-		if ( isset( $tracker_config['eventMeta'] ) ) {
-			$options['eventMeta'] = $tracker_config['eventMeta'];
+		if ( isset( $tracker_config[ self::OPTION_EVENT_META ] ) ) {
+			$options[ self::OPTION_EVENT_META ] = $tracker_config[ self::OPTION_EVENT_META ];
 			$set                  = true;
 		}
 		?>
-		<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}"
-			   value='<?php echo esc_attr( $options['eventMeta'] ); ?>' placeholder="dimension2"
-			   aria-label="event meta dimension" <?php $this->print_readonly( 'eventMeta' ); ?>>
+		<input type='text' name='spt_settings[<?php echo esc_attr( self::OPTION_EVENT_META ); ?>]' pattern="[dimension]+[0-9]{1,2}"
+			   value='<?php echo esc_attr( $options[ self::OPTION_EVENT_META ] ); ?>' placeholder="dimension2"
+			   aria-label="event meta dimension" <?php $this->print_readonly( self::OPTION_EVENT_META ); ?>>
 		<?php
 
 		$this->show_theme_warning( $set );
@@ -255,14 +311,14 @@ class Settings {
 		$options = $this->get_settings();
 		global $tracker_config;
 		$set = false;
-		if ( isset( $tracker_config['eventDebug'] ) ) {
-			$options['eventDebug'] = $tracker_config['eventDebug'];
+		if ( isset( $tracker_config[ self::OPTION_EVENT_DEBUG ] ) ) {
+			$options[ self::OPTION_EVENT_DEBUG ] = $tracker_config[ self::OPTION_EVENT_DEBUG ];
 			$set                   = true;
 		}
 		?>
-		<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}"
-			   value='<?php echo esc_attr( $options['eventDebug'] ); ?>' placeholder="dimension3"
-			   aria-label="event debug dimension" <?php $this->print_readonly( 'eventDebug' ); ?>>
+		<input type='text' name='spt_settings[<?php echo esc_attr( self::OPTION_EVENT_DEBUG ); ?>]' pattern="[dimension]+[0-9]{1,2}"
+			   value='<?php echo esc_attr( $options[ self::OPTION_EVENT_DEBUG ] ); ?>' placeholder="dimension3"
+			   aria-label="event debug dimension" <?php $this->print_readonly( self::OPTION_EVENT_DEBUG ); ?>>
 		<?php
 
 		$this->show_theme_warning( $set );
@@ -275,17 +331,17 @@ class Settings {
 		$options = $this->get_settings();
 		global $tracker_config;
 		$set = false;
-		if ( isset( $tracker_config['web_vitals_tracking_ratio'] ) ) {
-			$options['web_vitals_tracking_ratio'] = $tracker_config['web_vitals_tracking_ratio'];
+		if ( isset( $tracker_config[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] ) ) {
+			$options[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] = $tracker_config[ self::OPTION_WEB_VITALS_TRACKING_RATIO ];
 			$set                                  = true;
 		}
 		if ( has_filter( 'site_performance_tracker_chance' ) ) {
-			$options['web_vitals_tracking_ratio'] = apply_filters( 'site_performance_tracker_chance', 1 );
+			$options[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] = apply_filters( 'site_performance_tracker_chance', 1 );
 			$set                                  = true;
 		}
 		?>
-		<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1'
-			   value='<?php echo esc_attr( $options['web_vitals_tracking_ratio'] ); ?>'
+		<input type='number' name='spt_settings[<?php echo esc_attr( self::OPTION_WEB_VITALS_TRACKING_RATIO ); ?>]' step='0.01' min='0.01' max='1'
+			   value='<?php echo esc_attr( $options[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] ); ?>'
 			   placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio"
 				<?php if ( $set ) { ?>
 					readonly
@@ -338,11 +394,11 @@ class Settings {
 
 		return array_merge(
 			array(
-				'gtag_id'                   => '',
-				'measurementVersion'        => '',
-				'eventMeta'                 => '',
-				'eventDebug'                => '',
-				'web_vitals_tracking_ratio' => Plugin::TRACKING_DEFAULT_CHANCE,
+				self::OPTION_TAG_ID                    => '',
+				self::OPTION_MEASUREMENT_VERSION       => '',
+				self::OPTION_EVENT_META                => '',
+				self::OPTION_EVENT_DEBUG               => '',
+				self::OPTION_WEB_VITALS_TRACKING_RATIO => Plugin::TRACKING_DEFAULT_CHANCE,
 			),
 			$options
 		);
