@@ -268,60 +268,21 @@ class Settings {
 	 * Render Measurement Version Dimension form input.
 	 */
 	public function measurement_version_dimension_render() {
-		$options = $this->get_settings();
-		global $tracker_config;
-		$set = false;
-		if ( isset( $tracker_config[ self::OPTION_MEASUREMENT_VERSION ] ) ) {
-			$options[ self::OPTION_MEASUREMENT_VERSION ] = $tracker_config[ self::OPTION_MEASUREMENT_VERSION ];
-			$set                           = true;
-		}
-		?>
-		<input type='text' name='spt_settings[<?php echo esc_attr( self::OPTION_MEASUREMENT_VERSION ); ?>]' pattern="[dimension]+[0-9]{1,2}"
-			   value='<?php echo esc_attr( $options[ self::OPTION_MEASUREMENT_VERSION ] ); ?>' placeholder="dimension1"
-			   aria-label="measurement version dimension" <?php $this->print_readonly( self::OPTION_MEASUREMENT_VERSION ); ?>>
-		<?php
-
-		$this->show_theme_warning( $set );
+		$this->render_dimention_option( self::OPTION_MEASUREMENT_VERSION, 'dimension1', 'measurement version dimension' );
 	}
 
 	/**
 	 * Render Event Meta Dimension form input.
 	 */
 	public function event_meta_dimension_render() {
-		$options = $this->get_settings();
-		global $tracker_config;
-		$set = false;
-		if ( isset( $tracker_config[ self::OPTION_EVENT_META ] ) ) {
-			$options[ self::OPTION_EVENT_META ] = $tracker_config[ self::OPTION_EVENT_META ];
-			$set                  = true;
-		}
-		?>
-		<input type='text' name='spt_settings[<?php echo esc_attr( self::OPTION_EVENT_META ); ?>]' pattern="[dimension]+[0-9]{1,2}"
-			   value='<?php echo esc_attr( $options[ self::OPTION_EVENT_META ] ); ?>' placeholder="dimension2"
-			   aria-label="event meta dimension" <?php $this->print_readonly( self::OPTION_EVENT_META ); ?>>
-		<?php
-
-		$this->show_theme_warning( $set );
+		$this->render_dimention_option( self::OPTION_EVENT_META, 'dimension2', 'event meta dimension' );
 	}
 
 	/**
 	 * Render Event Debug Dimension form input.
 	 */
 	public function event_debug_dimension_render() {
-		$options = $this->get_settings();
-		global $tracker_config;
-		$set = false;
-		if ( isset( $tracker_config[ self::OPTION_EVENT_DEBUG ] ) ) {
-			$options[ self::OPTION_EVENT_DEBUG ] = $tracker_config[ self::OPTION_EVENT_DEBUG ];
-			$set                   = true;
-		}
-		?>
-		<input type='text' name='spt_settings[<?php echo esc_attr( self::OPTION_EVENT_DEBUG ); ?>]' pattern="[dimension]+[0-9]{1,2}"
-			   value='<?php echo esc_attr( $options[ self::OPTION_EVENT_DEBUG ] ); ?>' placeholder="dimension3"
-			   aria-label="event debug dimension" <?php $this->print_readonly( self::OPTION_EVENT_DEBUG ); ?>>
-		<?php
-
-		$this->show_theme_warning( $set );
+		$this->render_dimention_option( self::OPTION_EVENT_DEBUG, 'dimension3', 'event debug dimension' );
 	}
 
 	/**
@@ -415,5 +376,29 @@ class Settings {
 			<br/><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
 			<?php
 		}
+	}
+
+	/**
+	 * Output dimension option field
+	 *
+	 * @param string $option_name option name to render.
+	 * @param string $placeholder input field placeholder.
+	 * @param string $aria_label input field area-label.
+	 */
+	private function render_dimention_option( $option_name, $placeholder, $aria_label ) {
+		$options = $this->get_settings();
+		global $tracker_config;
+		$set = false;
+		if ( isset( $tracker_config[ $option_name ] ) ) {
+			$options[ $option_name ] = $tracker_config[ $option_name ];
+			$set                   = true;
+		}
+		?>
+		<input type='text' name='spt_settings[<?php echo esc_attr( $option_name ); ?>]' pattern="[dimension]+[0-9]{1,2}"
+			   value='<?php echo esc_attr( $options[ $option_name ] ); ?>' placeholder="<?php echo esc_attr( $placeholder ); ?>"
+			   aria-label="<?php echo esc_attr( $aria_label ); ?>" <?php $this->print_readonly( $option_name ); ?>>
+		<?php
+
+		$this->show_theme_warning( $set );
 	}
 }
