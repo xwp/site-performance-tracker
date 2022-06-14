@@ -6,13 +6,13 @@ class Test_Settings extends WP_UnitTestCase {
 
 	public $settings;
 
-	function setUp(): void {
+	public function setUp() {
 		parent::setUp();
 
 		$this->settings = new Settings();
 	}
 
-	function tearDown(): void {
+	public function tearDown() {
 		parent::tearDown();
 
 		global $tracker_config;
