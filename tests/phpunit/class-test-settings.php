@@ -7,9 +7,15 @@ class Test_Settings extends WP_UnitTestCase {
 	public $settings;
 
 	public function setUp() {
+
 		parent::setUp();
 
 		$this->settings = new Settings();
+
+		// configure test to run udner administrator
+		global $current_user;
+		$current_user->add_role( 'administrator' );
+		$current_user->get_role_caps();
 	}
 
 	public function tearDown() {
@@ -32,7 +38,7 @@ class Test_Settings extends WP_UnitTestCase {
 	}
 
 	public function test_get_hardcoded_tracker_config__with_empty_theme() {
-		 global $tracker_config;
+		global $tracker_config;
 
 		$this->assertNull( $tracker_config );
 
@@ -40,5 +46,25 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertIsArray( $tracker_config );
 		$this->assertTrue( empty( $tracker_config ) );
+	}
+
+	public function test_add_admin_menu() {
+		global $submenu;
+
+		$this->assertFalse( isset( $submenu['options-general.php'] ) );
+
+		$hook_name = $this->settings->add_admin_menu();
+
+		$this->assertTrue( isset( $submenu['options-general.php'] ) );
+
+		$options = $submenu['options-general.php'];
+		$performance_options_menu = end( $options );
+
+		$this->assertSame( 'Site Performance Tracker', $performance_options_menu[0] );
+		$this->assertSame( 'manage_options', $performance_options_menu[1] );
+		$this->assertSame( 'site_performance_tracker', $performance_options_menu[2] );
+		$this->assertSame( 'Site Performance Tracker', $performance_options_menu[3] );
+
+		$this->assertNotFalse( has_action( $hook_name, array( $this->settings, 'render_settings_page' ) ) );
 	}
 }
