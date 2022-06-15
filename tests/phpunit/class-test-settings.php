@@ -67,4 +67,16 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertNotFalse( has_action( $hook_name, array( $this->settings, 'render_settings_page' ) ) );
 	}
+
+	public function test_settings_init_register_setting() {
+		global $wp_registered_settings;
+
+		$this->settings->settings_init();
+
+		$this->assertTrue( isset( $wp_registered_settings['spt_settings'] ) );
+
+		$registered_settings = $wp_registered_settings['spt_settings'];
+
+		$this->assertSame( 'pluginPage', $registered_settings['group'] );
+	}
 }
