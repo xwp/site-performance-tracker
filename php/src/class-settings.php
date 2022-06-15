@@ -216,7 +216,7 @@ class Settings {
 			$set                                     = true;
 		}
 		?>
-		<select name='spt_settings[<?php echo esc_attr( self::OPTION_ANALYTICS_TYPES ); ?>]' <?php echo ( $set ) ? esc_attr( 'disabled' ) : ''; ?> required>
+		<select name="spt_settings[<?php echo esc_attr( self::OPTION_ANALYTICS_TYPES ); ?>]" <?php echo ( $set ) ? esc_attr( 'disabled' ) : ''; ?> required>
 			<option value="ga_id" <?php selected( $options[ self::OPTION_ANALYTICS_TYPES ], 'ga_id' ); ?>>
 				<?php esc_html_e( 'Google Analytics', 'site-performance-tracker' ); ?>
 			</option>

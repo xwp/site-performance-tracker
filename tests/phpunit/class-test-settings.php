@@ -264,16 +264,47 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertTrue( $options[0]->hasAttribute( 'value' ) );
 		$this->assertSame( 'ga_id', $options[0]->getAttribute( 'value' ) );
 		$this->assertEquals( 1, count( $options[0]->attributes ) );
-		$this->assertSame( 'Google Analytics', trim( preg_replace( '/\s+/', ' ', $options[0]->nodeValue ) ) );
+		$this->assertSame( 'Google Analytics', $this->normilize( $options[0]->nodeValue ) );
 
 		$this->assertTrue( $options[1]->hasAttribute( 'value' ) );
 		$this->assertSame( 'gtm', $options[1]->getAttribute( 'value' ) );
 		$this->assertEquals( 1, count( $options[1]->attributes ) );
-		$this->assertSame( 'Global Site Tag', trim( preg_replace( '/\s+/', ' ', $options[1]->nodeValue ) ) );
+		$this->assertSame( 'Global Site Tag', $this->normilize( $options[1]->nodeValue ) );
 
 		$this->assertTrue( $options[2]->hasAttribute( 'value' ) );
 		$this->assertSame( 'ga4', $options[2]->getAttribute( 'value' ) );
 		$this->assertEquals( 1, count( $options[2]->attributes ) );
-		$this->assertSame( 'GA4 Analytics', trim( preg_replace( '/\s+/', ' ', $options[2]->nodeValue ) ) );
+		$this->assertSame( 'GA4 Analytics', $this->normilize( $options[2]->nodeValue ) );
+	}
+
+	public function test_analytics_types_render_with_theme_ga_id() {
+		global $tracker_config;
+		$tracker_config['ga_id'] = 'test_ga_id';
+
+		ob_start();
+		$this->settings->analytics_types_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<select name="spt_settings[analytics_types]" disabled required>
+					<option value="ga_id"  selected='selected'>
+							Google Analytics
+					</option>
+					<option value="gtm" >
+							Global Site Tag
+					</option>
+					<option value="ga4" >
+							GA4 Analytics
+					</option>
+			</select>
+			<br/><small>Configured via theme files</small>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	private function normilize( $str ) {
+		return trim( preg_replace( '/\s+/', ' ', $str ) );
 	}
 }
