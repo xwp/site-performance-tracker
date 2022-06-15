@@ -485,6 +485,25 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
+	public function test_analytics_id_render_theme_gtag_id() {
+		global $tracker_config;
+		$tracker_config['gtag_id'] = 'test_gtag_id';
+
+		ob_start();
+		$this->settings->analytics_id_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
+				value='test_gtag_id' placeholder="UA-XXXXXXXX-Y"
+				aria-label="analytics id" readonly required>
+			<br/><small>Configured via theme files</small>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
 	private function normilize( $str ) {
 		return trim( preg_replace( '/\s+/', ' ', $str ) );
 	}
