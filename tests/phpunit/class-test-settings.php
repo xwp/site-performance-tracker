@@ -227,4 +227,13 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array(), $field['args'] );
 	}
+
+	public function test_() {
+		ob_start();
+		$this->settings->settings_section_callback();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$this->assertSame( 'Update Site Performance Tracker settings', $result );
+	}
 }
