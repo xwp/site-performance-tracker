@@ -538,6 +538,23 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
+	public function test_measurement_version_dimension_render_set_measurementVersion() {
+		add_option( 'spt_settings', array( 'measurementVersion' => 'dimension1' ) );
+
+		ob_start();
+		$this->settings->measurement_version_dimension_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}"
+				value='dimension1' placeholder="dimension1"
+				aria-label="measurement version dimension" >
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
 	private function normilize( $str ) {
 		return trim( preg_replace( '/\s+/', ' ', $str ) );
 	}
