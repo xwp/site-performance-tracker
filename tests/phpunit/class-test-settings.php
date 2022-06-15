@@ -164,4 +164,25 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array(), $field['args'] );
 	}
+
+	public function test_settings_init_field_eventMeta() {
+		global $wp_settings_fields;
+
+		$this->assertFalse(
+			isset( $wp_settings_fields['pluginPage'] )
+		);
+
+		$this->settings->settings_init();
+
+		$field_name = 'eventMeta';
+		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
+		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
+
+		$this->assertSame( $field_name, $field['id'] );
+		$this->assertSame( 'Event Meta Dimension', $field['title'] );
+
+		$this->assertSame( array( $this->settings, 'event_meta_dimension_render' ), $field['callback'] );
+
+		$this->assertSame( array(), $field['args'] );
+	}
 }
