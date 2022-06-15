@@ -625,6 +625,57 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
+	public function test_event_debug_dimension_render__empty_options() {
+		ob_start();
+		$this->settings->event_debug_dimension_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}"
+				value='' placeholder="dimension3"
+				aria-label="event debug dimension" >
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	public function test_event_debug_dimension_render__set_eventDebug() {
+		add_option( 'spt_settings', array( 'eventDebug' => 'dimension3' ) );
+
+		ob_start();
+		$this->settings->event_debug_dimension_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}"
+				value='dimension3' placeholder="dimension3"
+				aria-label="event debug dimension" >
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	public function test_event_debug_dimension_render__theme_eventDebug() {
+		global $tracker_config;
+		$tracker_config['eventDebug'] = 'dimension33';
+
+		ob_start();
+		$this->settings->event_debug_dimension_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}"
+				value='dimension33' placeholder="dimension3"
+				aria-label="event debug dimension" readonly>
+			<br/><small>Configured via theme files</small>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
 	private function normilize( $str ) {
 		return trim( preg_replace( '/\s+/', ' ', $str ) );
 	}
