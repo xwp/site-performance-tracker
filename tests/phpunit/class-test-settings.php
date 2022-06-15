@@ -1,6 +1,7 @@
 <?php
 
 use XWP\Site_Performance_Tracker\Settings;
+use Sunra\PhpSimple\HtmlDomParser;
 
 class Test_Settings extends WP_UnitTestCase {
 
@@ -235,5 +236,44 @@ class Test_Settings extends WP_UnitTestCase {
 		ob_end_clean();
 
 		$this->assertSame( 'Update Site Performance Tracker settings', $result );
+	}
+
+	public function test_analytics_types_render_empty_options() {
+		ob_start();
+		$this->settings->analytics_types_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$dom = new DOMDocument();
+		$dom->loadHTML( $result );
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$doc = $dom->documentElement;
+		$body = $doc->firstChild;
+		$select = $body->firstChild;
+
+		$this->assertSame( 'select', $select->nodeName );
+		// phpcs:enable
+
+		$this->assertTrue( $select->hasAttribute( 'name' ) );
+		$this->assertSame( 'spt_settings[analytics_types]', $select->getAttribute( 'name' ) );
+		$this->assertEquals( 2, count( $select->attributes ) );
+
+		$options = $select->getElementsByTagName( 'option' );
+		$this->assertEquals( 3, $options->length );
+
+		$this->assertTrue( $options[0]->hasAttribute( 'value' ) );
+		$this->assertSame( 'ga_id', $options[0]->getAttribute( 'value' ) );
+		$this->assertEquals( 1, count( $options[0]->attributes ) );
+		$this->assertSame( 'Google Analytics', trim( preg_replace( '/\s+/', ' ', $options[0]->nodeValue ) ) );
+
+		$this->assertTrue( $options[1]->hasAttribute( 'value' ) );
+		$this->assertSame( 'gtm', $options[1]->getAttribute( 'value' ) );
+		$this->assertEquals( 1, count( $options[1]->attributes ) );
+		$this->assertSame( 'Global Site Tag', trim( preg_replace( '/\s+/', ' ', $options[1]->nodeValue ) ) );
+
+		$this->assertTrue( $options[2]->hasAttribute( 'value' ) );
+		$this->assertSame( 'ga4', $options[2]->getAttribute( 'value' ) );
+		$this->assertEquals( 1, count( $options[2]->attributes ) );
+		$this->assertSame( 'GA4 Analytics', trim( preg_replace( '/\s+/', ' ', $options[2]->nodeValue ) ) );
 	}
 }

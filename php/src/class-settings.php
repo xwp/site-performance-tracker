@@ -357,6 +357,7 @@ class Settings {
 
 		return array_merge(
 			array(
+				self::OPTION_ANALYTICS_TYPES           => '',
 				self::OPTION_TAG_ID                    => '',
 				self::OPTION_MEASUREMENT_VERSION       => '',
 				self::OPTION_EVENT_META                => '',
