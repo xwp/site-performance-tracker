@@ -28,6 +28,11 @@ class Test_Settings extends WP_UnitTestCase {
 		if ( isset( $wp_settings_sections['pluginPage'] ) ) {
 			unset( $wp_settings_sections['pluginPage'] );
 		}
+
+		global $wp_settings_fields;
+        if ( isset( $wp_settings_fields[ 'pluginPage' ] ) ) {
+            unset( $wp_settings_fields[ 'pluginPage' ] );
+        }
 	}
 
 	public function test_init_register_actions() {
@@ -95,5 +100,25 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertTrue( isset( $wp_settings_sections['pluginPage']['spt_pluginPage_section'] ) );
 		$section = $wp_settings_sections['pluginPage']['spt_pluginPage_section'];
 		$this->assertSame( 'spt_pluginPage_section', $section['id'] );
+	}
+
+	public function test_settings_init_field_analytics_types() {
+		global $wp_settings_fields;
+
+		$this->assertFalse(
+			isset( $wp_settings_fields[ 'pluginPage' ] ) );
+
+		$this->settings->settings_init();
+
+		$field_name = 'analytics_types';
+        $this->assertTrue(isset($wp_settings_fields[ 'pluginPage' ][ 'spt_pluginPage_section' ][ $field_name ] ) );
+		$field = $wp_settings_fields[ 'pluginPage' ][ 'spt_pluginPage_section' ][ $field_name ];
+
+		$this->assertSame( $field_name, $field[ 'id' ] );
+        $this->assertSame( 'Analytics Types', $field[ 'title' ] );
+
+		$this->assertSame(array( $this->settings, 'analytics_types_render' ), $field[ 'callback' ]);
+
+        $this->assertSame( array(), $field[ 'args' ] );
 	}
 }
