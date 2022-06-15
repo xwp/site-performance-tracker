@@ -228,7 +228,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( array(), $field['args'] );
 	}
 
-	public function test_() {
+	public function test_settings_section_callback() {
 		ob_start();
 		$this->settings->settings_section_callback();
 		$result = ob_get_contents();
