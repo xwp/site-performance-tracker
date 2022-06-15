@@ -557,7 +557,7 @@ EOD;
 
 	public function test_measurement_version_dimension_render__theme_measurementVersion() {
 		global $tracker_config;
-		$tracker_config['measurementVersion'] = 'dimension2';
+		$tracker_config['measurementVersion'] = 'dimension11';
 
 		ob_start();
 		$this->settings->measurement_version_dimension_render();
@@ -566,8 +566,59 @@ EOD;
 
 		$expected_html = <<<EOD
 			<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}"
-				value='dimension2' placeholder="dimension1"
+				value='dimension11' placeholder="dimension1"
 				aria-label="measurement version dimension" readonly>
+			<br/><small>Configured via theme files</small>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	public function test_event_meta_dimension_render__empty_options() {
+		ob_start();
+		$this->settings->event_meta_dimension_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}"
+				value='' placeholder="dimension2"
+				aria-label="event meta dimension" >
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	public function test_event_meta_dimension_render__set_eventMeta() {
+		add_option( 'spt_settings', array( 'eventMeta' => 'dimension2' ) );
+
+		ob_start();
+		$this->settings->event_meta_dimension_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}"
+				value='dimension2' placeholder="dimension2"
+				aria-label="event meta dimension" >
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	public function test_event_meta_dimension_render__theme_eventMeta() {
+		global $tracker_config;
+		$tracker_config['eventMeta'] = 'dimension22';
+
+		ob_start();
+		$this->settings->event_meta_dimension_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}"
+				value='dimension22' placeholder="dimension2"
+				aria-label="event meta dimension" readonly>
 			<br/><small>Configured via theme files</small>
 EOD;
 
