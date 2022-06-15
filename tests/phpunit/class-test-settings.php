@@ -206,4 +206,25 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array(), $field['args'] );
 	}
+
+	public function test_settings_init_field_web_vitals_tracking_ratio() {
+		global $wp_settings_fields;
+
+		$this->assertFalse(
+			isset( $wp_settings_fields['pluginPage'] )
+		);
+
+		$this->settings->settings_init();
+
+		$field_name = 'web_vitals_tracking_ratio';
+		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
+		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
+
+		$this->assertSame( $field_name, $field['id'] );
+		$this->assertSame( 'Web Vitals Tracking Ratio', $field['title'] );
+
+		$this->assertSame( array( $this->settings, 'web_vitals_tracking_ratio_render' ), $field['callback'] );
+
+		$this->assertSame( array(), $field['args'] );
+	}
 }
