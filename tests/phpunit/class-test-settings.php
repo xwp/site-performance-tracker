@@ -30,9 +30,9 @@ class Test_Settings extends WP_UnitTestCase {
 		}
 
 		global $wp_settings_fields;
-        if ( isset( $wp_settings_fields[ 'pluginPage' ] ) ) {
-            unset( $wp_settings_fields[ 'pluginPage' ] );
-        }
+		if ( isset( $wp_settings_fields['pluginPage'] ) ) {
+			unset( $wp_settings_fields['pluginPage'] );
+		}
 	}
 
 	public function test_init_register_actions() {
@@ -106,19 +106,41 @@ class Test_Settings extends WP_UnitTestCase {
 		global $wp_settings_fields;
 
 		$this->assertFalse(
-			isset( $wp_settings_fields[ 'pluginPage' ] ) );
+			isset( $wp_settings_fields['pluginPage'] )
+		);
 
 		$this->settings->settings_init();
 
 		$field_name = 'analytics_types';
-        $this->assertTrue(isset($wp_settings_fields[ 'pluginPage' ][ 'spt_pluginPage_section' ][ $field_name ] ) );
-		$field = $wp_settings_fields[ 'pluginPage' ][ 'spt_pluginPage_section' ][ $field_name ];
+		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
+		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
 
-		$this->assertSame( $field_name, $field[ 'id' ] );
-        $this->assertSame( 'Analytics Types', $field[ 'title' ] );
+		$this->assertSame( $field_name, $field['id'] );
+		$this->assertSame( 'Analytics Types', $field['title'] );
 
-		$this->assertSame(array( $this->settings, 'analytics_types_render' ), $field[ 'callback' ]);
+		$this->assertSame( array( $this->settings, 'analytics_types_render' ), $field['callback'] );
 
-        $this->assertSame( array(), $field[ 'args' ] );
+		$this->assertSame( array(), $field['args'] );
+	}
+
+	public function test_settings_init_field_gtag_id() {
+		global $wp_settings_fields;
+
+		$this->assertFalse(
+			isset( $wp_settings_fields['pluginPage'] )
+		);
+
+		$this->settings->settings_init();
+
+		$field_name = 'gtag_id';
+		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
+		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
+
+		$this->assertSame( $field_name, $field['id'] );
+		$this->assertSame( 'Analytics ID', $field['title'] );
+
+		$this->assertSame( array( $this->settings, 'analytics_id_render' ), $field['callback'] );
+
+		$this->assertSame( array(), $field['args'] );
 	}
 }
