@@ -48,7 +48,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertNotFalse( has_action( 'admin_init', array( $this->settings, 'settings_init' ) ) );
 	}
 
-	public function test_get_hardcoded_tracker_config__with_empty_theme() {
+	public function test_get_hardcoded_tracker_config__empty_theme() {
 		global $tracker_config;
 
 		$this->assertNull( $tracker_config );
@@ -79,7 +79,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertNotFalse( has_action( $hook_name, array( $this->settings, 'render_settings_page' ) ) );
 	}
 
-	public function test_settings_init_register_setting() {
+	public function test_settings_init__register_setting() {
 		global $wp_registered_settings;
 
 		$this->settings->settings_init();
@@ -91,7 +91,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( 'pluginPage', $registered_settings['group'] );
 	}
 
-	public function test_settings_init_setting_section() {
+	public function test_settings_init__setting_section() {
 		global $wp_settings_sections;
 
 		$this->assertFalse( isset( $wp_settings_sections['pluginPage'] ) );
@@ -103,7 +103,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( 'spt_pluginPage_section', $section['id'] );
 	}
 
-	public function test_settings_init_field_analytics_types() {
+	public function test_settings_init__field_analytics_types() {
 		global $wp_settings_fields;
 
 		$this->assertFalse(
@@ -124,7 +124,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( array(), $field['args'] );
 	}
 
-	public function test_settings_init_field_gtag_id() {
+	public function test_settings_init__field_gtag_id() {
 		global $wp_settings_fields;
 
 		$this->assertFalse(
@@ -145,7 +145,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( array(), $field['args'] );
 	}
 
-	public function test_settings_init_field_measurementVersion() {
+	public function test_settings_init__field_measurementVersion() {
 		global $wp_settings_fields;
 
 		$this->assertFalse(
@@ -166,7 +166,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( array(), $field['args'] );
 	}
 
-	public function test_settings_init_field_eventMeta() {
+	public function test_settings_init__field_eventMeta() {
 		global $wp_settings_fields;
 
 		$this->assertFalse(
@@ -187,7 +187,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( array(), $field['args'] );
 	}
 
-	public function test_settings_init_field_eventDebug() {
+	public function test_settings_init__field_eventDebug() {
 		global $wp_settings_fields;
 
 		$this->assertFalse(
@@ -208,7 +208,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( array(), $field['args'] );
 	}
 
-	public function test_settings_init_field_web_vitals_tracking_ratio() {
+	public function test_settings_init__field_web_vitals_tracking_ratio() {
 		global $wp_settings_fields;
 
 		$this->assertFalse(
@@ -229,7 +229,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( array(), $field['args'] );
 	}
 
-	public function test_settings_section_callback() {
+	public function test_settings_section__callback() {
 		ob_start();
 		$this->settings->settings_section_callback();
 		$result = ob_get_contents();
@@ -238,7 +238,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( 'Update Site Performance Tracker settings', $result );
 	}
 
-	public function test_analytics_types_render_empty_options() {
+	public function test_analytics_types_render__empty_options() {
 		ob_start();
 		$this->settings->analytics_types_render();
 		$result = ob_get_contents();
@@ -261,34 +261,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_types_render_with_theme_ga_id() {
-		global $tracker_config;
-		$tracker_config['ga_id'] = 'test_ga_id';
-
-		ob_start();
-		$this->settings->analytics_types_render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<select name="spt_settings[analytics_types]" disabled required>
-					<option value="ga_id" selected='selected'>
-							Google Analytics
-					</option>
-					<option value="gtm" >
-							Global Site Tag
-					</option>
-					<option value="ga4" >
-							GA4 Analytics
-					</option>
-			</select>
-			<br/><small>Configured via theme files</small>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_analytics_types_render_set_ga_id() {
+	public function test_analytics_types_render__set_ga_id() {
 		add_option( 'spt_settings', array( 'analytics_types' => 'ga_id' ) );
 
 		ob_start();
@@ -313,7 +286,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_types_render_set_gtm() {
+	public function test_analytics_types_render__set_gtm() {
 		add_option( 'spt_settings', array( 'analytics_types' => 'gtm' ) );
 
 		ob_start();
@@ -338,7 +311,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_types_render_set_ga4() {
+	public function test_analytics_types_render__set_ga4() {
 		add_option( 'spt_settings', array( 'analytics_types' => 'ga4' ) );
 
 		ob_start();
@@ -363,7 +336,34 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_types_render_with_theme_gtag_id() {
+	public function test_analytics_types_render__theme_ga_id() {
+		global $tracker_config;
+		$tracker_config['ga_id'] = 'test_ga_id';
+
+		ob_start();
+		$this->settings->analytics_types_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<select name="spt_settings[analytics_types]" disabled required>
+					<option value="ga_id" selected='selected'>
+							Google Analytics
+					</option>
+					<option value="gtm" >
+							Global Site Tag
+					</option>
+					<option value="ga4" >
+							GA4 Analytics
+					</option>
+			</select>
+			<br/><small>Configured via theme files</small>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	public function test_analytics_types_render__theme_gtag_id() {
 		global $tracker_config;
 		$tracker_config['gtag_id'] = 'test_gtag_id';
 
@@ -390,7 +390,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_types_render_with_theme_ga4_id() {
+	public function test_analytics_types_render__theme_ga4_id() {
 		global $tracker_config;
 		$tracker_config['ga4_id'] = 'test_ga4_id';
 
@@ -417,7 +417,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_id_render_with_empty_options() {
+	public function test_analytics_id_render__empty_options() {
 		ob_start();
 		$this->settings->analytics_id_render();
 		$result = ob_get_contents();
@@ -432,7 +432,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_id_render_set_ga_id() {
+	public function test_analytics_id_render__set_ga_id() {
 		add_option( 'spt_settings', array( 'ga_id' => 'test_ga_id' ) );
 
 		ob_start();
@@ -449,7 +449,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_id_render_set_gtag_id() {
+	public function test_analytics_id_render__set_gtag_id() {
 		add_option( 'spt_settings', array( 'gtag_id' => 'test_gtag_id' ) );
 
 		ob_start();
@@ -466,7 +466,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_id_render_theme_ga_id() {
+	public function test_analytics_id_render__theme_ga_id() {
 		global $tracker_config;
 		$tracker_config['ga_id'] = 'test_ga_id';
 
@@ -485,7 +485,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_id_render_theme_gtag_id() {
+	public function test_analytics_id_render__theme_gtag_id() {
 		global $tracker_config;
 		$tracker_config['gtag_id'] = 'test_gtag_id';
 
@@ -504,7 +504,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_id_render_theme_ga4_id() {
+	public function test_analytics_id_render__theme_ga4_id() {
 		global $tracker_config;
 		$tracker_config['ga4_id'] = 'test_ga4_id';
 
@@ -523,7 +523,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_measurement_version_dimension_render_empty_options() {
+	public function test_measurement_version_dimension_render__empty_options() {
 		ob_start();
 		$this->settings->measurement_version_dimension_render();
 		$result = ob_get_contents();
@@ -538,7 +538,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_measurement_version_dimension_render_set_measurementVersion() {
+	public function test_measurement_version_dimension_render__set_measurementVersion() {
 		add_option( 'spt_settings', array( 'measurementVersion' => 'dimension1' ) );
 
 		ob_start();
@@ -555,7 +555,7 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_measurement_version_dimension_render_theme_measurementVersion() {
+	public function test_measurement_version_dimension_render__theme_measurementVersion() {
 		global $tracker_config;
 		$tracker_config['measurementVersion'] = 'dimension2';
 
