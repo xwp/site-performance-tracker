@@ -244,37 +244,21 @@ class Test_Settings extends WP_UnitTestCase {
 		$result = ob_get_contents();
 		ob_end_clean();
 
-		$dom = new DOMDocument();
-		$dom->loadHTML( $result );
-		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-		$doc = $dom->documentElement;
-		$body = $doc->firstChild;
-		$select = $body->firstChild;
+		$expected_html = <<<EOD
+		<select name="spt_settings[analytics_types]" required>
+				<option value="ga_id" >
+						Google Analytics
+				</option>
+				<option value="gtm" >
+						Global Site Tag
+				</option>
+				<option value="ga4" >
+						GA4 Analytics
+				</option>
+		</select>
+EOD;
 
-		$this->assertSame( 'select', $select->nodeName );
-		// phpcs:enable
-
-		$this->assertTrue( $select->hasAttribute( 'name' ) );
-		$this->assertSame( 'spt_settings[analytics_types]', $select->getAttribute( 'name' ) );
-		$this->assertEquals( 2, count( $select->attributes ) );
-
-		$options = $select->getElementsByTagName( 'option' );
-		$this->assertEquals( 3, $options->length );
-
-		$this->assertTrue( $options[0]->hasAttribute( 'value' ) );
-		$this->assertSame( 'ga_id', $options[0]->getAttribute( 'value' ) );
-		$this->assertEquals( 1, count( $options[0]->attributes ) );
-		$this->assertSame( 'Google Analytics', $this->normilize( $options[0]->nodeValue ) );
-
-		$this->assertTrue( $options[1]->hasAttribute( 'value' ) );
-		$this->assertSame( 'gtm', $options[1]->getAttribute( 'value' ) );
-		$this->assertEquals( 1, count( $options[1]->attributes ) );
-		$this->assertSame( 'Global Site Tag', $this->normilize( $options[1]->nodeValue ) );
-
-		$this->assertTrue( $options[2]->hasAttribute( 'value' ) );
-		$this->assertSame( 'ga4', $options[2]->getAttribute( 'value' ) );
-		$this->assertEquals( 1, count( $options[2]->attributes ) );
-		$this->assertSame( 'GA4 Analytics', $this->normilize( $options[2]->nodeValue ) );
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
 	public function test_analytics_types_render_with_theme_ga_id() {
