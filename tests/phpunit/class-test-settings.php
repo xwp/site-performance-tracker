@@ -289,7 +289,7 @@ EOD;
 	}
 
 	public function test_analytics_types_render_set_ga_id() {
-		add_option( 'spt_settings', array( 'analytics_types' => 'ga_id'));
+		add_option( 'spt_settings', array( 'analytics_types' => 'ga_id' ) );
 
 		ob_start();
 		$this->settings->analytics_types_render();
@@ -314,7 +314,7 @@ EOD;
 	}
 
 	public function test_analytics_types_render_set_gtm() {
-		add_option( 'spt_settings', array( 'analytics_types' => 'gtm'));
+		add_option( 'spt_settings', array( 'analytics_types' => 'gtm' ) );
 
 		ob_start();
 		$this->settings->analytics_types_render();
@@ -330,6 +330,31 @@ EOD;
 							Global Site Tag
 					</option>
 					<option value="ga4" >
+							GA4 Analytics
+					</option>
+			</select>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	public function test_analytics_types_render_set_ga4() {
+		add_option( 'spt_settings', array( 'analytics_types' => 'ga4' ) );
+
+		ob_start();
+		$this->settings->analytics_types_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<select name="spt_settings[analytics_types]" required>
+					<option value="ga_id" >
+							Google Analytics
+					</option>
+					<option value="gtm" >
+							Global Site Tag
+					</option>
+					<option value="ga4" selected='selected'>
 							GA4 Analytics
 					</option>
 			</select>
