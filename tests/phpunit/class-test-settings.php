@@ -331,6 +331,33 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
+	public function test_analytics_types_render_with_theme_ga4_id() {
+		global $tracker_config;
+		$tracker_config['ga4_id'] = 'test_ga4_id';
+
+		ob_start();
+		$this->settings->analytics_types_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<select name="spt_settings[analytics_types]" disabled required>
+					<option value="ga_id" >
+							Google Analytics
+					</option>
+					<option value="gtm" >
+							Global Site Tag
+					</option>
+					<option value="ga4" selected='selected'>
+							GA4 Analytics
+					</option>
+			</select>
+			<br/><small>Configured via theme files</small>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
 	private function normilize( $str ) {
 		return trim( preg_replace( '/\s+/', ' ', $str ) );
 	}
