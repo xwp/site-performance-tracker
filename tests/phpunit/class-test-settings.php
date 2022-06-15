@@ -23,6 +23,11 @@ class Test_Settings extends WP_UnitTestCase {
 
 		global $tracker_config;
 		$tracker_config = null;
+
+		global $wp_settings_sections;
+		if ( isset( $wp_settings_sections['pluginPage'] ) ) {
+			unset( $wp_settings_sections['pluginPage'] );
+		}
 	}
 
 	public function test_init_register_actions() {
@@ -78,5 +83,17 @@ class Test_Settings extends WP_UnitTestCase {
 		$registered_settings = $wp_registered_settings['spt_settings'];
 
 		$this->assertSame( 'pluginPage', $registered_settings['group'] );
+	}
+
+	public function test_settings_init_setting_section() {
+		global $wp_settings_sections;
+
+		$this->assertFalse( isset( $wp_settings_sections['pluginPage'] ) );
+
+		$this->settings->settings_init();
+
+		$this->assertTrue( isset( $wp_settings_sections['pluginPage']['spt_pluginPage_section'] ) );
+		$section = $wp_settings_sections['pluginPage']['spt_pluginPage_section'];
+		$this->assertSame( 'spt_pluginPage_section', $section['id'] );
 	}
 }
