@@ -676,6 +676,85 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
+	public function test_web_vitals_tracking_ratio_render__empty_options() {
+		ob_start();
+		$this->settings->web_vitals_tracking_ratio_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1'
+				value='1'
+				placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio"
+			>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	public function test_web_vitals_tracking_ratio_render__set_web_vitals_tracking_ratio() {
+		add_option( 'spt_settings', array( 'web_vitals_tracking_ratio' => 0.05 ) );
+
+		ob_start();
+		$this->settings->web_vitals_tracking_ratio_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1'
+				value='0.05'
+				placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio"
+			>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	public function test_web_vitals_tracking_ratio_render__theme_web_vitals_tracking_ratio() {
+		add_option( 'spt_settings', array( 'web_vitals_tracking_ratio' => 0.05 ) );
+		global $tracker_config;
+		$tracker_config['web_vitals_tracking_ratio'] = '0.33';
+
+		ob_start();
+		$this->settings->web_vitals_tracking_ratio_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1'
+				value='0.33'
+				placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio"
+				readonly
+			>
+			<br/><small>Configured via theme files</small>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	public function test_web_vitals_tracking_ratio_render__apply_filters() {
+		add_filter( 'site_performance_tracker_chance',
+                function  ( ) {
+                    return 0.77;
+                } );
+
+		ob_start();
+		$this->settings->web_vitals_tracking_ratio_render();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		$expected_html = <<<EOD
+			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1'
+				value='0.77'
+				placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio"
+				readonly
+			>
+			<br/><small>Configured via theme files</small>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
 	private function normilize( $str ) {
 		return trim( preg_replace( '/\s+/', ' ', $str ) );
 	}
