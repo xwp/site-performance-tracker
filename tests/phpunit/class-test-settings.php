@@ -764,8 +764,11 @@ EOD;
 		ob_end_clean();
 
 		// replace nonce with a constant
-        $result = preg_replace( '#name="_wpnonce" value=".*"#U',
-                'name="_wpnonce" value="test nonce"', $result );
+		$result = preg_replace(
+			'#name="_wpnonce" value=".*"#U',
+			'name="_wpnonce" value="test nonce"',
+			$result 
+		);
 
 		$expected_html = <<<EOD
 			<form action='options.php' method='post'>
