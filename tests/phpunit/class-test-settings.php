@@ -733,10 +733,12 @@ EOD;
 	}
 
 	public function test_web_vitals_tracking_ratio_render__apply_filters() {
-		add_filter( 'site_performance_tracker_chance',
-                function  ( ) {
-                    return 0.77;
-                } );
+		add_filter(
+			'site_performance_tracker_chance',
+			function () {
+				return 0.77;
+			}
+		);
 
 		ob_start();
 		$this->settings->web_vitals_tracking_ratio_render();
@@ -750,6 +752,31 @@ EOD;
 				readonly
 			>
 			<br/><small>Configured via theme files</small>
+EOD;
+
+		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+	}
+
+	public function test_render_settings_page() {
+		ob_start();
+		$this->settings->render_settings_page();
+		$result = ob_get_contents();
+		ob_end_clean();
+
+		// replace nonce with a constant
+        $result = preg_replace( '#name="_wpnonce" value=".*"#U',
+                'name="_wpnonce" value="test nonce"', $result );
+
+		$expected_html = <<<EOD
+			<form action='options.php' method='post'>
+				<h1>Site Performance Tracker Settings</h1>
+
+				<input type='hidden' name='option_page' value='pluginPage' /><input type="hidden" name="action" value="update" /><input type="hidden" id="_wpnonce" name="_wpnonce" value="test nonce" /><input type="hidden" name="_wp_http_referer" value="" /><p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"  /></p>          </form>
+
+				<div class="content">
+					<p>
+						You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.                 </p>
+				</div>
 EOD;
 
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
