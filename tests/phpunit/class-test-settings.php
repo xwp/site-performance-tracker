@@ -8,7 +8,6 @@ class Test_Settings extends WP_UnitTestCase {
 	public $settings;
 
 	public function setUp() {
-
 		parent::setUp();
 
 		$this->settings = new Settings();
@@ -133,7 +132,7 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->settings->settings_init();
 
-		$field_name = 'gtag_id';
+		$field_name = 'analytics_id';
 		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
 		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
 
@@ -154,7 +153,7 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->settings->settings_init();
 
-		$field_name = 'measurementVersion';
+		$field_name = 'measurement_version_dimension';
 		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
 		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
 
@@ -175,7 +174,7 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->settings->settings_init();
 
-		$field_name = 'eventMeta';
+		$field_name = 'event_meta_dimension';
 		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
 		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
 
@@ -196,7 +195,7 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->settings->settings_init();
 
-		$field_name = 'eventDebug';
+		$field_name = 'event_debug_dimension';
 		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
 		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
 
@@ -767,7 +766,7 @@ EOD;
 		$result = preg_replace(
 			'#name="_wpnonce" value=".*"#U',
 			'name="_wpnonce" value="test nonce"',
-			$result 
+			$result
 		);
 
 		$expected_html = <<<EOD

@@ -151,7 +151,7 @@ class Settings {
 		);
 
 		add_settings_field(
-			self::OPTION_TAG_ID,
+			'analytics_id',
 			__( 'Analytics ID', 'site-performance-tracker' ),
 			array( $this, 'analytics_id_render' ),
 			self::PAGE_ID,
@@ -159,7 +159,7 @@ class Settings {
 		);
 
 		add_settings_field(
-			self::OPTION_MEASUREMENT_VERSION,
+			'measurement_version_dimension',
 			__( 'Measurement Version Dimension', 'site-performance-tracker' ),
 			array( $this, 'measurement_version_dimension_render' ),
 			self::PAGE_ID,
@@ -167,7 +167,7 @@ class Settings {
 		);
 
 		add_settings_field(
-			self::OPTION_EVENT_META,
+			'event_meta_dimension',
 			__( 'Event Meta Dimension', 'site-performance-tracker' ),
 			array( $this, 'event_meta_dimension_render' ),
 			self::PAGE_ID,
@@ -175,7 +175,7 @@ class Settings {
 		);
 
 		add_settings_field(
-			self::OPTION_EVENT_DEBUG,
+			'event_debug_dimension',
 			__( 'Event Debug Dimension', 'site-performance-tracker' ),
 			array( $this, 'event_debug_dimension_render' ),
 			self::PAGE_ID,
