@@ -11,7 +11,7 @@ namespace XWP\Site_Performance_Tracker;
 /**
  * Class EventDebugDimensionField
  */
-class EventDebugDimensionField {
+class EventDebugDimensionField extends FieldBase {
 	/**
 	 * Setting that current fields belong to
 	 *
@@ -27,25 +27,17 @@ class EventDebugDimensionField {
 	const OPTION_EVENT_DEBUG = 'eventDebug';
 
 	/**
-	 * Initialize settings.
+	 * Get current field id
 	 */
-	/**
-	 * Initialize field.
-	 *
-	 * @param Settings $settings settings that current fields belong to.
-	 * @param string   $page_id field page id.
-	 * @param string   $section_id field section id.
-	 */
-	public function init( $settings, $page_id, $section_id ) {
-		add_settings_field(
-			'event_debug_dimension',
-			__( 'Event Debug Dimension', 'site-performance-tracker' ),
-			array( $this, 'render' ),
-			$page_id,
-			$section_id
-		);
+	protected function get_id() {
+		return 'event_debug_dimension';
+	}
 
-		$this->settings = $settings;
+	/**
+	 * Get current field title
+	 */
+	protected function get_title() {
+		return __( 'Event Debug Dimension', 'site-performance-tracker' );
 	}
 
 	/**
