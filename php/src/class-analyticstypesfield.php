@@ -40,7 +40,7 @@ class AnalyticsTypesField {
 		add_settings_field(
 			self::OPTION_ANALYTICS_TYPES,
 			__( 'Analytics Types', 'site-performance-tracker' ),
-			array( $this, 'analytics_types_render' ),
+			array( $this, 'render' ),
 			$page_id,
 			$section_id
 		);
@@ -51,7 +51,7 @@ class AnalyticsTypesField {
 	/**
 	 * Render Analytics Types form dropdown.
 	 */
-	public function analytics_types_render() {
+	public function render() {
 		$options = $this->settings->get_settings();
 		global $tracker_config;
 		$set = false;
