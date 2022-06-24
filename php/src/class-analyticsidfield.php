@@ -40,7 +40,7 @@ class AnalyticsIdField {
 		add_settings_field(
 			'analytics_id',
 			__( 'Analytics ID', 'site-performance-tracker' ),
-			array( $this, 'analytics_id_render' ),
+			array( $this, 'render' ),
 			$page_id,
 			$section_id
 		);
@@ -51,7 +51,7 @@ class AnalyticsIdField {
 	/**
 	 * Render Analytics ID form input.
 	 */
-	public function analytics_id_render() {
+	public function render() {
 		$options = $this->settings->get_settings();
 		global $tracker_config;
 		$set  = false;

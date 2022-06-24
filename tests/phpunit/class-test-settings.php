@@ -138,7 +138,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( $field_name, $field['id'] );
 		$this->assertSame( 'Analytics ID', $field['title'] );
 
-		$this->assertSame( array( $this->settings->fields[1], 'analytics_id_render' ), $field['callback'] );
+		$this->assertSame( array( $this->settings->fields[1], 'render' ), $field['callback'] );
 
 		$this->assertSame( array(), $field['args'] );
 	}
@@ -431,7 +431,7 @@ EOD;
 		$this->settings->settings_init();
 
 		ob_start();
-		$this->settings->fields[1]->analytics_id_render();
+		$this->settings->fields[1]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -449,7 +449,7 @@ EOD;
 		add_option( 'spt_settings', array( 'ga_id' => 'test_ga_id' ) );
 
 		ob_start();
-		$this->settings->fields[1]->analytics_id_render();
+		$this->settings->fields[1]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -467,7 +467,7 @@ EOD;
 		add_option( 'spt_settings', array( 'gtag_id' => 'test_gtag_id' ) );
 
 		ob_start();
-		$this->settings->fields[1]->analytics_id_render();
+		$this->settings->fields[1]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -487,7 +487,7 @@ EOD;
 		$this->settings->settings_init();
 
 		ob_start();
-		$this->settings->fields[1]->analytics_id_render();
+		$this->settings->fields[1]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -508,7 +508,7 @@ EOD;
 		$this->settings->settings_init();
 
 		ob_start();
-		$this->settings->fields[1]->analytics_id_render();
+		$this->settings->fields[1]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -529,7 +529,7 @@ EOD;
 		$this->settings->settings_init();
 
 		ob_start();
-		$this->settings->fields[1]->analytics_id_render();
+		$this->settings->fields[1]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
