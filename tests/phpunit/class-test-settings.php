@@ -1,7 +1,6 @@
 <?php
 
 use XWP\Site_Performance_Tracker\Settings;
-use Sunra\PhpSimple\HtmlDomParser;
 
 class Test_Settings extends WP_UnitTestCase {
 
@@ -139,7 +138,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( $field_name, $field['id'] );
 		$this->assertSame( 'Analytics ID', $field['title'] );
 
-		$this->assertSame( array( $this->settings, 'analytics_id_render' ), $field['callback'] );
+		$this->assertSame( array( $this->settings->fields[1], 'analytics_id_render' ), $field['callback'] );
 
 		$this->assertSame( array(), $field['args'] );
 	}
@@ -429,8 +428,10 @@ EOD;
 	}
 
 	public function test_analytics_id_render__empty_options() {
+		$this->settings->settings_init();
+
 		ob_start();
-		$this->settings->analytics_id_render();
+		$this->settings->fields[1]->analytics_id_render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -444,10 +445,11 @@ EOD;
 	}
 
 	public function test_analytics_id_render__set_ga_id() {
+		$this->settings->settings_init();
 		add_option( 'spt_settings', array( 'ga_id' => 'test_ga_id' ) );
 
 		ob_start();
-		$this->settings->analytics_id_render();
+		$this->settings->fields[1]->analytics_id_render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -461,10 +463,11 @@ EOD;
 	}
 
 	public function test_analytics_id_render__set_gtag_id() {
+		$this->settings->settings_init();
 		add_option( 'spt_settings', array( 'gtag_id' => 'test_gtag_id' ) );
 
 		ob_start();
-		$this->settings->analytics_id_render();
+		$this->settings->fields[1]->analytics_id_render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -481,8 +484,10 @@ EOD;
 		global $tracker_config;
 		$tracker_config['ga_id'] = 'test_ga_id';
 
+		$this->settings->settings_init();
+
 		ob_start();
-		$this->settings->analytics_id_render();
+		$this->settings->fields[1]->analytics_id_render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -500,8 +505,10 @@ EOD;
 		global $tracker_config;
 		$tracker_config['gtag_id'] = 'test_gtag_id';
 
+		$this->settings->settings_init();
+
 		ob_start();
-		$this->settings->analytics_id_render();
+		$this->settings->fields[1]->analytics_id_render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -519,8 +526,10 @@ EOD;
 		global $tracker_config;
 		$tracker_config['ga4_id'] = 'test_ga4_id';
 
+		$this->settings->settings_init();
+
 		ob_start();
-		$this->settings->analytics_id_render();
+		$this->settings->fields[1]->analytics_id_render();
 		$result = ob_get_contents();
 		ob_end_clean();
 

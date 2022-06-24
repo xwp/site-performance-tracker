@@ -58,7 +58,7 @@ class AnalyticsTypesField {
 		if ( isset( $tracker_config['ga_id'] ) ) {
 			$options[ self::OPTION_ANALYTICS_TYPES ] = 'ga_id';
 			$set                                     = true;
-		} elseif ( isset( $tracker_config[ Settings::OPTION_TAG_ID ] ) ) {
+		} elseif ( isset( $tracker_config[ AnalyticsIdField::OPTION_TAG_ID ] ) ) {
 			$options[ self::OPTION_ANALYTICS_TYPES ] = 'gtm';
 			$set                                     = true;
 		} elseif ( isset( $tracker_config['ga4_id'] ) ) {
