@@ -40,7 +40,7 @@ class EventMetaDimensionField {
 		add_settings_field(
 			'event_meta_dimension',
 			__( 'Event Meta Dimension', 'site-performance-tracker' ),
-			array( $this, 'event_meta_dimension_render' ),
+			array( $this, 'render' ),
 			$page_id,
 			$section_id
 		);
@@ -51,7 +51,7 @@ class EventMetaDimensionField {
 	/**
 	 * Render Event Meta Dimension form input.
 	 */
-	public function event_meta_dimension_render() {
+	public function render() {
 		$this->settings->render_dimention_option( self::OPTION_EVENT_META, 'dimension2', 'event meta dimension' );
 	}
 }

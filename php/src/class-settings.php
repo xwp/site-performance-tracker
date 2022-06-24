@@ -72,7 +72,7 @@ class Settings {
 			new AnalyticsTypesField(),
 			new AnalyticsIdField(),
 			new MeasurementVersionDimensionField(),
-			new EventMetaDimensionField()
+			new EventMetaDimensionField(),
 		);
 	}
 
