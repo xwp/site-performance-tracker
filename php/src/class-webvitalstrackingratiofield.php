@@ -40,7 +40,7 @@ class WebVitalsTrackingRatioField {
 		add_settings_field(
 			self::OPTION_WEB_VITALS_TRACKING_RATIO,
 			__( 'Web Vitals Tracking Ratio', 'site-performance-tracker' ),
-			array( $this, 'web_vitals_tracking_ratio_render' ),
+			array( $this, 'render' ),
 			$page_id,
 			$section_id
 		);
@@ -51,7 +51,7 @@ class WebVitalsTrackingRatioField {
 	/**
 	 * Render Tracking Ratio form input.
 	 */
-	public function web_vitals_tracking_ratio_render() {
+	public function render() {
 		$options = $this->settings->get_settings();
 		global $tracker_config;
 		$set = false;

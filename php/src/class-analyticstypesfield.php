@@ -11,7 +11,7 @@ namespace XWP\Site_Performance_Tracker;
 /**
  * Class AnalyticsTypesField
  */
-class AnalyticsTypesField {
+class AnalyticsTypesField extends FieldBase {
 	/**
 	 * Setting that current fields belong to
 	 *
@@ -27,25 +27,17 @@ class AnalyticsTypesField {
 	const OPTION_ANALYTICS_TYPES = 'analytics_types';
 
 	/**
-	 * Initialize settings.
+	 * Get current field id
 	 */
-	/**
-	 * Initialize field.
-	 *
-	 * @param Settings $settings settings that current fields belong to.
-	 * @param string   $page_id field page id.
-	 * @param string   $section_id field section id.
-	 */
-	public function init( $settings, $page_id, $section_id ) {
-		add_settings_field(
-			self::OPTION_ANALYTICS_TYPES,
-			__( 'Analytics Types', 'site-performance-tracker' ),
-			array( $this, 'render' ),
-			$page_id,
-			$section_id
-		);
+	protected function get_id() {
+		return self::OPTION_ANALYTICS_TYPES;
+	}
 
-		$this->settings = $settings;
+	/**
+	 * Get current field title
+	 */
+	protected function get_title() {
+		return __( 'Analytics Types', 'site-performance-tracker' );
 	}
 
 	/**

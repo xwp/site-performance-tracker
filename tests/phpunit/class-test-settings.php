@@ -222,7 +222,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( $field_name, $field['id'] );
 		$this->assertSame( 'Web Vitals Tracking Ratio', $field['title'] );
 
-		$this->assertSame( array( $this->settings->fields[5], 'web_vitals_tracking_ratio_render' ), $field['callback'] );
+		$this->assertSame( array( $this->settings->fields[5], 'render' ), $field['callback'] );
 
 		$this->assertSame( array(), $field['args'] );
 	}
@@ -718,7 +718,7 @@ EOD;
 		$this->settings->settings_init();
 
 		ob_start();
-		$this->settings->fields[5]->web_vitals_tracking_ratio_render();
+		$this->settings->fields[5]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -738,7 +738,7 @@ EOD;
 		add_option( 'spt_settings', array( 'web_vitals_tracking_ratio' => 0.05 ) );
 
 		ob_start();
-		$this->settings->fields[5]->web_vitals_tracking_ratio_render();
+		$this->settings->fields[5]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -760,7 +760,7 @@ EOD;
 		$this->settings->settings_init();
 
 		ob_start();
-		$this->settings->fields[5]->web_vitals_tracking_ratio_render();
+		$this->settings->fields[5]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -787,7 +787,7 @@ EOD;
 		);
 
 		ob_start();
-		$this->settings->fields[5]->web_vitals_tracking_ratio_render();
+		$this->settings->fields[5]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
