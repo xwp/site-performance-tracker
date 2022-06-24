@@ -85,6 +85,7 @@ class Settings {
 		$this->fields = array(
 			new AnalyticsTypesField(),
 			new AnalyticsIdField(),
+			new MeasurementVersionDimensionField(),
 		);
 	}
 
@@ -150,14 +151,6 @@ class Settings {
 		}
 
 		add_settings_field(
-			'measurement_version_dimension',
-			__( 'Measurement Version Dimension', 'site-performance-tracker' ),
-			array( $this, 'measurement_version_dimension_render' ),
-			self::PAGE_ID,
-			self::SECTION_ID
-		);
-
-		add_settings_field(
 			'event_meta_dimension',
 			__( 'Event Meta Dimension', 'site-performance-tracker' ),
 			array( $this, 'event_meta_dimension_render' ),
@@ -187,13 +180,6 @@ class Settings {
 	 */
 	public function settings_section_callback() {
 		echo esc_html( __( 'Update Site Performance Tracker settings', 'site-performance-tracker' ) );
-	}
-
-	/**
-	 * Render Measurement Version Dimension form input.
-	 */
-	public function measurement_version_dimension_render() {
-		$this->render_dimention_option( self::OPTION_MEASUREMENT_VERSION, 'dimension1', 'measurement version dimension' );
 	}
 
 	/**
@@ -311,7 +297,7 @@ class Settings {
 	 * @param string $placeholder input field placeholder.
 	 * @param string $aria_label input field area-label.
 	 */
-	private function render_dimention_option( $option_name, $placeholder, $aria_label ) {
+	public function render_dimention_option( $option_name, $placeholder, $aria_label ) {
 		$options = $this->get_settings();
 		global $tracker_config;
 		$set = false;

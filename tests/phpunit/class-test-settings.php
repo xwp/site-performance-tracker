@@ -159,7 +159,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( $field_name, $field['id'] );
 		$this->assertSame( 'Measurement Version Dimension', $field['title'] );
 
-		$this->assertSame( array( $this->settings, 'measurement_version_dimension_render' ), $field['callback'] );
+		$this->assertSame( array( $this->settings->fields[2], 'measurement_version_dimension_render' ), $field['callback'] );
 
 		$this->assertSame( array(), $field['args'] );
 	}
@@ -544,8 +544,10 @@ EOD;
 	}
 
 	public function test_measurement_version_dimension_render__empty_options() {
+		$this->settings->settings_init();
+
 		ob_start();
-		$this->settings->measurement_version_dimension_render();
+		$this->settings->fields[2]->measurement_version_dimension_render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -559,10 +561,12 @@ EOD;
 	}
 
 	public function test_measurement_version_dimension_render__set_measurementVersion() {
+		$this->settings->settings_init();
+
 		add_option( 'spt_settings', array( 'measurementVersion' => 'dimension1' ) );
 
 		ob_start();
-		$this->settings->measurement_version_dimension_render();
+		$this->settings->fields[2]->measurement_version_dimension_render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -579,8 +583,10 @@ EOD;
 		global $tracker_config;
 		$tracker_config['measurementVersion'] = 'dimension11';
 
+		$this->settings->settings_init();
+
 		ob_start();
-		$this->settings->measurement_version_dimension_render();
+		$this->settings->fields[2]->measurement_version_dimension_render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
