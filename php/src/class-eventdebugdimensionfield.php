@@ -40,7 +40,7 @@ class EventDebugDimensionField {
 		add_settings_field(
 			'event_debug_dimension',
 			__( 'Event Debug Dimension', 'site-performance-tracker' ),
-			array( $this, 'event_debug_dimension_render' ),
+			array( $this, 'render' ),
 			$page_id,
 			$section_id
 		);
@@ -51,7 +51,7 @@ class EventDebugDimensionField {
 	/**
 	 * Render Event Debug Dimension form input.
 	 */
-	public function event_debug_dimension_render() {
+	public function render() {
 		$this->settings->render_dimention_option( self::OPTION_EVENT_DEBUG, 'dimension3', 'event debug dimension' );
 	}
 }
