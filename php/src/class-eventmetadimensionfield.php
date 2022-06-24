@@ -1,6 +1,6 @@
 <?php
 /**
- * Create the Measurement Version Dimension field
+ * Create the Event Meta Dimension field
  *
  * @package XWP\Site_Performance_Tracker
  * @license http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2 (GPL-2.0)
