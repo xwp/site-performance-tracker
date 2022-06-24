@@ -11,7 +11,7 @@ namespace XWP\Site_Performance_Tracker;
 /**
  * Class EventDebugDimensionField
  */
-class EventDebugDimensionField extends DimenisonFieldBase {
+class EventDebugDimensionField extends DimensionFieldBase {
 
 	/**
 	 * Option eventDebug name

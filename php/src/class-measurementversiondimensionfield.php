@@ -11,7 +11,7 @@ namespace XWP\Site_Performance_Tracker;
 /**
  * Class MeasurementVersionDimensionField
  */
-class MeasurementVersionDimensionField extends DimenisonFieldBase {
+class MeasurementVersionDimensionField extends DimensionFieldBase {
 	/**
 	 * Option measurementVersion name
 	 *

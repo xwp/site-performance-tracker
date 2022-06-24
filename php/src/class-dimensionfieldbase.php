@@ -9,9 +9,9 @@
 namespace XWP\Site_Performance_Tracker;
 
 /**
- * Class DimenisonFieldBase
+ * Class DimensionFieldBase
  */
-abstract class DimenisonFieldBase extends FieldBase {
+abstract class DimensionFieldBase extends FieldBase {
 	/**
 	 * Get option name
 	 */

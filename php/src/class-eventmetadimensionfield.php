@@ -11,7 +11,7 @@ namespace XWP\Site_Performance_Tracker;
 /**
  * Class EventMetaDimensionField
  */
-class EventMetaDimensionField extends DimenisonFieldBase {
+class EventMetaDimensionField extends DimensionFieldBase {
 	/**
 	 * Option eventMeta  name
 	 *
