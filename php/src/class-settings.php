@@ -90,7 +90,7 @@ class Settings {
 	 *
 	 * @var array
 	 */
-	protected $fields;
+	public $fields;
 
 	/**
 	 * Settings constructor.
@@ -208,40 +208,6 @@ class Settings {
 	 */
 	public function settings_section_callback() {
 		echo esc_html( __( 'Update Site Performance Tracker settings', 'site-performance-tracker' ) );
-	}
-
-	/**
-	 * Render Analytics Types form dropdown.
-	 */
-	public function analytics_types_render() {
-		$options = $this->get_settings();
-		global $tracker_config;
-		$set = false;
-		if ( isset( $tracker_config['ga_id'] ) ) {
-			$options[ self::OPTION_ANALYTICS_TYPES ] = 'ga_id';
-			$set                                     = true;
-		} elseif ( isset( $tracker_config[ self::OPTION_TAG_ID ] ) ) {
-			$options[ self::OPTION_ANALYTICS_TYPES ] = 'gtm';
-			$set                                     = true;
-		} elseif ( isset( $tracker_config['ga4_id'] ) ) {
-			$options[ self::OPTION_ANALYTICS_TYPES ] = 'ga4';
-			$set                                     = true;
-		}
-		?>
-		<select name="spt_settings[<?php echo esc_attr( self::OPTION_ANALYTICS_TYPES ); ?>]" <?php echo ( $set ) ? esc_attr( 'disabled' ) : ''; ?> required>
-			<option value="ga_id" <?php selected( $options[ self::OPTION_ANALYTICS_TYPES ], 'ga_id' ); ?>>
-				<?php esc_html_e( 'Google Analytics', 'site-performance-tracker' ); ?>
-			</option>
-			<option value="gtm" <?php selected( $options[ self::OPTION_ANALYTICS_TYPES ], 'gtm' ); ?>>
-				<?php esc_html_e( 'Global Site Tag', 'site-performance-tracker' ); ?>
-			</option>
-			<option value="ga4" <?php selected( $options[ self::OPTION_ANALYTICS_TYPES ], 'ga4' ); ?>>
-				<?php esc_html_e( 'GA4 Analytics', 'site-performance-tracker' ); ?>
-			</option>
-		</select>
-		<?php
-
-		$this->show_theme_warning( $set );
 	}
 
 	/**
@@ -364,7 +330,7 @@ class Settings {
 	/**
 	 * Returns the plugin settings.
 	 */
-	private function get_settings() {
+	public function get_settings() {
 		$options = get_option( self::OPTION_NAME, array() );
 
 		return array_merge(
@@ -385,7 +351,7 @@ class Settings {
 	 *
 	 * @param bool $show indicate if message should be displayed.
 	 */
-	private function show_theme_warning( $show ) {
+	public function show_theme_warning( $show ) {
 		if ( $show ) {
 			?>
 			<br/><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
