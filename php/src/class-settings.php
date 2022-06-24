@@ -86,6 +86,22 @@ class Settings {
 	const OPTION_WEB_VITALS_TRACKING_RATIO = 'web_vitals_tracking_ratio';
 
 	/**
+	 * All setting fields
+	 *
+	 * @var array
+	 */
+	protected $fields;
+
+	/**
+	 * Settings constructor.
+	 */
+	public function __construct() {
+		$this->fields = array(
+			new AnalyticsTypesField(),
+		);
+	}
+
+	/**
 	 * Initialize settings.
 	 */
 	public function init() {
@@ -142,13 +158,9 @@ class Settings {
 			self::PAGE_ID
 		);
 
-		add_settings_field(
-			self::OPTION_ANALYTICS_TYPES,
-			__( 'Analytics Types', 'site-performance-tracker' ),
-			array( $this, 'analytics_types_render' ),
-			self::PAGE_ID,
-			self::SECTION_ID
-		);
+		foreach ( $this->fields as $field ) {
+			$field->init( $this, self::PAGE_ID, self::SECTION_ID );
+		}
 
 		add_settings_field(
 			'analytics_id',
