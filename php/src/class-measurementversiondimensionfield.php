@@ -40,7 +40,7 @@ class MeasurementVersionDimensionField {
 		add_settings_field(
 			'measurement_version_dimension',
 			__( 'Measurement Version Dimension', 'site-performance-tracker' ),
-			array( $this, 'measurement_version_dimension_render' ),
+			array( $this, 'render' ),
 			$page_id,
 			$section_id
 		);
@@ -51,7 +51,7 @@ class MeasurementVersionDimensionField {
 	/**
 	 * Render Measurement Version Dimension form input.
 	 */
-	public function measurement_version_dimension_render() {
+	public function render() {
 		$this->settings->render_dimention_option( self::OPTION_MEASUREMENT_VERSION, 'dimension1', 'measurement version dimension' );
 	}
 }
