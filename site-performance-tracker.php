@@ -63,6 +63,7 @@ require_once __DIR__ . '/php/src/class-analyticsidfield.php';
 require_once __DIR__ . '/php/src/class-measurementversiondimensionfield.php';
 require_once __DIR__ . '/php/src/class-eventmetadimensionfield.php';
 require_once __DIR__ . '/php/src/class-eventdebugdimensionfield.php';
+require_once __DIR__ . '/php/src/class-webvitalstrackingratiofield.php';
 require_once __DIR__ . '/php/helpers.php';
 
 /**
