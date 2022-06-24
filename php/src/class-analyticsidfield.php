@@ -11,7 +11,7 @@ namespace XWP\Site_Performance_Tracker;
 /**
  * Class AnalyticsIdField
  */
-class AnalyticsIdField {
+class AnalyticsIdField extends FieldBase {
 	/**
 	 * Setting that current fields belong to
 	 *
@@ -27,25 +27,17 @@ class AnalyticsIdField {
 	const OPTION_TAG_ID = 'gtag_id';
 
 	/**
-	 * Initialize settings.
+	 * Get current field id
 	 */
-	/**
-	 * Initialize field.
-	 *
-	 * @param Settings $settings settings that current fields belong to.
-	 * @param string   $page_id field page id.
-	 * @param string   $section_id field section id.
-	 */
-	public function init( $settings, $page_id, $section_id ) {
-		add_settings_field(
-			'analytics_id',
-			__( 'Analytics ID', 'site-performance-tracker' ),
-			array( $this, 'render' ),
-			$page_id,
-			$section_id
-		);
+	protected function get_id() {
+		return 'analytics_id';
+	}
 
-		$this->settings = $settings;
+	/**
+	 * Get current field title
+	 */
+	protected function get_title() {
+		return __( 'Analytics ID', 'site-performance-tracker' );
 	}
 
 	/**
