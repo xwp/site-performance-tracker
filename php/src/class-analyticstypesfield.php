@@ -13,13 +13,6 @@ namespace XWP\Site_Performance_Tracker;
  */
 class AnalyticsTypesField extends FieldBase {
 	/**
-	 * Setting that current fields belong to
-	 *
-	 * @var Settings
-	 */
-	protected $settings;
-
-	/**
 	 * Option analytics_types name
 	 *
 	 * @var string

@@ -13,13 +13,6 @@ namespace XWP\Site_Performance_Tracker;
  */
 class EventDebugDimensionField extends FieldBase {
 	/**
-	 * Setting that current fields belong to
-	 *
-	 * @var Settings
-	 */
-	protected $settings;
-
-	/**
 	 * Option eventDebug name
 	 *
 	 * @var string
