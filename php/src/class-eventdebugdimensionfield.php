@@ -11,7 +11,8 @@ namespace XWP\Site_Performance_Tracker;
 /**
  * Class EventDebugDimensionField
  */
-class EventDebugDimensionField extends FieldBase {
+class EventDebugDimensionField extends DimenisonFieldBase {
+
 	/**
 	 * Option eventDebug name
 	 *
@@ -34,9 +35,22 @@ class EventDebugDimensionField extends FieldBase {
 	}
 
 	/**
-	 * Render Event Debug Dimension form input.
+	 * Get option name
 	 */
-	public function render() {
-		$this->settings->render_dimention_option( self::OPTION_EVENT_DEBUG, 'dimension3', 'event debug dimension' );
+	protected function get_option_name() {
+		return self::OPTION_EVENT_DEBUG;
+	}
+	/**
+	 * Get field placeholder
+	 */
+	protected function get_placeholder() {
+		return 'dimension3';
+	}
+
+	/**
+	 * Get field aria label
+	 */
+	protected function get_aria_label() {
+		return 'event debug dimension';
 	}
 }

@@ -49,7 +49,7 @@ abstract class FieldBase {
 	abstract protected function get_title();
 
 	/**
-	 * Render Tracking Ratio form input.
+	 * Render form input
 	 */
 	abstract public function render();
 }
