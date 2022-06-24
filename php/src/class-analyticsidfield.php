@@ -9,7 +9,7 @@
 namespace XWP\Site_Performance_Tracker;
 
 /**
- * Class AnalyticsTypesField
+ * Class AnalyticsIdField
  */
 class AnalyticsIdField {
 	/**

@@ -44,13 +44,6 @@ class Settings {
 	const HARDCODED_TRACKER_CONFIG_FEATURE = 'site_performance_tracker_vitals';
 
 	/**
-	 * Option eventMeta  name
-	 *
-	 * @var string
-	 */
-	const OPTION_EVENT_META = 'eventMeta';
-
-	/**
 	 * Option eventDebug name
 	 *
 	 * @var string
@@ -79,6 +72,7 @@ class Settings {
 			new AnalyticsTypesField(),
 			new AnalyticsIdField(),
 			new MeasurementVersionDimensionField(),
+			new EventMetaDimensionField()
 		);
 	}
 
@@ -144,14 +138,6 @@ class Settings {
 		}
 
 		add_settings_field(
-			'event_meta_dimension',
-			__( 'Event Meta Dimension', 'site-performance-tracker' ),
-			array( $this, 'event_meta_dimension_render' ),
-			self::PAGE_ID,
-			self::SECTION_ID
-		);
-
-		add_settings_field(
 			'event_debug_dimension',
 			__( 'Event Debug Dimension', 'site-performance-tracker' ),
 			array( $this, 'event_debug_dimension_render' ),
@@ -173,13 +159,6 @@ class Settings {
 	 */
 	public function settings_section_callback() {
 		echo esc_html( __( 'Update Site Performance Tracker settings', 'site-performance-tracker' ) );
-	}
-
-	/**
-	 * Render Event Meta Dimension form input.
-	 */
-	public function event_meta_dimension_render() {
-		$this->render_dimention_option( self::OPTION_EVENT_META, 'dimension2', 'event meta dimension' );
 	}
 
 	/**
@@ -262,7 +241,7 @@ class Settings {
 				AnalyticsTypesField::OPTION_ANALYTICS_TYPES                     => '',
 				AnalyticsIdField::OPTION_TAG_ID                                 => '',
 				MeasurementVersionDimensionField::OPTION_MEASUREMENT_VERSION    => '',
-				self::OPTION_EVENT_META                                         => '',
+				EventMetaDimensionField::OPTION_EVENT_META                      => '',
 				self::OPTION_EVENT_DEBUG                                        => '',
 				self::OPTION_WEB_VITALS_TRACKING_RATIO                          => Plugin::TRACKING_DEFAULT_CHANCE,
 			),

@@ -9,9 +9,9 @@
 namespace XWP\Site_Performance_Tracker;
 
 /**
- * Class MeasurementVersionDimensionField
+ * Class EventMetaDimensionField
  */
-class MeasurementVersionDimensionField {
+class EventMetaDimensionField {
 	/**
 	 * Setting that current fields belong to
 	 *
@@ -20,11 +20,11 @@ class MeasurementVersionDimensionField {
 	protected $settings;
 
 	/**
-	 * Option measurementVersion name
+	 * Option eventMeta  name
 	 *
 	 * @var string
 	 */
-	const OPTION_MEASUREMENT_VERSION = 'measurementVersion';
+	const OPTION_EVENT_META = 'eventMeta';
 
 	/**
 	 * Initialize settings.
@@ -38,9 +38,9 @@ class MeasurementVersionDimensionField {
 	 */
 	public function init( $settings, $page_id, $section_id ) {
 		add_settings_field(
-			'measurement_version_dimension',
-			__( 'Measurement Version Dimension', 'site-performance-tracker' ),
-			array( $this, 'render' ),
+			'event_meta_dimension',
+			__( 'Event Meta Dimension', 'site-performance-tracker' ),
+			array( $this, 'event_meta_dimension_render' ),
 			$page_id,
 			$section_id
 		);
@@ -49,9 +49,9 @@ class MeasurementVersionDimensionField {
 	}
 
 	/**
-	 * Render Measurement Version Dimension form input.
+	 * Render Event Meta Dimension form input.
 	 */
-	public function render() {
-		$this->settings->render_dimention_option( self::OPTION_MEASUREMENT_VERSION, 'dimension1', 'measurement version dimension' );
+	public function event_meta_dimension_render() {
+		$this->settings->render_dimention_option( self::OPTION_EVENT_META, 'dimension2', 'event meta dimension' );
 	}
 }
