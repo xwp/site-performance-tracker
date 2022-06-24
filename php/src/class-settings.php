@@ -199,28 +199,4 @@ class Settings {
 			<?php
 		}
 	}
-
-	/**
-	 * Output dimension option field
-	 *
-	 * @param string $option_name option name to render.
-	 * @param string $placeholder input field placeholder.
-	 * @param string $aria_label input field area-label.
-	 */
-	public function render_dimention_option( $option_name, $placeholder, $aria_label ) {
-		$options = $this->get_settings();
-		global $tracker_config;
-		$set = false;
-		if ( isset( $tracker_config[ $option_name ] ) ) {
-			$options[ $option_name ] = $tracker_config[ $option_name ];
-			$set                   = true;
-		}
-		?>
-		<input type='text' name='spt_settings[<?php echo esc_attr( $option_name ); ?>]' pattern="[dimension]+[0-9]{1,2}"
-			   value='<?php echo esc_attr( $options[ $option_name ] ); ?>' placeholder="<?php echo esc_attr( $placeholder ); ?>"
-			   aria-label="<?php echo esc_attr( $aria_label ); ?>" <?php $this->print_readonly( $option_name ); ?>>
-		<?php
-
-		$this->show_theme_warning( $set );
-	}
 }

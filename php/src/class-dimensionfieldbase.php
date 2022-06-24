@@ -31,6 +31,21 @@ abstract class DimenisonFieldBase extends FieldBase {
 	 * Render field.
 	 */
 	public function render() {
-		$this->settings->render_dimention_option( $this->get_option_name(), $this->get_placeholder(), $this->get_aria_label() );
+		$option_name = $this->get_option_name();
+
+		$options = $this->settings->get_settings();
+		global $tracker_config;
+		$set = false;
+		if ( isset( $tracker_config[ $option_name ] ) ) {
+			$options[ $option_name ] = $tracker_config[ $option_name ];
+			$set                   = true;
+		}
+		?>
+		<input type='text' name='spt_settings[<?php echo esc_attr( $option_name ); ?>]' pattern="[dimension]+[0-9]{1,2}"
+			   value='<?php echo esc_attr( $options[ $option_name ] ); ?>' placeholder="<?php echo esc_attr( $this->get_placeholder() ); ?>"
+			   aria-label="<?php echo esc_attr( $this->get_aria_label() ); ?>" <?php $this->settings->print_readonly( $option_name ); ?>>
+		<?php
+
+		$this->settings->show_theme_warning( $set );
 	}
 }
