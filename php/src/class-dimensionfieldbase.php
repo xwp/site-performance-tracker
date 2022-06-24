@@ -46,6 +46,6 @@ abstract class DimenisonFieldBase extends FieldBase {
 			   aria-label="<?php echo esc_attr( $this->get_aria_label() ); ?>" <?php $this->settings->print_readonly( $option_name ); ?>>
 		<?php
 
-		$this->settings->show_theme_warning( $set );
+		$this->show_theme_warning( $set );
 	}
 }

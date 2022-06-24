@@ -64,6 +64,6 @@ class AnalyticsTypesField extends FieldBase {
 		</select>
 		<?php
 
-		$this->settings->show_theme_warning( $set );
+		$this->show_theme_warning( $set );
 	}
 }

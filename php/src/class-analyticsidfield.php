@@ -64,6 +64,6 @@ class AnalyticsIdField extends FieldBase {
 			   aria-label="analytics id" <?php $this->settings->print_readonly( $prop ); ?> required>
 		<?php
 
-		$this->settings->show_theme_warning( $set );
+		$this->show_theme_warning( $set );
 	}
 }

@@ -52,4 +52,17 @@ abstract class FieldBase {
 	 * Render form input
 	 */
 	abstract public function render();
+
+	/**
+	 * Show warning that configured via theme files
+	 *
+	 * @param bool $show indicate if message should be displayed.
+	 */
+	protected function show_theme_warning( $show ) {
+		if ( $show ) {
+			?>
+			<br/><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
+			<?php
+		}
+	}
 }

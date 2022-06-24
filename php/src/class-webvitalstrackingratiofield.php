@@ -64,6 +64,6 @@ class WebVitalsTrackingRatioField extends FieldBase {
 				<?php } ?>>
 		<?php
 
-		$this->settings->show_theme_warning( $set );
+		$this->show_theme_warning( $set );
 	}
 }
