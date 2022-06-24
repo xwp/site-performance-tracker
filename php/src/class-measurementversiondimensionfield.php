@@ -20,11 +20,11 @@ class MeasurementVersionDimensionField {
 	protected $settings;
 
 	/**
-	 * Option analytics_types name
+	 * Option measurementVersion name
 	 *
 	 * @var string
 	 */
-	const OPTION_ANALYTICS_TYPES = 'analytics_types';
+	const OPTION_MEASUREMENT_VERSION = 'measurementVersion';
 
 	/**
 	 * Initialize settings.
@@ -52,6 +52,6 @@ class MeasurementVersionDimensionField {
 	 * Render Measurement Version Dimension form input.
 	 */
 	public function measurement_version_dimension_render() {
-		$this->settings->render_dimention_option( Settings::OPTION_MEASUREMENT_VERSION, 'dimension1', 'measurement version dimension' );
+		$this->settings->render_dimention_option( self::OPTION_MEASUREMENT_VERSION, 'dimension1', 'measurement version dimension' );
 	}
 }

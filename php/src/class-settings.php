@@ -44,13 +44,6 @@ class Settings {
 	const HARDCODED_TRACKER_CONFIG_FEATURE = 'site_performance_tracker_vitals';
 
 	/**
-	 * Option measurementVersion name
-	 *
-	 * @var string
-	 */
-	const OPTION_MEASUREMENT_VERSION = 'measurementVersion';
-
-	/**
 	 * Option eventMeta  name
 	 *
 	 * @var string
@@ -266,12 +259,12 @@ class Settings {
 
 		return array_merge(
 			array(
-				AnalyticsTypesField::OPTION_ANALYTICS_TYPES => '',
-				AnalyticsIdField::OPTION_TAG_ID             => '',
-				self::OPTION_MEASUREMENT_VERSION            => '',
-				self::OPTION_EVENT_META                     => '',
-				self::OPTION_EVENT_DEBUG                    => '',
-				self::OPTION_WEB_VITALS_TRACKING_RATIO      => Plugin::TRACKING_DEFAULT_CHANCE,
+				AnalyticsTypesField::OPTION_ANALYTICS_TYPES                     => '',
+				AnalyticsIdField::OPTION_TAG_ID                                 => '',
+				MeasurementVersionDimensionField::OPTION_MEASUREMENT_VERSION    => '',
+				self::OPTION_EVENT_META                                         => '',
+				self::OPTION_EVENT_DEBUG                                        => '',
+				self::OPTION_WEB_VITALS_TRACKING_RATIO                          => Plugin::TRACKING_DEFAULT_CHANCE,
 			),
 			$options
 		);
