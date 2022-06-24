@@ -13,13 +13,6 @@ namespace XWP\Site_Performance_Tracker;
  */
 class AnalyticsIdField extends FieldBase {
 	/**
-	 * Setting that current fields belong to
-	 *
-	 * @var Settings
-	 */
-	protected $settings;
-
-	/**
 	 * Option gtag_id name
 	 *
 	 * @var string
