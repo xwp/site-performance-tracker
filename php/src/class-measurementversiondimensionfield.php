@@ -11,7 +11,7 @@ namespace XWP\Site_Performance_Tracker;
 /**
  * Class MeasurementVersionDimensionField
  */
-class MeasurementVersionDimensionField extends FieldBase {
+class MeasurementVersionDimensionField extends DimenisonFieldBase {
 	/**
 	 * Option measurementVersion name
 	 *
@@ -34,9 +34,22 @@ class MeasurementVersionDimensionField extends FieldBase {
 	}
 
 	/**
-	 * Render Measurement Version Dimension form input.
+	 * Get option name
 	 */
-	public function render() {
-		$this->settings->render_dimention_option( self::OPTION_MEASUREMENT_VERSION, 'dimension1', 'measurement version dimension' );
+	protected function get_option_name() {
+		return self::OPTION_MEASUREMENT_VERSION;
+	}
+	/**
+	 * Get field placeholder
+	 */
+	protected function get_placeholder() {
+		return 'dimension1';
+	}
+
+	/**
+	 * Get field aria label
+	 */
+	protected function get_aria_label() {
+		return 'measurement version dimension';
 	}
 }
