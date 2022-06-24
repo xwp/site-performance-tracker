@@ -43,7 +43,7 @@ abstract class DimenisonFieldBase extends FieldBase {
 		?>
 		<input type='text' name='spt_settings[<?php echo esc_attr( $option_name ); ?>]' pattern="[dimension]+[0-9]{1,2}"
 			   value='<?php echo esc_attr( $options[ $option_name ] ); ?>' placeholder="<?php echo esc_attr( $this->get_placeholder() ); ?>"
-			   aria-label="<?php echo esc_attr( $this->get_aria_label() ); ?>" <?php $this->settings->print_readonly( $option_name ); ?>>
+			   aria-label="<?php echo esc_attr( $this->get_aria_label() ); ?>" <?php $this->print_readonly( $option_name ); ?>>
 		<?php
 
 		$this->show_theme_warning( $set );

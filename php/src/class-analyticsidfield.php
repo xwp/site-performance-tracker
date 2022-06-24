@@ -61,7 +61,7 @@ class AnalyticsIdField extends FieldBase {
 		?>
 		<input type='text' name='spt_settings[<?php echo esc_attr( self::OPTION_TAG_ID ); ?>]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
 			   value='<?php echo esc_attr( $options[ self::OPTION_TAG_ID ] ); ?>' placeholder="UA-XXXXXXXX-Y"
-			   aria-label="analytics id" <?php $this->settings->print_readonly( $prop ); ?> required>
+			   aria-label="analytics id" <?php $this->print_readonly( $prop ); ?> required>
 		<?php
 
 		$this->show_theme_warning( $set );

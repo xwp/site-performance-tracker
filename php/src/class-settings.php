@@ -157,18 +157,6 @@ class Settings {
 	}
 
 	/**
-	 * Get available trackers and print 'readonly' in the form inputs if the setting is defined in theme files
-	 *
-	 * @param string $prop_name The property name to be tested.
-	 */
-	public function print_readonly( $prop_name ) {
-		global $tracker_config;
-		if ( isset( $tracker_config[ $prop_name ] ) ) {
-			echo esc_attr( 'readonly' );
-		}
-	}
-
-	/**
 	 * Returns the plugin settings.
 	 */
 	public function get_settings() {
