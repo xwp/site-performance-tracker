@@ -99,7 +99,7 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ### Changelog
 
-#### 1.1.7 - July 5, 2022
+#### 1.1.8 - July 5, 2022
 
 - Fix GA delivery bug.
 
