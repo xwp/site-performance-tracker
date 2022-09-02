@@ -59,8 +59,9 @@ abstract class FieldBase {
 	 * @param string $prop_name The property name to be tested.
 	 */
 	protected function print_readonly( $prop_name ) {
-		global $tracker_config;
-		if ( isset( $tracker_config[ $prop_name ] ) ) {
+		$hardcoded_tracker_config = $this->settings->get_hardcoded_tracker_config();
+
+		if ( isset( $hardcoded_tracker_config[ $prop_name ] ) ) {
 			echo esc_attr( 'readonly' );
 		}
 	}

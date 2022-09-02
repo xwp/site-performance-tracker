@@ -46,7 +46,7 @@ final class AnalyticsIdField extends FieldBase {
 	 */
 	public function render() {
 		$options = $this->settings->get_settings();
-		global $tracker_config;
+		$hardcoded_tracker_config = $this->settings->get_hardcoded_tracker_config();
 		$display_theme_override_warning  = false;
 		$property_name = self::OPTION_TAG_ID;
 
@@ -54,15 +54,15 @@ final class AnalyticsIdField extends FieldBase {
 			$options[ self::OPTION_TAG_ID ] = $options['ga_id'];
 		}
 
-		if ( isset( $tracker_config['ga_id'] ) ) {
-			$options[ self::OPTION_TAG_ID ] = $tracker_config['ga_id'];
+		if ( isset( $hardcoded_tracker_config['ga_id'] ) ) {
+			$options[ self::OPTION_TAG_ID ] = $hardcoded_tracker_config['ga_id'];
 			$property_name                  = 'ga_id';
 			$display_theme_override_warning = true;
-		} elseif ( isset( $tracker_config[ self::OPTION_TAG_ID ] ) ) {
-			$options[ self::OPTION_TAG_ID ] = $tracker_config[ self::OPTION_TAG_ID ];
+		} elseif ( isset( $hardcoded_tracker_config[ self::OPTION_TAG_ID ] ) ) {
+			$options[ self::OPTION_TAG_ID ] = $hardcoded_tracker_config[ self::OPTION_TAG_ID ];
 			$display_theme_override_warning                            = true;
-		} elseif ( isset( $tracker_config['ga4_id'] ) ) {
-			$options[ self::OPTION_TAG_ID ] = $tracker_config['ga4_id'];
+		} elseif ( isset( $hardcoded_tracker_config['ga4_id'] ) ) {
+			$options[ self::OPTION_TAG_ID ] = $hardcoded_tracker_config['ga4_id'];
 			$property_name                  = 'ga4_id';
 			$display_theme_override_warning = true;
 		}

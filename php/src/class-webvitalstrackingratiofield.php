@@ -45,10 +45,10 @@ class WebVitalsTrackingRatioField extends FieldBase {
 	 */
 	public function render() {
 		$options = $this->settings->get_settings();
-		global $tracker_config;
+		$hardcoded_tracker_config = $this->settings->get_hardcoded_tracker_config();
 		$display_theme_override_warning = false;
-		if ( isset( $tracker_config[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] ) ) {
-			$options[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] = $tracker_config[ self::OPTION_WEB_VITALS_TRACKING_RATIO ];
+		if ( isset( $hardcoded_tracker_config[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] ) ) {
+			$options[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] = $hardcoded_tracker_config[ self::OPTION_WEB_VITALS_TRACKING_RATIO ];
 			$display_theme_override_warning                    = true;
 		}
 		if ( has_filter( 'site_performance_tracker_chance' ) ) {

@@ -20,9 +20,6 @@ class Test_Settings extends WP_UnitTestCase {
 	public function tearDown() {
 		parent::tearDown();
 
-		global $tracker_config;
-		$tracker_config = null;
-
 		global $wp_settings_sections;
 		if ( isset( $wp_settings_sections['pluginPage'] ) ) {
 			unset( $wp_settings_sections['pluginPage'] );
@@ -32,29 +29,18 @@ class Test_Settings extends WP_UnitTestCase {
 		if ( isset( $wp_settings_fields['pluginPage'] ) ) {
 			unset( $wp_settings_fields['pluginPage'] );
 		}
+
+		remove_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE );
 	}
 
 	public function test_init_register_actions() {
-		$this->assertFalse( has_action( 'after_setup_theme', array( $this->settings, 'get_hardcoded_tracker_config' ) ) );
 		$this->assertFalse( has_action( 'admin_menu', array( $this->settings, 'add_admin_menu' ) ) );
 		$this->assertFalse( has_action( 'admin_init', array( $this->settings, 'settings_init' ) ) );
 
 		$this->settings->init();
 
-		$this->assertEquals( PHP_INT_MAX, has_action( 'after_setup_theme', array( $this->settings, 'get_hardcoded_tracker_config' ) ) );
 		$this->assertNotFalse( has_action( 'admin_menu', array( $this->settings, 'add_admin_menu' ) ) );
 		$this->assertNotFalse( has_action( 'admin_init', array( $this->settings, 'settings_init' ) ) );
-	}
-
-	public function test_get_hardcoded_tracker_config__empty_theme() {
-		global $tracker_config;
-
-		$this->assertNull( $tracker_config );
-
-		$this->settings->get_hardcoded_tracker_config();
-
-		$this->assertIsArray( $tracker_config );
-		$this->assertTrue( empty( $tracker_config ) );
 	}
 
 	public function test_add_admin_menu() {
@@ -341,8 +327,7 @@ EOD;
 	}
 
 	public function test_analytics_types_render__theme_ga_id() {
-		global $tracker_config;
-		$tracker_config['ga_id'] = 'test_ga_id';
+		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'ga_id' => 'test_ga_id' ) );
 
 		$this->settings->settings_init();
 
@@ -370,8 +355,7 @@ EOD;
 	}
 
 	public function test_analytics_types_render__theme_gtag_id() {
-		global $tracker_config;
-		$tracker_config['gtag_id'] = 'test_gtag_id';
+		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'gtag_id' => 'test_gtag_id' ) );
 
 		$this->settings->settings_init();
 
@@ -399,8 +383,7 @@ EOD;
 	}
 
 	public function test_analytics_types_render__theme_ga4_id() {
-		global $tracker_config;
-		$tracker_config['ga4_id'] = 'test_ga4_id';
+		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'ga4_id' => 'test_ga4_id' ) );
 
 		$this->settings->settings_init();
 
@@ -481,8 +464,7 @@ EOD;
 	}
 
 	public function test_analytics_id_render__theme_ga_id() {
-		global $tracker_config;
-		$tracker_config['ga_id'] = 'test_ga_id';
+		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'ga_id' => 'test_ga_id' ) );
 
 		$this->settings->settings_init();
 
@@ -502,8 +484,7 @@ EOD;
 	}
 
 	public function test_analytics_id_render__theme_gtag_id() {
-		global $tracker_config;
-		$tracker_config['gtag_id'] = 'test_gtag_id';
+		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'gtag_id' => 'test_gtag_id' ) );
 
 		$this->settings->settings_init();
 
@@ -523,8 +504,7 @@ EOD;
 	}
 
 	public function test_analytics_id_render__theme_ga4_id() {
-		global $tracker_config;
-		$tracker_config['ga4_id'] = 'test_ga4_id';
+		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'ga4_id' => 'test_ga4_id' ) );
 
 		$this->settings->settings_init();
 
@@ -580,8 +560,7 @@ EOD;
 	}
 
 	public function test_measurement_version_dimension_render__theme_measurementVersion() {
-		global $tracker_config;
-		$tracker_config['measurementVersion'] = 'dimension11';
+		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'measurementVersion' => 'dimension11' ) );
 
 		$this->settings->settings_init();
 
@@ -637,8 +616,7 @@ EOD;
 	}
 
 	public function test_event_meta_dimension_render__theme_eventMeta() {
-		global $tracker_config;
-		$tracker_config['eventMeta'] = 'dimension22';
+		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'eventMeta' => 'dimension22' ) );
 
 		$this->settings->settings_init();
 
@@ -694,8 +672,7 @@ EOD;
 	}
 
 	public function test_event_debug_dimension_render__theme_eventDebug() {
-		global $tracker_config;
-		$tracker_config['eventDebug'] = 'dimension33';
+		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'eventDebug' => 'dimension33' ) );
 
 		$this->settings->settings_init();
 
@@ -754,8 +731,7 @@ EOD;
 
 	public function test_web_vitals_tracking_ratio_render__theme_web_vitals_tracking_ratio() {
 		add_option( 'spt_settings', array( 'web_vitals_tracking_ratio' => 0.05 ) );
-		global $tracker_config;
-		$tracker_config['web_vitals_tracking_ratio'] = '0.33';
+		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'web_vitals_tracking_ratio' => '0.33' ) );
 
 		$this->settings->settings_init();
 

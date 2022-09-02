@@ -75,18 +75,8 @@ final class Settings {
 	 * Register hooks.
 	 */
 	protected function register_hooks() {
-		add_action( 'after_setup_theme', array( $this, 'get_hardcoded_tracker_config' ), PHP_INT_MAX );
-
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'settings_init' ) );
-	}
-
-	/**
-	 * Get options set via add_theme_support.
-	 */
-	public function get_hardcoded_tracker_config() {
-		global $tracker_config;
-		$tracker_config = isset( get_theme_support( self::HARDCODED_TRACKER_CONFIG_FEATURE )[0] ) ? get_theme_support( self::HARDCODED_TRACKER_CONFIG_FEATURE )[0] : array();
 	}
 
 	/**
@@ -173,5 +163,12 @@ final class Settings {
 			),
 			$options
 		);
+	}
+
+	/**
+	 * Returns options set via add_theme_support.
+	 */
+	public function get_hardcoded_tracker_config() {
+		return isset( get_theme_support( self::HARDCODED_TRACKER_CONFIG_FEATURE )[0] ) ? get_theme_support( self::HARDCODED_TRACKER_CONFIG_FEATURE )[0] : array();
 	}
 }

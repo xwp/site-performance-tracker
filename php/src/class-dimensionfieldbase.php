@@ -34,10 +34,10 @@ abstract class DimensionFieldBase extends FieldBase {
 		$option_name = $this->get_option_name();
 
 		$options = $this->settings->get_settings();
-		global $tracker_config;
+		$hardcoded_tracker_config = $this->settings->get_hardcoded_tracker_config();
 		$display_theme_override_warning = false;
-		if ( isset( $tracker_config[ $option_name ] ) ) {
-			$options[ $option_name ] = $tracker_config[ $option_name ];
+		if ( isset( $hardcoded_tracker_config[ $option_name ] ) ) {
+			$options[ $option_name ] = $hardcoded_tracker_config[ $option_name ];
 			$display_theme_override_warning                   = true;
 		}
 		?>
