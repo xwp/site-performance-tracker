@@ -9,7 +9,7 @@
 namespace XWP\Site_Performance_Tracker;
 
 /**
- * Defines behaviour for event debug dimsnsion field.
+ * Defines behaviour for event debug dimension field.
  */
 final class EventDebugDimensionField extends DimensionFieldBase {
 

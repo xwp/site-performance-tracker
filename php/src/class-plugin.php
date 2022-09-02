@@ -9,7 +9,7 @@
 namespace XWP\Site_Performance_Tracker;
 
 /**
- * Class Plugin
+ * Implements main plugin logic.
  */
 class Plugin {
 
@@ -60,7 +60,7 @@ class Plugin {
 	protected $settings;
 
 	/**
-	 * Setup the plugin
+	 * Setup the plugin.
 	 *
 	 * @param string $dir_path Absolute path to the plugin directory root.
 	 */
@@ -98,12 +98,12 @@ class Plugin {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		/**
-		 * Load only for modern browsers
+		 * Load only for modern browsers.
 		 */
 		add_filter( 'script_loader_tag', array( $this, 'optimize_scripts' ), 10, 2 );
 
 		/**
-		 * Update and validate settings before updating
+		 * Update and validate settings before updating.
 		 */
 		add_filter( 'pre_update_option_spt_settings', array( $this, 'pre_update_option' ), 10, 1 );
 	}
@@ -239,11 +239,11 @@ class Plugin {
 	}
 
 	/**
-	 * Filter the spt_settings options before updated
+	 * Filter the spt_settings options before updated.
 	 *
 	 * @param array $value The new, unserialized option value.
 	 *
-	 * @return array $value
+	 * @return array $value.
 	 */
 	public function pre_update_option( $value ) {
 		if ( isset( $value['analytics_types'] ) && 'ga_id' == $value['analytics_types'] ) {
