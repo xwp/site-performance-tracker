@@ -1,6 +1,6 @@
 <?php
 /**
- * Create the Event Meta Dimension field
+ * Create the Event Meta Dimension field.
  *
  * @package XWP\Site_Performance_Tracker
  * @license http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2 (GPL-2.0)
@@ -9,25 +9,32 @@
 namespace XWP\Site_Performance_Tracker;
 
 /**
- * Class EventMetaDimensionField
+ * Defines behaviour for event meta dimension field.
  */
-class EventMetaDimensionField extends DimensionFieldBase {
+final class EventMetaDimensionField extends DimensionFieldBase {
 	/**
-	 * Option eventMeta  name
+	 * Option eventMeta name.
 	 *
 	 * @var string
 	 */
 	const OPTION_EVENT_META = 'eventMeta';
 
 	/**
-	 * Get current field id
+	 * Option event_meta_dimension name.
+	 *
+	 * @var string
+	 */
+	const OPTION_EVENT_META_DIMENSION = 'event_meta_dimension';
+
+	/**
+	 * Get current field id.
 	 */
 	protected function get_id() {
-		return 'event_meta_dimension';
+		return self::OPTION_EVENT_META_DIMENSION;
 	}
 
 	/**
-	 * Get current field title
+	 * Get current field title.
 	 */
 	protected function get_title() {
 		return __( 'Event Meta Dimension', 'site-performance-tracker' );
@@ -40,16 +47,16 @@ class EventMetaDimensionField extends DimensionFieldBase {
 		return self::OPTION_EVENT_META;
 	}
 	/**
-	 * Get field placeholder
+	 * Get field placeholder.
 	 */
 	protected function get_placeholder() {
-		return 'dimension2';
+		return __( 'dimension2', 'site-performance-tracker' );
 	}
 
 	/**
-	 * Get field aria label
+	 * Get field aria label.
 	 */
 	protected function get_aria_label() {
-		return 'event meta dimension';
+		return __( 'event meta dimension', 'site-performance-tracker' );
 	}
 }

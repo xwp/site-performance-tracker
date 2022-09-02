@@ -21,7 +21,7 @@ final class EventDebugDimensionField extends DimensionFieldBase {
 	const OPTION_EVENT_DEBUG = 'eventDebug';
 
 	/**
-	 * Option eventDebug name.
+	 * Option event_debug_dimension name.
 	 *
 	 * @var string
 	 */
@@ -58,6 +58,6 @@ final class EventDebugDimensionField extends DimensionFieldBase {
 	 * Get field aria label.
 	 */
 	protected function get_aria_label() {
-		return __( 'event debug dimension', 'site-performance-tracker' );;
+		return __( 'event debug dimension', 'site-performance-tracker' );
 	}
 }
