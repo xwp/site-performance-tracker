@@ -1,6 +1,6 @@
 <?php
 /**
- * Define Dimension Field Base interfase
+ * Define Dimension Field Base interfase.
  *
  * @package XWP\Site_Performance_Tracker
  * @license http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2 (GPL-2.0)
@@ -9,21 +9,21 @@
 namespace XWP\Site_Performance_Tracker;
 
 /**
- * Class DimensionFieldBase
+ * Base class for Dimention field.
  */
 abstract class DimensionFieldBase extends FieldBase {
 	/**
-	 * Get option name
+	 * Get option name.
 	 */
 	abstract protected function get_option_name();
 
 	/**
-	 * Get field placeholder
+	 * Get field placeholder.
 	 */
 	abstract protected function get_placeholder();
 
 	/**
-	 * Get field aria label
+	 * Get field aria label.
 	 */
 	abstract protected function get_aria_label();
 
@@ -35,10 +35,10 @@ abstract class DimensionFieldBase extends FieldBase {
 
 		$options = $this->settings->get_settings();
 		global $tracker_config;
-		$set = false;
+		$display_theme_override_warning = false;
 		if ( isset( $tracker_config[ $option_name ] ) ) {
 			$options[ $option_name ] = $tracker_config[ $option_name ];
-			$set                   = true;
+			$display_theme_override_warning                   = true;
 		}
 		?>
 		<input type='text' name='spt_settings[<?php echo esc_attr( $option_name ); ?>]' pattern="[dimension]+[0-9]{1,2}"
@@ -46,6 +46,6 @@ abstract class DimensionFieldBase extends FieldBase {
 			   aria-label="<?php echo esc_attr( $this->get_aria_label() ); ?>" <?php $this->print_readonly( $option_name ); ?>>
 		<?php
 
-		$this->show_theme_warning( $set );
+		$this->show_theme_warning( $display_theme_override_warning );
 	}
 }
