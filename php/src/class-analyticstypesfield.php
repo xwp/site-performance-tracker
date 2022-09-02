@@ -1,6 +1,6 @@
 <?php
 /**
- * Create the Analytics Types field
+ * Create the Analytics Types field.
  *
  * @package XWP\Site_Performance_Tracker
  * @license http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2 (GPL-2.0)
@@ -9,25 +9,25 @@
 namespace XWP\Site_Performance_Tracker;
 
 /**
- * Class AnalyticsTypesField
+ * Stores the Google Analytics type.
  */
 class AnalyticsTypesField extends FieldBase {
 	/**
-	 * Option analytics_types name
+	 * Option analytics_types name.
 	 *
 	 * @var string
 	 */
 	const OPTION_ANALYTICS_TYPES = 'analytics_types';
 
 	/**
-	 * Get current field id
+	 * Get current field id.
 	 */
 	protected function get_id() {
 		return self::OPTION_ANALYTICS_TYPES;
 	}
 
 	/**
-	 * Get current field title
+	 * Get current field title.
 	 */
 	protected function get_title() {
 		return __( 'Analytics Types', 'site-performance-tracker' );
@@ -39,19 +39,19 @@ class AnalyticsTypesField extends FieldBase {
 	public function render() {
 		$options = $this->settings->get_settings();
 		global $tracker_config;
-		$set = false;
+		$display_theme_override_warning = false;
 		if ( isset( $tracker_config['ga_id'] ) ) {
 			$options[ self::OPTION_ANALYTICS_TYPES ] = 'ga_id';
-			$set                                     = true;
+			$display_theme_override_warning          = true;
 		} elseif ( isset( $tracker_config[ AnalyticsIdField::OPTION_TAG_ID ] ) ) {
 			$options[ self::OPTION_ANALYTICS_TYPES ] = 'gtm';
-			$set                                     = true;
+			$display_theme_override_warning          = true;
 		} elseif ( isset( $tracker_config['ga4_id'] ) ) {
 			$options[ self::OPTION_ANALYTICS_TYPES ] = 'ga4';
-			$set                                     = true;
+			$display_theme_override_warning          = true;
 		}
 		?>
-		<select name="spt_settings[<?php echo esc_attr( self::OPTION_ANALYTICS_TYPES ); ?>]" <?php echo ( $set ) ? esc_attr( 'disabled' ) : ''; ?> required>
+		<select name="spt_settings[<?php echo esc_attr( self::OPTION_ANALYTICS_TYPES ); ?>]" <?php echo ( $display_theme_override_warning ) ? esc_attr( 'disabled' ) : ''; ?> required>
 			<option value="ga_id" <?php selected( $options[ self::OPTION_ANALYTICS_TYPES ], 'ga_id' ); ?>>
 				<?php esc_html_e( 'Google Analytics', 'site-performance-tracker' ); ?>
 			</option>
@@ -64,6 +64,6 @@ class AnalyticsTypesField extends FieldBase {
 		</select>
 		<?php
 
-		$this->show_theme_warning( $set );
+		$this->show_theme_warning( $display_theme_override_warning );
 	}
 }
