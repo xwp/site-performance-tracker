@@ -23,5 +23,4 @@
 	<exclude-pattern>/js/dist/</exclude-pattern>
 	<exclude-pattern>/node_modules/</exclude-pattern>
 	<exclude-pattern>/wordpress/</exclude-pattern>
-	<exclude-pattern>/.history/</exclude-pattern>
 </ruleset>

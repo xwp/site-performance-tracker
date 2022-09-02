@@ -12,9 +12,9 @@
 namespace XWP\Site_Performance_Tracker;
 
 /**
- * Class Settings
+ * Main class for performance Settings
  */
-class Settings {
+final class Settings {
 	/**
 	 * Plugin Settings page ID.
 	 *
@@ -96,8 +96,8 @@ class Settings {
 	 */
 	public function add_admin_menu() {
 		return add_options_page(
-			'Site Performance Tracker',
-			'Site Performance Tracker',
+			__( 'Site Performance Tracker', 'site-performance-tracker' ),
+			__( 'Site Performance Tracker', 'site-performance-tracker' ),
 			'manage_options',
 			'site_performance_tracker',
 			array(

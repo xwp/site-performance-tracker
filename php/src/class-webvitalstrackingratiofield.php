@@ -46,24 +46,24 @@ class WebVitalsTrackingRatioField extends FieldBase {
 	public function render() {
 		$options = $this->settings->get_settings();
 		global $tracker_config;
-		$set = false;
+		$display_theme_override_warning = false;
 		if ( isset( $tracker_config[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] ) ) {
 			$options[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] = $tracker_config[ self::OPTION_WEB_VITALS_TRACKING_RATIO ];
-			$set                                  = true;
+			$display_theme_override_warning                    = true;
 		}
 		if ( has_filter( 'site_performance_tracker_chance' ) ) {
 			$options[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] = apply_filters( 'site_performance_tracker_chance', 1 );
-			$set                                  = true;
+			$display_theme_override_warning                    = true;
 		}
 		?>
 		<input type='number' name='spt_settings[<?php echo esc_attr( self::OPTION_WEB_VITALS_TRACKING_RATIO ); ?>]' step='0.01' min='0.01' max='1'
 			   value='<?php echo esc_attr( $options[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] ); ?>'
 			   placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio"
-				<?php if ( $set ) { ?>
+				<?php if ( $display_theme_override_warning ) { ?>
 					readonly
 				<?php } ?>>
 		<?php
 
-		$this->show_theme_warning( $set );
+		$this->show_theme_warning( $display_theme_override_warning );
 	}
 }
