@@ -140,7 +140,14 @@ final class Settings {
 
 		<div class="content">
 			<p>
-				<?php _e( 'You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.', 'site-performance-tracker' ); ?>
+				<?php
+					echo sprintf(
+						// translators: 1 - link open tag, 2 - link close tag.
+						esc_html__( 'You can get the %1$sWeb Vitals Report here%2$s. Ensure that the date range starts from when the Web Vitals data is being sent.', 'site-performance-tracker' ),
+						'<a href="https://web-vitals-report.web.app/" target="_blank">',
+						'</a>'
+					);
+				?>
 			</p>
 		</div>
 		<?php
