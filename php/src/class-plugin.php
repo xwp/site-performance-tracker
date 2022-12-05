@@ -9,7 +9,7 @@
 namespace XWP\Site_Performance_Tracker;
 
 /**
- * Class Plugin
+ * Implements main plugin logic.
  */
 class Plugin {
 
@@ -53,13 +53,22 @@ class Plugin {
 	protected $dir_url;
 
 	/**
-	 * Setup the plugin
+	 * Plugin settings.
+	 *
+	 * @var Settings
+	 */
+	protected $settings;
+
+	/**
+	 * Setup the plugin.
 	 *
 	 * @param string $dir_path Absolute path to the plugin directory root.
 	 */
 	public function __construct( $dir_path ) {
 		$this->dir_path = rtrim( $dir_path, '\\/' );
 		$this->dir_url  = content_url( str_replace( WP_CONTENT_DIR, '', $this->dir_path ) );
+
+		$this->settings = new Settings();
 	}
 
 	/**
@@ -75,6 +84,7 @@ class Plugin {
 
 		if ( ! $is_disabled ) {
 			$this->register_hooks();
+			$this->settings->init();
 		}
 	}
 
@@ -88,9 +98,14 @@ class Plugin {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		/**
-		 * Load only for modern browsers
+		 * Load only for modern browsers.
 		 */
 		add_filter( 'script_loader_tag', array( $this, 'optimize_scripts' ), 10, 2 );
+
+		/**
+		 * Update and validate settings before updating.
+		 */
+		add_filter( 'pre_update_option_spt_settings', array( $this, 'pre_update_option' ), 10, 1 );
 	}
 
 	/**
@@ -132,7 +147,7 @@ class Plugin {
 		$asset_meta_file      = $this->path_to( 'js/dist/module/web-vitals-analytics.asset.php' );
 
 		if ( $site_config && file_exists( $asset_meta_file ) ) {
-			$asset_meta = require $asset_meta_file;
+			$asset_meta                   = require $asset_meta_file;
 			$web_vitals_analytics_js_path = sprintf(
 				'/js/dist/module/web-vitals-analytics.%s.js',
 				$asset_meta['version']
@@ -221,5 +236,26 @@ class Plugin {
 		}
 
 		return $tag;
+	}
+
+	/**
+	 * Filter the spt_settings options before updated.
+	 *
+	 * @param array $value The new, unserialized option value.
+	 *
+	 * @return array $value.
+	 */
+	public function pre_update_option( $value ) {
+		if ( isset( $value['analytics_types'] ) && 'ga_id' == $value['analytics_types'] ) {
+			$value['ga_id'] = $value['gtag_id'];
+			unset( $value['gtag_id'] );
+		}
+
+		if ( isset( $value['analytics_types'] ) && 'ga4' == $value['analytics_types'] ) {
+			$value['ga4_id'] = $value['gtag_id'];
+			unset( $value['gtag_id'] );
+		}
+
+		return $value;
 	}
 }

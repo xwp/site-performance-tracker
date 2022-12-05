@@ -99,6 +99,18 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ### Changelog
 
+#### 1.2 - December 5, 2022
+
+- Clean up settings code.
+
+#### 1.1.7 - July 5, 2022
+
+- Fix GA delivery bug.
+
+#### 1.1.6 - May 18, 2022
+
+- Fix GA not tracking bug when using the UI.
+
 #### 1.1.5 - March 17, 2022
 
 - Adding TTFB.
