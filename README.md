@@ -99,6 +99,10 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ### Changelog
 
+#### 1.2 - December 5, 2022
+
+- Clean up settings code.
+
 #### 1.1.7 - July 5, 2022
 
 - Fix GA delivery bug.
