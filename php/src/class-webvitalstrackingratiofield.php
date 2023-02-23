@@ -56,7 +56,7 @@ class WebVitalsTrackingRatioField extends FieldBase {
 			$display_theme_override_warning                    = true;
 		}
 		?>
-		<input type='number' name='spt_settings[<?php echo esc_attr( self::OPTION_WEB_VITALS_TRACKING_RATIO ); ?>]' step='0.01' min='0.01' max='1'
+		<input type='number' name='spt_settings[<?php echo esc_attr( self::OPTION_WEB_VITALS_TRACKING_RATIO ); ?>]' step='0.001' min='0.001' max='1'
 			   value='<?php echo esc_attr( $options[ self::OPTION_WEB_VITALS_TRACKING_RATIO ] ); ?>'
 			   placeholder="<?php _e( 'Enter between 0 > 1', 'site-performance-tracker' ); ?>" aria-label="<?php _e( 'web vitals tracking ratio', 'site-performance-tracker' ); ?>"
 				<?php if ( $display_theme_override_warning ) { ?>
