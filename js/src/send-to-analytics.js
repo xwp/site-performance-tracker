@@ -103,6 +103,12 @@ function getDebugInfo( metricName, entries = [] ) {
 				return `${ name }(${ getNodePath( firstEntry.target ) })`;
 			}
 			break;
+		case 'INP':
+			if ( firstEntry ) {
+				const { name } = firstEntry;
+				return `${ name }(${ getNodePath( firstEntry.target ) })`;
+			}
+			break;
 		case 'CLS':
 			if ( entries.length ) {
 				const largestShift = entries.reduce( ( a, b ) => {
