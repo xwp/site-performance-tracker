@@ -99,6 +99,10 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ### Changelog
 
+#### 1.2.1 - February 24th, 2023
+
+- Added INP metric.
+
 #### 1.2 - December 5, 2022
 
 - Clean up settings code.
