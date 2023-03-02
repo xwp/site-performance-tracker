@@ -90,6 +90,15 @@ function getNodePath( node ) {
 function getDebugInfo( metricName, entries = [] ) {
 	const firstEntry = entries[ 0 ];
 	const lastEntry = entries[ entries.length - 1 ];
+	const longestEntry = entries.sort( ( a, b ) => {
+		// Sort by: 1) duration (DESC), then 2) processing time (DESC)
+		return (
+			b.duration - a.duration ||
+			b.processingEnd -
+				b.processingStart -
+				( a.processingEnd - a.processingStart )
+		);
+	} )[ 0 ];
 
 	switch ( metricName ) {
 		case 'LCP':
@@ -104,9 +113,9 @@ function getDebugInfo( metricName, entries = [] ) {
 			}
 			break;
 		case 'INP':
-			if ( firstEntry ) {
-				const { name } = firstEntry;
-				return `${ name }(${ getNodePath( firstEntry.target ) })`;
+			if ( longestEntry ) {
+				const { name } = longestEntry;
+				return `${ name }(${ getNodePath( longestEntry.target ) })`;
 			}
 			break;
 		case 'CLS':
