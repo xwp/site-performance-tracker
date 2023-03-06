@@ -1,10 +1,11 @@
 import { sendToAnalytics } from './send-to-analytics';
-import { getCLS, getFCP, getFID, getLCP, getTTFB } from 'web-vitals';
+import { onCLS, onFCP, onFID, onLCP, onTTFB, onINP } from 'web-vitals';
 
 export function measureWebVitals() {
-	getCLS( sendToAnalytics );
-	getFCP( sendToAnalytics );
-	getFID( sendToAnalytics );
-	getLCP( sendToAnalytics );
-	getTTFB( sendToAnalytics );
+	onCLS( sendToAnalytics );
+	onFCP( sendToAnalytics );
+	onFID( sendToAnalytics );
+	onLCP( sendToAnalytics );
+	onTTFB( sendToAnalytics );
+	onINP( sendToAnalytics );
 }
