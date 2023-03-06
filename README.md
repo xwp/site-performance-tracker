@@ -102,6 +102,7 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 #### 1.3 - February 24th, 2023
 
 - Added INP metric.
+- Support for smaller web vitals ratio.
 
 #### 1.2 - December 5, 2022
 
