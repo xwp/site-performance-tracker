@@ -700,7 +700,7 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1'
+			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.001' min='0.001' max='1'
 				value='1'
 				placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio"
 			>
@@ -720,7 +720,7 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1'
+			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.001' min='0.001' max='1'
 				value='0.05'
 				placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio"
 			>
@@ -741,7 +741,7 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1'
+			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.001' min='0.001' max='1'
 				value='0.33'
 				placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio"
 				readonly
@@ -768,7 +768,7 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.01' min='0.01' max='1'
+			<input type='number' name='spt_settings[web_vitals_tracking_ratio]' step='0.001' min='0.001' max='1'
 				value='0.77'
 				placeholder="Enter between 0 > 1" aria-label="web vitals tracking ratio"
 				readonly
