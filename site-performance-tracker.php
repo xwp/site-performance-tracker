@@ -50,7 +50,7 @@ if ( version_compare( phpversion(), '5.3', '<' ) ) {
 
 /**
  * Use includes to simplify the plugin distribution and usage on
- * platforms on platforms that don't use Composer autoloader.
+ * platforms that don't use Composer autoloader.
  *
  * @todo Consider supporting Composer classmap autoload (to match
  * the filename requirements per PHPCS) after figuring out
