@@ -53,7 +53,7 @@ function xwp_site_performance_tracker() {
 }
 
 /**
- * Global function to provide access to the plugin APIs.
+ * Load Site Performance Tracker classes.
  *
  * @param class-string $class_name The fully-qualified class name.
  *
