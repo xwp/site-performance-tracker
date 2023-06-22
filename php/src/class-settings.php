@@ -82,10 +82,10 @@ final class Settings {
 	/**
 	 * Add tracker as a settings menu item.
 	 *
-	 * @return string|false The option page's hook_suffix, or false if the user does not have the capability required.
+	 * @return void
 	 */
 	public function add_admin_menu() {
-		return add_options_page(
+		add_options_page(
 			__( 'Site Performance Tracker', 'site-performance-tracker' ),
 			__( 'Site Performance Tracker', 'site-performance-tracker' ),
 			'manage_options',
