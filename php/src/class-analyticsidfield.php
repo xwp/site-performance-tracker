@@ -19,13 +19,19 @@ final class AnalyticsIdField extends FieldBase {
 	 */
 	const OPTION_TAG_ID = 'gtag_id';
 
-
 	/**
-	 * Option gtag_id name.
+	 * Option ga_id name.
 	 *
 	 * @var string
 	 */
-	const OPTION_ANALYTICS_ID = 'analytics_id';
+	const OPTION_ANALYTICS_ID = 'ga_id';
+
+	/**
+	 * Option ga4_id name.
+	 *
+	 * @var string
+	 */
+	const OPTION_GA4_ID = 'ga4_id';
 
 	/**
 	 * Get current field id.
@@ -50,25 +56,25 @@ final class AnalyticsIdField extends FieldBase {
 		$display_theme_override_warning  = false;
 		$property_name = self::OPTION_TAG_ID;
 
-		if ( isset( $options['ga_id'] ) ) {
-			$options[ self::OPTION_TAG_ID ] = $options['ga_id'];
+		if ( isset( $options[ self::OPTION_ANALYTICS_ID ] ) ) {
+			$options[ self::OPTION_TAG_ID ] = $options[ self::OPTION_ANALYTICS_ID ];
 		}
 
-		if ( isset( $hardcoded_tracker_config['ga_id'] ) ) {
-			$options[ self::OPTION_TAG_ID ] = $hardcoded_tracker_config['ga_id'];
-			$property_name                  = 'ga_id';
+		if ( isset( $hardcoded_tracker_config[ self::OPTION_ANALYTICS_ID ] ) ) {
+			$options[ self::OPTION_TAG_ID ] = $hardcoded_tracker_config[ self::OPTION_ANALYTICS_ID ];
+			$property_name                  = self::OPTION_ANALYTICS_ID;
 			$display_theme_override_warning = true;
 		} elseif ( isset( $hardcoded_tracker_config[ self::OPTION_TAG_ID ] ) ) {
 			$options[ self::OPTION_TAG_ID ] = $hardcoded_tracker_config[ self::OPTION_TAG_ID ];
-			$display_theme_override_warning                            = true;
-		} elseif ( isset( $hardcoded_tracker_config['ga4_id'] ) ) {
-			$options[ self::OPTION_TAG_ID ] = $hardcoded_tracker_config['ga4_id'];
-			$property_name                  = 'ga4_id';
+			$display_theme_override_warning = true;
+		} elseif ( isset( $hardcoded_tracker_config[ self::OPTION_GA4_ID ] ) ) {
+			$options[ self::OPTION_TAG_ID ] = $hardcoded_tracker_config[ self::OPTION_GA4_ID ];
+			$property_name                  =  self::OPTION_GA4_ID ;
 			$display_theme_override_warning = true;
 		}
 		?>
-		<input type='text' name='spt_settings[<?php echo esc_attr( self::OPTION_TAG_ID ); ?>]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-			   value='<?php echo esc_attr( $options[ self::OPTION_TAG_ID ] ); ?>' placeholder="UA-XXXXXXXX-Y"
+		<input type='text' name='spt_settings[<?php echo esc_attr( self::OPTION_TAG_ID ); ?>]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+			   value='<?php echo esc_attr( $options[ self::OPTION_TAG_ID ] ); ?>' placeholder="Analytics ID"
 			   aria-label="<?php echo esc_attr( __( 'analytics id', 'site-performance-tracker' ) ); ?>" <?php $this->print_readonly( $property_name ); ?> required>
 		<?php
 
