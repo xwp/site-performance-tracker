@@ -122,7 +122,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
 
 		$this->assertSame( $field_name, $field['id'] );
-		$this->assertSame( 'UA-XXX | GTM-XXX | G-XXX', $field['title'] );
+		$this->assertSame( 'Analytics ID', $field['title'] );
 
 		$this->assertSame( array( $this->settings->fields[1], 'render' ), $field['callback'] );
 
