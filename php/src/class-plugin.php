@@ -227,7 +227,7 @@ class Plugin {
 		if ( self::JS_HANDLE_ANALYTICS === $handle && false !== strpos( $tag, ' src' ) ) {
 			return substr_replace(
 				$tag,
-				' type="module" defer data-src',
+				' type="module" nowprocket defer data-src',
 				strpos( $tag, ' src' ),
 				// Offset.
 				strlen( ' src' )
