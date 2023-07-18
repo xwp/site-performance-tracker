@@ -117,7 +117,7 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->settings->settings_init();
 
-		$field_name = 'analytics_id';
+		$field_name = 'ga_id';
 		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
 		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
 
