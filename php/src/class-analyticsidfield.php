@@ -76,7 +76,7 @@ final class AnalyticsIdField extends FieldBase {
 		}
 		?>
 		<input type='text' name='spt_settings[<?php echo esc_attr( self::OPTION_TAG_ID ); ?>]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
-			   value='<?php echo esc_attr( $options[ self::OPTION_TAG_ID ] ); ?>' placeholder="UA-XXX | G-XXX | GTM-XXX"
+			   value='<?php echo esc_attr( $options[ self::OPTION_TAG_ID ] ); ?>' placeholder="UA-XXX | GTM-XXX | G-XXX"
 			   aria-label="<?php echo esc_attr( __( 'analytics id', 'site-performance-tracker' ) ); ?>" <?php $this->print_readonly( $property_name ); ?> required>
 		<?php
 

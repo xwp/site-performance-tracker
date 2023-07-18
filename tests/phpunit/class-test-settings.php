@@ -122,7 +122,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
 
 		$this->assertSame( $field_name, $field['id'] );
-		$this->assertSame( 'UA-XXX | G-XXX | GTM-XXX', $field['title'] );
+		$this->assertSame( 'UA-XXX | GTM-XXX | G-XXX', $field['title'] );
 
 		$this->assertSame( array( $this->settings->fields[1], 'render' ), $field['callback'] );
 
@@ -420,7 +420,7 @@ EOD;
 
 		$expected_html = <<<EOD
 			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
-				value='' placeholder="UA-XXX | G-XXX | GTM-XXX"
+				value='' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id"  required>
 EOD;
 
@@ -438,7 +438,7 @@ EOD;
 
 		$expected_html = <<<EOD
 			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
-				value='test_ga_id' placeholder="UA-XXX | G-XXX | GTM-XXX"
+				value='test_ga_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id"  required>
 EOD;
 
@@ -456,7 +456,7 @@ EOD;
 
 		$expected_html = <<<EOD
 			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
-				value='test_gtag_id' placeholder="UA-XXX | G-XXX | GTM-XXX"
+				value='test_gtag_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id"  required>
 EOD;
 
@@ -475,7 +475,7 @@ EOD;
 
 		$expected_html = <<<EOD
 			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
-				value='test_ga_id' placeholder="UA-XXX | G-XXX | GTM-XXX"
+				value='test_ga_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id" readonly required>
 			<br/><small>Configured via theme files</small>
 EOD;
@@ -495,7 +495,7 @@ EOD;
 
 		$expected_html = <<<EOD
 			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
-				value='test_gtag_id' placeholder="UA-XXX | G-XXX | GTM-XXX"
+				value='test_gtag_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id" readonly required>
 			<br/><small>Configured via theme files</small>
 EOD;
@@ -515,7 +515,7 @@ EOD;
 
 		$expected_html = <<<EOD
 			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
-				value='test_ga4_id' placeholder="UA-XXX | G-XXX | GTM-XXX"
+				value='test_ga4_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id" readonly required>
 			<br/><small>Configured via theme files</small>
 EOD;
