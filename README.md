@@ -102,6 +102,7 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 #### 1.3.1 - July 18th, 2023
 
 - Updated GA4 Settings.
+- Added WP-Rocket exclusion to web-vitals-analytics.
 - Cleaned up/refactored settings code.
 
 #### 1.3 - February 24th, 2023
