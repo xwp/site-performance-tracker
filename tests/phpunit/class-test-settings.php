@@ -117,7 +117,7 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->settings->settings_init();
 
-		$field_name = 'analytics_id';
+		$field_name = 'ga_id';
 		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
 		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
 
@@ -419,8 +419,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id"  required>
 EOD;
 
@@ -437,8 +437,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='test_ga_id' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='test_ga_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id"  required>
 EOD;
 
@@ -455,8 +455,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='test_gtag_id' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='test_gtag_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id"  required>
 EOD;
 
@@ -474,8 +474,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='test_ga_id' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='test_ga_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id" readonly required>
 			<br/><small>Configured via theme files</small>
 EOD;
@@ -494,8 +494,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='test_gtag_id' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='test_gtag_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id" readonly required>
 			<br/><small>Configured via theme files</small>
 EOD;
@@ -514,8 +514,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='test_ga4_id' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='test_ga4_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id" readonly required>
 			<br/><small>Configured via theme files</small>
 EOD;
