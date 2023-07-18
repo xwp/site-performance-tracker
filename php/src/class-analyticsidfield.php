@@ -58,6 +58,8 @@ final class AnalyticsIdField extends FieldBase {
 
 		if ( isset( $options[ self::OPTION_ANALYTICS_ID ] ) ) {
 			$options[ self::OPTION_TAG_ID ] = $options[ self::OPTION_ANALYTICS_ID ];
+		} elseif ( isset( $options[ self::OPTION_GA4_ID ] ) ) {
+			$options[ self::OPTION_TAG_ID ] = $options[ self::OPTION_GA4_ID ];
 		}
 
 		if ( isset( $hardcoded_tracker_config[ self::OPTION_ANALYTICS_ID ] ) ) {
