@@ -33,7 +33,9 @@ abstract class FieldBase {
 			array( $this, 'render' ),
 			$page_id,
 			$section_id,
-			[ 'class' => implode( ' ' , $this->get_classes() ) ]
+			array(
+				'class' => implode( ' ', $this->get_classes() )
+			)
 		);
 
 		$this->settings = $settings;
@@ -55,7 +57,9 @@ abstract class FieldBase {
 	 * @return array
 	 */
 	protected function get_classes() {
-		return [ $this->get_id() ];
+		return array(
+			$this->get_id()
+		);
 	}
 
 	/**
