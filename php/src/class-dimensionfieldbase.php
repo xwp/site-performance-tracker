@@ -50,21 +50,6 @@ abstract class DimensionFieldBase extends FieldBase {
 	}
 
 	/**
-	 * Get field visibility status.
-	 *
-	 * @param Settings $settings settings that current fields belong to.
-	 */
-	protected function get_visibility_status( $settings ) {
-		$options = $settings->get_settings();
-
-		if( isset( $options[ AnalyticsTypesField::OPTION_ANALYTICS_TYPES ] ) && 'ga4' === $options[ AnalyticsTypesField::OPTION_ANALYTICS_TYPES ] ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Get current field classes.
 	 */
 	protected function get_classes(){
