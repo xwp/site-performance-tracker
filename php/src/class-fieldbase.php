@@ -27,6 +27,11 @@ abstract class FieldBase {
 	 * @param string   $section_id field section id.
 	 */
 	public function init( $settings, $page_id, $section_id ) {
+		// Initialize the field conditionally.
+		if( ! $this->get_visibility_status( $settings ) ) {
+			return;
+		}
+
 		add_settings_field(
 			$this->get_id(),
 			$this->get_title(),
@@ -77,5 +82,14 @@ abstract class FieldBase {
 			<br/><small><?php esc_html_e( 'Configured via theme files', 'site-performance-tracker' ); ?></small>
 			<?php
 		}
+	}
+
+	/**
+	 * Get field visibility status, by default all fields are shown.
+	 * 
+	 * @param Settings $settings settings that current fields belong to.
+	 */
+	protected function get_visibility_status( $settings ) {
+		return true;
 	}
 }

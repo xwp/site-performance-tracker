@@ -48,4 +48,19 @@ abstract class DimensionFieldBase extends FieldBase {
 
 		$this->show_theme_warning( $display_theme_override_warning );
 	}
+
+	/**
+	 * Get field visibility status.
+	 *
+	 * @param Settings $settings settings that current fields belong to.
+	 */
+	protected function get_visibility_status( $settings ) {
+		$options = $settings->get_settings();
+
+		if( isset( $options[ AnalyticsTypesField::OPTION_ANALYTICS_TYPES ] ) && 'ga4' === $options[ AnalyticsTypesField::OPTION_ANALYTICS_TYPES ] ) {
+			return false;
+		}
+
+		return true;
+	}
 }
