@@ -128,6 +128,34 @@ final class Settings {
 	 */
 	public function render_settings_page() {
 		?>
+		<!-- Toggle dimension fields when value is changed in the analyticstype select field. -->
+		<script>
+			document.addEventListener( "DOMContentLoaded", function() {
+				var analytics_types_field = document.getElementsByName( "spt_settings[analytics_types]" )[0];
+				
+				// Toggle visibility on page load.
+				toggleDimensionsFields( analytics_types_field.value );
+
+				// Handle change event.
+				analytics_types_field.addEventListener( "change", function() {
+					toggleDimensionsFields( this.value );
+				});
+
+				// Toggle visibility of dimension fields.
+				function toggleDimensionsFields( field_value ) {
+					if( 'ga4' === field_value ) {
+						document.querySelectorAll( '.dimension' ).forEach( function( elem ) {
+							elem.style.display = 'none';
+						});
+					} else {
+						document.querySelectorAll( '.dimension' ).forEach( function( elem ) {
+							elem.style.display = 'table-row';
+						});
+					}
+				}
+			});
+		</script>
+
 		<form action='options.php' method='post'>
 			<h1><?php echo esc_html( __( 'Site Performance Tracker Settings', 'site-performance-tracker' ) ); ?></h1>
 
