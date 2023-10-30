@@ -88,7 +88,7 @@ const configureBabelLoader = ( browserlist ) => {
 const modernConfig = {
 	output: {
 		path: path.join( __dirname, config.distDirModern ),
-		filename: `[name].[chunkhash].js`,
+		filename: `[name].[contenthash].js`,
 		chunkFilename: `[name].[chunkhash].js`,
 
 		// Needed for [chunkhash] length to match the hard-coded

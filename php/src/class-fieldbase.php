@@ -32,7 +32,10 @@ abstract class FieldBase {
 			$this->get_title(),
 			array( $this, 'render' ),
 			$page_id,
-			$section_id
+			$section_id,
+			array(
+				'class' => implode( ' ', $this->get_classes() ),
+			)
 		);
 
 		$this->settings = $settings;
@@ -47,6 +50,17 @@ abstract class FieldBase {
 	 * Get current field title.
 	 */
 	abstract protected function get_title();
+
+	/**
+	 * Get current field classes.
+	 *
+	 * @return array
+	 */
+	protected function get_classes() {
+		return array(
+			$this->get_id(),
+		);
+	}
 
 	/**
 	 * Render form input.
