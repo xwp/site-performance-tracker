@@ -105,9 +105,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[0], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(
-			'class' => 'analytics_types'
-		), $field['args'] );
+		$this->assertSame(
+			array(
+				'class' => 'analytics_types',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_init__field_gtag_id() {
@@ -128,9 +131,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[1], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(
-			'class' => 'ga_id'
-		), $field['args'] );
+		$this->assertSame(
+			array(
+			'class' => 'ga_id',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_init__field_measurementVersion() {
@@ -151,9 +157,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[2], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(
-			'class' => 'dimension measurement_version_dimension',
-		), $field['args'] );
+		$this->assertSame(
+			array(
+				'class' => 'dimension measurement_version_dimension',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_init__field_eventMeta() {
@@ -174,9 +183,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[3], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(
-			'class' => 'dimension event_meta_dimension',
-		), $field['args'] );
+		$this->assertSame(
+			array(
+				'class' => 'dimension event_meta_dimension',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_init__field_eventDebug() {
@@ -197,9 +209,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[4], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(
-			'class' => 'dimension event_debug_dimension',
-		), $field['args'] );
+		$this->assertSame(
+			array(
+				'class' => 'dimension event_debug_dimension',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_init__field_web_vitals_tracking_ratio() {
@@ -220,9 +235,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[5], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(
-			'class' => 'web_vitals_tracking_ratio',
-		), $field['args'] );
+		$this->assertSame(
+			array(
+				'class' => 'web_vitals_tracking_ratio',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_section__callback() {
@@ -797,7 +815,7 @@ EOD;
 		$result = ob_get_contents();
 		ob_end_clean();
 
-		// Confirm the form renders, without checking for an exact match
+		// Confirm the form renders, without checking for an exact match.
 
 		// replace nonce with a constant
 		$result = preg_replace(
