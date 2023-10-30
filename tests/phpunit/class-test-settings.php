@@ -133,7 +133,7 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame(
 			array(
-			'class' => 'ga_id',
+				'class' => 'ga_id',
 			),
 			$field['args']
 		);
