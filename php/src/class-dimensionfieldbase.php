@@ -48,4 +48,14 @@ abstract class DimensionFieldBase extends FieldBase {
 
 		$this->show_theme_warning( $display_theme_override_warning );
 	}
+
+	/**
+	 * Get current field classes.
+	 */
+	protected function get_classes() {
+		return array(
+			'dimension',
+			$this->get_id(),
+		);
+	}
 }
