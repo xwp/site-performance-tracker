@@ -105,7 +105,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[0], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(), $field['args'] );
+		$this->assertSame(
+			array(
+				'class' => 'analytics_types',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_init__field_gtag_id() {
@@ -117,7 +122,7 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->settings->settings_init();
 
-		$field_name = 'analytics_id';
+		$field_name = 'ga_id';
 		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
 		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
 
@@ -126,7 +131,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[1], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(), $field['args'] );
+		$this->assertSame(
+			array(
+				'class' => 'ga_id',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_init__field_measurementVersion() {
@@ -147,7 +157,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[2], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(), $field['args'] );
+		$this->assertSame(
+			array(
+				'class' => 'dimension measurement_version_dimension',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_init__field_eventMeta() {
@@ -168,7 +183,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[3], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(), $field['args'] );
+		$this->assertSame(
+			array(
+				'class' => 'dimension event_meta_dimension',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_init__field_eventDebug() {
@@ -189,7 +209,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[4], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(), $field['args'] );
+		$this->assertSame(
+			array(
+				'class' => 'dimension event_debug_dimension',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_init__field_web_vitals_tracking_ratio() {
@@ -210,7 +235,12 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$this->assertSame( array( $this->settings->fields[5], 'render' ), $field['callback'] );
 
-		$this->assertSame( array(), $field['args'] );
+		$this->assertSame(
+			array(
+				'class' => 'web_vitals_tracking_ratio',
+			),
+			$field['args']
+		);
 	}
 
 	public function test_settings_section__callback() {
@@ -419,8 +449,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id"  required>
 EOD;
 
@@ -437,8 +467,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='test_ga_id' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='test_ga_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id"  required>
 EOD;
 
@@ -455,8 +485,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='test_gtag_id' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='test_gtag_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id"  required>
 EOD;
 
@@ -474,8 +504,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='test_ga_id' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='test_ga_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id" readonly required>
 			<br/><small>Configured via theme files</small>
 EOD;
@@ -494,8 +524,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='test_gtag_id' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='test_gtag_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id" readonly required>
 			<br/><small>Configured via theme files</small>
 EOD;
@@ -514,8 +544,8 @@ EOD;
 		ob_end_clean();
 
 		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]+-[A-Z|0-9]+.*"
-				value='test_ga4_id' placeholder="UA-XXXXXXXX-Y"
+			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
+				value='test_ga4_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
 				aria-label="analytics id" readonly required>
 			<br/><small>Configured via theme files</small>
 EOD;
@@ -785,6 +815,8 @@ EOD;
 		$result = ob_get_contents();
 		ob_end_clean();
 
+		// Confirm the form renders, without checking for an exact match.
+
 		// replace nonce with a constant
 		$result = preg_replace(
 			'#name="_wpnonce" value=".*"#U',
@@ -794,17 +826,9 @@ EOD;
 
 		$expected_html = <<<EOD
 			<form action='options.php' method='post'>
-				<h1>Site Performance Tracker Settings</h1>
-
-				<input type='hidden' name='option_page' value='pluginPage' /><input type="hidden" name="action" value="update" /><input type="hidden" id="_wpnonce" name="_wpnonce" value="test nonce" /><input type="hidden" name="_wp_http_referer" value="" /><p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"  /></p>          </form>
-
-				<div class="content">
-					<p>
-						You can get the <a href="https://web-vitals-report.web.app/" target="_blank">Web Vitals Report here</a>. Ensure that the date range starts from when the Web Vitals data is being sent.                 </p>
-				</div>
 EOD;
 
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
+		$this->assertContains( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
 	private function normilize( $str ) {

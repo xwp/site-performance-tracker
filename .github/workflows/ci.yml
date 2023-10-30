@@ -2,6 +2,10 @@ name: Test and Build
 
 on: push
 
+concurrency:
+  group: ${{ github.ref }}-ci
+  cancel-in-progress: true
+
 jobs:
 
   test:

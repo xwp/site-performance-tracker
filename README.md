@@ -99,6 +99,17 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ### Changelog
 
+#### 1.3.2 - October 30th, 2023
+
+- Improved admin interface for GA4.
+- Bumped up build process to use Node 16.
+
+#### 1.3.1 - July 18th, 2023
+
+- Updated GA4 Settings.
+- Added WP-Rocket exclusion to web-vitals-analytics.
+- Cleaned up/refactored settings code.
+
 #### 1.3 - February 24th, 2023
 
 - Added INP metric.
