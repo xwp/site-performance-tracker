@@ -220,7 +220,7 @@ class Plugin {
 	 * @param string $tag Script tag mark-up.
 	 * @param string $handle Script ID.
 	 *
-	 * @return $tag
+	 * @return string
 	 */
 	public function optimize_scripts( $tag, $handle ) {
 		// Replaces only the first occurrence of src in the tag. Avoids replacing inside inline scripts.
