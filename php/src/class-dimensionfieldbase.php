@@ -53,8 +53,8 @@ abstract class DimensionFieldBase extends FieldBase {
 	 * Get current field classes.
 	 */
 	protected function get_classes() {
-		return array( 
-			'dimension', $this->get_id()
-		);
+		return [
+			'dimension', $this->get_id(),
+		];
 	}
 }
