@@ -60,17 +60,9 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 		metric_rating: rating,
 	};
 
-	switch ( metricName ) {
-		case 'LCP':
-			if ( lastEntry ) {
-				return getNodePath( lastEntry.element );
-			}
-			break;
-		case 'FID':
-			if ( firstEntry ) {
-				const { name } = firstEntry;
-				return `${ name }(${ getNodePath( firstEntry.target ) })`;
-			}
+	switch ( name ) {
+		case 'CLS':
+			eventParams.debug_target = attribution.largestShiftTarget;
 			break;
 		case 'INP':
 			const { processingDuration, presentationDelay, interactionTarget, interactionType } = attribution;
