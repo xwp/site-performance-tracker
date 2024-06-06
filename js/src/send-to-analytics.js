@@ -67,7 +67,7 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 		case 'INP':
 			const { processingDuration, presentationDelay, interactionTarget, interactionType } = attribution;
 			const loaf = attribution.longAnimationFrameEntries.at( -1 );
-			const script = loaf?.scripts?.sort( ( a, b ) => b.duration - a.duration )[0];
+			const script = loaf?.scripts?.sort( ( a, b ) => b.duration - a.duration )[ 0 ];
 
 			eventParams.processingDuration = processingDuration;
 			eventParams.presentationDelay = presentationDelay;
