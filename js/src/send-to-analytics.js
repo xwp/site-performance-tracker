@@ -16,15 +16,6 @@
 
 /* global gtag */
 
-const vitalThresholds = {
-	CLS: [ 0.1, 0.25 ],
-	FCP: [ 1800, 3000 ],
-	FID: [ 100, 300 ],
-	LCP: [ 2500, 4000 ],
-	INP: [ 200, 500 ],
-	TTFB: [ 501, 1500 ],
-};
-
 const uaDimMeasurementVersion = window.webVitalsAnalyticsData[ 0 ].measurementVersion
 	? window.webVitalsAnalyticsData[ 0 ].measurementVersion
 	: 'dimension1';
@@ -59,46 +50,15 @@ function configureGtag( id ) {
 	}
 }
 
-function getRating( value, thresholds ) {
-	if ( value > thresholds[ 1 ] ) {
-		return 'poor';
-	}
-	if ( value > thresholds[ 0 ] ) {
-		return 'ni';
-	}
-	return 'good';
-}
-
-function getNodePath( node ) {
-	try {
-		let name = node.nodeName.toLowerCase();
-		if ( name === 'body' ) {
-			return 'html>body';
-		}
-		if ( node.id ) {
-			return `${ name }#${ node.id }`;
-		}
-		if ( node.className && node.className.length ) {
-			name += `.${ [ ...node.classList.values() ].join( '.' ) }`;
-		}
-		return `${ getNodePath( node.parentElement ) }>${ name }`;
-	} catch ( error ) {
-		return '(error)';
-	}
-}
-
-function getDebugInfo( metricName, entries = [] ) {
-	const firstEntry = entries[ 0 ];
-	const lastEntry = entries[ entries.length - 1 ];
-	const longestEntry = entries.sort( ( a, b ) => {
-		// Sort by: 1) duration (DESC), then 2) processing time (DESC)
-		return (
-			b.duration - a.duration ||
-			b.processingEnd -
-				b.processingStart -
-				( a.processingEnd - a.processingStart )
-		);
-	} )[ 0 ];
+export function sendToAnalytics( { name, value, delta, id, attribution, rating } ) {
+	const analyticsData = window.webVitalsAnalyticsData[ 0 ];
+	const eventParams = {
+		value: delta,
+		metric_id: id,
+		metric_value: value,
+		metric_delta: Math.round( name === 'CLS' ? delta * 1000 : delta ),
+		metric_rating: rating,
+	};
 
 	switch ( metricName ) {
 		case 'LCP':
@@ -113,39 +73,35 @@ function getDebugInfo( metricName, entries = [] ) {
 			}
 			break;
 		case 'INP':
-			if ( longestEntry ) {
-				const { name } = longestEntry;
-				return `${ name }(${ getNodePath( longestEntry.target ) })`;
+			const { processingDuration, presentationDelay, interactionTarget, interactionType } = attribution;
+			const loaf = attribution.longAnimationFrameEntries.at( -1 );
+			const script = loaf?.scripts?.sort( ( a, b ) => b.duration - a.duration )[0];
+
+			eventParams.processingDuration = processingDuration;
+			eventParams.presentationDelay = presentationDelay;
+			eventParams.debug_target = interactionTarget;
+			eventParams.interactionType = interactionType;
+
+			if ( script ) {
+				const { invokerType, invoker, sourceURL, sourceCharPosition, sourceFunctionName } = script;
+				const { startTime, duration, styleAndLayoutStart } = loaf;
+				const endTime = startTime	+ duration;
+				const styleLayoutDuration = endTime - styleAndLayoutStart;
+
+				eventParams.invokerType = invokerType;
+				eventParams.invoker = invoker;
+				eventParams.sourceURL = sourceURL;
+				eventParams.sourceCharPosition = sourceCharPosition;
+				eventParams.sourceFunctionName = sourceFunctionName;
+				eventParams.styleLayoutDuration = styleLayoutDuration;
 			}
 			break;
-		case 'CLS':
-			if ( entries.length ) {
-				const largestShift = entries.reduce( ( a, b ) => {
-					return a && a.value > b.value ? a : b;
-				} );
-				if ( largestShift && largestShift.sources ) {
-					const largestSource = largestShift.sources.reduce(
-						( a, b ) => {
-							return a.node &&
-								a.previousRect.width * a.previousRect.height >
-									b.previousRect.width * b.previousRect.height
-								? a
-								: b;
-						}
-					);
-					if ( largestSource ) {
-						return getNodePath( largestSource.node );
-					}
-				}
-			}
+		case 'LCP':
+			eventParams.debug_target = attribution.element;
 			break;
 		default:
 			return '(not set)';
 	}
-}
-
-export function sendToAnalytics( { name, value, delta, id, entries } ) {
-	const analyticsData = window.webVitalsAnalyticsData[ 0 ];
 
 	if ( analyticsData && analyticsData.gtag_id ) {
 		if ( ! gtagConfigured ) {
@@ -153,37 +109,14 @@ export function sendToAnalytics( { name, value, delta, id, entries } ) {
 			gtagConfigured = true;
 		}
 
-		getDeliveryFunction( 'gtag' )( 'event', name, {
-			event_category: 'Web Vitals',
-			event_label: id,
-			value: Math.round( name === 'CLS' ? delta * 1000 : delta ),
-			non_interaction: true,
-			event_meta: getRating( value, vitalThresholds[ name ] ),
-			event_debug: getDebugInfo( name, entries ),
-		} );
+		eventParams.event_category = 'Web Vitals';
+		eventParams.event_label = id;
+		eventParams.non_interaction = true;
+
+		getDeliveryFunction( 'gtag' )( 'event', name, eventParams );
 	}
-	if ( analyticsData && analyticsData.ga_id ) {
-		getDeliveryFunction( 'ga' )( 'create', analyticsData.ga_id, 'auto' );
-		getDeliveryFunction( 'ga' )( 'send', 'event', {
-			eventCategory: 'Web Vitals',
-			eventAction: name,
-			eventLabel: id,
-			eventValue: Math.round( name === 'CLS' ? delta * 1000 : delta ),
-			nonInteraction: true,
-			transport: 'beacon',
-			[ uaDimEventMeta ]: getRating( value, vitalThresholds[ name ] ),
-			[ uaDimEventDebug ]: getDebugInfo( name, entries ),
-			[ uaDimMeasurementVersion ]: measurementVersion,
-		} );
-	}
+
 	if ( analyticsData && analyticsData.ga4_id ) {
-		getDeliveryFunction( 'gtag' )( 'event', name, {
-			value: delta,
-			metric_id: id,
-			metric_value: Math.round( name === 'CLS' ? delta * 1000 : delta ),
-			event_meta: getRating( value, vitalThresholds[ name ] ),
-			event_debug: getDebugInfo( name, entries ),
-			measurement_version: measurementVersion,
-		} );
+		getDeliveryFunction( 'gtag' )( 'event', name, eventParams );
 	}
 }
