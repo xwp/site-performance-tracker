@@ -113,110 +113,6 @@ class Test_Settings extends WP_UnitTestCase {
 		);
 	}
 
-	public function test_settings_init__field_gtag_id() {
-		global $wp_settings_fields;
-
-		$this->assertFalse(
-			isset( $wp_settings_fields['pluginPage'] )
-		);
-
-		$this->settings->settings_init();
-
-		$field_name = 'ga_id';
-		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
-		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
-
-		$this->assertSame( $field_name, $field['id'] );
-		$this->assertSame( 'Analytics ID', $field['title'] );
-
-		$this->assertSame( array( $this->settings->fields[1], 'render' ), $field['callback'] );
-
-		$this->assertSame(
-			array(
-				'class' => 'ga_id',
-			),
-			$field['args']
-		);
-	}
-
-	public function test_settings_init__field_measurementVersion() {
-		global $wp_settings_fields;
-
-		$this->assertFalse(
-			isset( $wp_settings_fields['pluginPage'] )
-		);
-
-		$this->settings->settings_init();
-
-		$field_name = 'measurement_version_dimension';
-		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
-		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
-
-		$this->assertSame( $field_name, $field['id'] );
-		$this->assertSame( 'Measurement Version Dimension', $field['title'] );
-
-		$this->assertSame( array( $this->settings->fields[2], 'render' ), $field['callback'] );
-
-		$this->assertSame(
-			array(
-				'class' => 'dimension measurement_version_dimension',
-			),
-			$field['args']
-		);
-	}
-
-	public function test_settings_init__field_eventMeta() {
-		global $wp_settings_fields;
-
-		$this->assertFalse(
-			isset( $wp_settings_fields['pluginPage'] )
-		);
-
-		$this->settings->settings_init();
-
-		$field_name = 'event_meta_dimension';
-		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
-		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
-
-		$this->assertSame( $field_name, $field['id'] );
-		$this->assertSame( 'Event Meta Dimension', $field['title'] );
-
-		$this->assertSame( array( $this->settings->fields[3], 'render' ), $field['callback'] );
-
-		$this->assertSame(
-			array(
-				'class' => 'dimension event_meta_dimension',
-			),
-			$field['args']
-		);
-	}
-
-	public function test_settings_init__field_eventDebug() {
-		global $wp_settings_fields;
-
-		$this->assertFalse(
-			isset( $wp_settings_fields['pluginPage'] )
-		);
-
-		$this->settings->settings_init();
-
-		$field_name = 'event_debug_dimension';
-		$this->assertTrue( isset( $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ] ) );
-		$field = $wp_settings_fields['pluginPage']['spt_pluginPage_section'][ $field_name ];
-
-		$this->assertSame( $field_name, $field['id'] );
-		$this->assertSame( 'Event Debug Dimension', $field['title'] );
-
-		$this->assertSame( array( $this->settings->fields[4], 'render' ), $field['callback'] );
-
-		$this->assertSame(
-			array(
-				'class' => 'dimension event_debug_dimension',
-			),
-			$field['args']
-		);
-	}
-
 	public function test_settings_init__field_web_vitals_tracking_ratio() {
 		global $wp_settings_fields;
 
@@ -233,7 +129,7 @@ class Test_Settings extends WP_UnitTestCase {
 		$this->assertSame( $field_name, $field['id'] );
 		$this->assertSame( 'Web Vitals Tracking Ratio', $field['title'] );
 
-		$this->assertSame( array( $this->settings->fields[5], 'render' ), $field['callback'] );
+		$this->assertSame( array( $this->settings->fields[2], 'render' ), $field['callback'] );
 
 		$this->assertSame(
 			array(
@@ -262,69 +158,10 @@ class Test_Settings extends WP_UnitTestCase {
 
 		$expected_html = <<<EOD
 		<select name="spt_settings[analytics_types]" required>
-				<option value="ga_id" >
-						Google Analytics
-				</option>
-				<option value="gtm" >
-						Global Site Tag
-				</option>
 				<option value="ga4" >
 						GA4 Analytics
 				</option>
 		</select>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_analytics_types_render__set_ga_id() {
-		$this->settings->settings_init();
-
-		add_option( 'spt_settings', array( 'analytics_types' => 'ga_id' ) );
-
-		ob_start();
-		$this->settings->fields[0]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<select name="spt_settings[analytics_types]" required>
-					<option value="ga_id" selected='selected'>
-							Google Analytics
-					</option>
-					<option value="gtm" >
-							Global Site Tag
-					</option>
-					<option value="ga4" >
-							GA4 Analytics
-					</option>
-			</select>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_analytics_types_render__set_gtm() {
-		$this->settings->settings_init();
-		add_option( 'spt_settings', array( 'analytics_types' => 'gtm' ) );
-
-		ob_start();
-		$this->settings->fields[0]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<select name="spt_settings[analytics_types]" required>
-					<option value="ga_id" >
-							Google Analytics
-					</option>
-					<option value="gtm" selected='selected'>
-							Global Site Tag
-					</option>
-					<option value="ga4" >
-							GA4 Analytics
-					</option>
-			</select>
 EOD;
 
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
@@ -341,72 +178,10 @@ EOD;
 
 		$expected_html = <<<EOD
 			<select name="spt_settings[analytics_types]" required>
-					<option value="ga_id" >
-							Google Analytics
-					</option>
-					<option value="gtm" >
-							Global Site Tag
-					</option>
 					<option value="ga4" selected='selected'>
 							GA4 Analytics
 					</option>
 			</select>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_analytics_types_render__theme_ga_id() {
-		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'ga_id' => 'test_ga_id' ) );
-
-		$this->settings->settings_init();
-
-		ob_start();
-		$this->settings->fields[0]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<select name="spt_settings[analytics_types]" disabled required>
-					<option value="ga_id" selected='selected'>
-							Google Analytics
-					</option>
-					<option value="gtm" >
-							Global Site Tag
-					</option>
-					<option value="ga4" >
-							GA4 Analytics
-					</option>
-			</select>
-			<br/><small>Configured via theme files</small>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_analytics_types_render__theme_gtag_id() {
-		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'gtag_id' => 'test_gtag_id' ) );
-
-		$this->settings->settings_init();
-
-		ob_start();
-		$this->settings->fields[0]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<select name="spt_settings[analytics_types]" disabled required>
-					<option value="ga_id" >
-							Google Analytics
-					</option>
-					<option value="gtm" selected='selected'>
-							Global Site Tag
-					</option>
-					<option value="ga4" >
-							GA4 Analytics
-					</option>
-			</select>
-			<br/><small>Configured via theme files</small>
 EOD;
 
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
@@ -424,12 +199,6 @@ EOD;
 
 		$expected_html = <<<EOD
 			<select name="spt_settings[analytics_types]" disabled required>
-					<option value="ga_id" >
-							Google Analytics
-					</option>
-					<option value="gtm" >
-							Global Site Tag
-					</option>
 					<option value="ga4" selected='selected'>
 							GA4 Analytics
 					</option>
@@ -457,82 +226,6 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_analytics_id_render__set_ga_id() {
-		$this->settings->settings_init();
-		add_option( 'spt_settings', array( 'ga_id' => 'test_ga_id' ) );
-
-		ob_start();
-		$this->settings->fields[1]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
-				value='test_ga_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
-				aria-label="analytics id"  required>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_analytics_id_render__set_gtag_id() {
-		$this->settings->settings_init();
-		add_option( 'spt_settings', array( 'gtag_id' => 'test_gtag_id' ) );
-
-		ob_start();
-		$this->settings->fields[1]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
-				value='test_gtag_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
-				aria-label="analytics id"  required>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_analytics_id_render__theme_ga_id() {
-		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'ga_id' => 'test_ga_id' ) );
-
-		$this->settings->settings_init();
-
-		ob_start();
-		$this->settings->fields[1]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
-				value='test_ga_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
-				aria-label="analytics id" readonly required>
-			<br/><small>Configured via theme files</small>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_analytics_id_render__theme_gtag_id() {
-		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'gtag_id' => 'test_gtag_id' ) );
-
-		$this->settings->settings_init();
-
-		ob_start();
-		$this->settings->fields[1]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[gtag_id]' pattern="[UA|GTM|G]-[A-Z0-9](.*)?"
-				value='test_gtag_id' placeholder="UA-XXX | GTM-XXX | G-XXX"
-				aria-label="analytics id" readonly required>
-			<br/><small>Configured via theme files</small>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
 	public function test_analytics_id_render__theme_ga4_id() {
 		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'ga4_id' => 'test_ga4_id' ) );
 
@@ -553,179 +246,11 @@ EOD;
 		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
 	}
 
-	public function test_measurement_version_dimension_render__empty_options() {
-		$this->settings->settings_init();
-
-		ob_start();
-		$this->settings->fields[2]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}"
-				value='' placeholder="dimension1"
-				aria-label="measurement version dimension" >
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_measurement_version_dimension_render__set_measurementVersion() {
-		$this->settings->settings_init();
-
-		add_option( 'spt_settings', array( 'measurementVersion' => 'dimension1' ) );
-
-		ob_start();
-		$this->settings->fields[2]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}"
-				value='dimension1' placeholder="dimension1"
-				aria-label="measurement version dimension" >
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_measurement_version_dimension_render__theme_measurementVersion() {
-		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'measurementVersion' => 'dimension11' ) );
-
-		$this->settings->settings_init();
-
-		ob_start();
-		$this->settings->fields[2]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[measurementVersion]' pattern="[dimension]+[0-9]{1,2}"
-				value='dimension11' placeholder="dimension1"
-				aria-label="measurement version dimension" readonly>
-			<br/><small>Configured via theme files</small>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_event_meta_dimension_render__empty_options() {
-		$this->settings->settings_init();
-
-		ob_start();
-		$this->settings->fields[3]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}"
-				value='' placeholder="dimension2"
-				aria-label="event meta dimension" >
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_event_meta_dimension_render__set_eventMeta() {
-		$this->settings->settings_init();
-
-		add_option( 'spt_settings', array( 'eventMeta' => 'dimension2' ) );
-
-		ob_start();
-		$this->settings->fields[3]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}"
-				value='dimension2' placeholder="dimension2"
-				aria-label="event meta dimension" >
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_event_meta_dimension_render__theme_eventMeta() {
-		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'eventMeta' => 'dimension22' ) );
-
-		$this->settings->settings_init();
-
-		ob_start();
-		$this->settings->fields[3]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[eventMeta]' pattern="[dimension]+[0-9]{1,2}"
-				value='dimension22' placeholder="dimension2"
-				aria-label="event meta dimension" readonly>
-			<br/><small>Configured via theme files</small>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_event_debug_dimension_render__empty_options() {
-		$this->settings->settings_init();
-
-		ob_start();
-		$this->settings->fields[4]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}"
-				value='' placeholder="dimension3"
-				aria-label="event debug dimension" >
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_event_debug_dimension_render__set_eventDebug() {
-		$this->settings->settings_init();
-
-		add_option( 'spt_settings', array( 'eventDebug' => 'dimension3' ) );
-
-		ob_start();
-		$this->settings->fields[4]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}"
-				value='dimension3' placeholder="dimension3"
-				aria-label="event debug dimension" >
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
-	public function test_event_debug_dimension_render__theme_eventDebug() {
-		add_theme_support( Settings::HARDCODED_TRACKER_CONFIG_FEATURE, array( 'eventDebug' => 'dimension33' ) );
-
-		$this->settings->settings_init();
-
-		ob_start();
-		$this->settings->fields[4]->render();
-		$result = ob_get_contents();
-		ob_end_clean();
-
-		$expected_html = <<<EOD
-			<input type='text' name='spt_settings[eventDebug]' pattern="[dimension]+[0-9]{1,2}"
-				value='dimension33' placeholder="dimension3"
-				aria-label="event debug dimension" readonly>
-			<br/><small>Configured via theme files</small>
-EOD;
-
-		$this->assertSameIgnoreEOL( $this->normilize( $expected_html ), $this->normilize( $result ) );
-	}
-
 	public function test_web_vitals_tracking_ratio_render__empty_options() {
 		$this->settings->settings_init();
 
 		ob_start();
-		$this->settings->fields[5]->render();
+		$this->settings->fields[2]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -745,7 +270,7 @@ EOD;
 		add_option( 'spt_settings', array( 'web_vitals_tracking_ratio' => 0.05 ) );
 
 		ob_start();
-		$this->settings->fields[5]->render();
+		$this->settings->fields[2]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -766,7 +291,7 @@ EOD;
 		$this->settings->settings_init();
 
 		ob_start();
-		$this->settings->fields[5]->render();
+		$this->settings->fields[2]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 
@@ -793,7 +318,7 @@ EOD;
 		);
 
 		ob_start();
-		$this->settings->fields[5]->render();
+		$this->settings->fields[2]->render();
 		$result = ob_get_contents();
 		ob_end_clean();
 

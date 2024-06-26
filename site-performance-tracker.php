@@ -8,7 +8,7 @@
  * Plugin Name: Site Performance Tracker
  * Plugin URI: https://github.com/xwp/site-performance-tracker
  * Description: Allows you to detect and track site performance metrics.
- * Version: 1.3.2
+ * Version: 1.3.3
  * Author: XWP.co
  * Author URI: https://xwp.co
  */
@@ -59,12 +59,8 @@ if ( version_compare( phpversion(), '5.3', '<' ) ) {
 require_once __DIR__ . '/php/src/class-plugin.php';
 require_once __DIR__ . '/php/src/class-settings.php';
 require_once __DIR__ . '/php/src/class-fieldbase.php';
-require_once __DIR__ . '/php/src/class-dimensionfieldbase.php';
 require_once __DIR__ . '/php/src/class-analyticstypesfield.php';
 require_once __DIR__ . '/php/src/class-analyticsidfield.php';
-require_once __DIR__ . '/php/src/class-measurementversiondimensionfield.php';
-require_once __DIR__ . '/php/src/class-eventmetadimensionfield.php';
-require_once __DIR__ . '/php/src/class-eventdebugdimensionfield.php';
 require_once __DIR__ . '/php/src/class-webvitalstrackingratiofield.php';
 require_once __DIR__ . '/php/helpers.php';
 

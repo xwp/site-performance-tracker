@@ -20,38 +20,11 @@ The plugin must be configured by setting the `site_performance_tracker_vitals` t
 
 To send Web Vitals metrics to Google Analytics in a format compatible with the [Web Vitals Report](https://web-vitals-report.web.app), enable the following theme support and passing in the ID:
 
-[Google Analytics (analytics.js)](https://support.google.com/analytics/answer/7476135) is supported, requires passing the ID using `ga_id`:
-
-```php
-add_theme_support( 'site_performance_tracker_vitals', array(
-  'ga_id' => 'UA-XXXXXXXX-Y',
-) );
-```
-
-[Global Site Tag](https://support.google.com/analytics/answer/1008080) is supported, requires passing the Analytics ID (starting with `UA-` not `GTM-`) using `gtag_id`:
-
-```php
-add_theme_support( 'site_performance_tracker_vitals', array(
-  'gtag_id' => 'UA-XXXXXXXX-Y',
-) );
-```
-
 [GA4 Analytics](https://support.google.com/analytics/answer/9304153) is supported, requires passing the ID using `ga4_id`:
 
 ```php
 add_theme_support( 'site_performance_tracker_vitals', array(
   'ga4_id' => 'G-XXXXXXXXXX',
-) );
-```
-
-If you need to override the Google Analytics dimensions (defaults to `dimensions1` through `dimension3`) to store these under, pass them along on the add theme support initialisation:
-
-```php
-add_theme_support( 'site_performance_tracker_vitals', array(
-  'gtag_id'            => 'UA-XXXXXXXX-Y',
-  'measurementVersion' => 'dimension7',
-  'eventMeta'          => 'dimension8',
-  'eventDebug'         => 'dimension9',
 ) );
 ```
 
@@ -98,6 +71,11 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 - We use the `@wordpress/eslint-plugin/recommended-with-formatting` ruleset for JS linting since the Prettier integration is [currently unreliable in `@wordpress/scripts`](https://github.com/WordPress/gutenberg/issues/21872).
 
 ### Changelog
+
+#### 1.3.3 - October 30th, 2023
+
+- Deprecated GA3 support.
+- Used attribution build of web vitals.
 
 #### 1.3.2 - October 30th, 2023
 
