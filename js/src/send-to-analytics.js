@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-/* global gtag */
-
 function getDeliveryFunction( type ) {
 	// eslint-disable-next-line no-console
 	return window[ type ] || console.log;
