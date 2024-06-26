@@ -59,12 +59,8 @@ if ( version_compare( phpversion(), '5.3', '<' ) ) {
 require_once __DIR__ . '/php/src/class-plugin.php';
 require_once __DIR__ . '/php/src/class-settings.php';
 require_once __DIR__ . '/php/src/class-fieldbase.php';
-require_once __DIR__ . '/php/src/class-dimensionfieldbase.php';
 require_once __DIR__ . '/php/src/class-analyticstypesfield.php';
 require_once __DIR__ . '/php/src/class-analyticsidfield.php';
-require_once __DIR__ . '/php/src/class-measurementversiondimensionfield.php';
-require_once __DIR__ . '/php/src/class-eventmetadimensionfield.php';
-require_once __DIR__ . '/php/src/class-eventdebugdimensionfield.php';
 require_once __DIR__ . '/php/src/class-webvitalstrackingratiofield.php';
 require_once __DIR__ . '/php/helpers.php';
 

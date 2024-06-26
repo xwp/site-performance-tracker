@@ -246,14 +246,8 @@ class Plugin {
 	 * @return array $value.
 	 */
 	public function pre_update_option( $value ) {
-		if ( isset( $value['analytics_types'] ) && 'ga_id' == $value['analytics_types'] ) {
-			$value['ga_id'] = $value['gtag_id'];
-			unset( $value['gtag_id'] );
-		}
-
 		if ( isset( $value['analytics_types'] ) && 'ga4' == $value['analytics_types'] ) {
 			$value['ga4_id'] = $value['gtag_id'];
-			unset( $value['gtag_id'] );
 		}
 
 		return $value;

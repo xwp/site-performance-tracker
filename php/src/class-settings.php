@@ -57,9 +57,6 @@ final class Settings {
 		$this->fields = array(
 			new AnalyticsTypesField(),
 			new AnalyticsIdField(),
-			new MeasurementVersionDimensionField(),
-			new EventMetaDimensionField(),
-			new EventDebugDimensionField(),
 			new WebVitalsTrackingRatioField(),
 		);
 	}
@@ -132,7 +129,7 @@ final class Settings {
 		<script>
 			document.addEventListener( "DOMContentLoaded", function() {
 				var analytics_types_field = document.getElementsByName( "spt_settings[analytics_types]" )[0];
-				
+
 				// Toggle visibility on page load.
 				toggleDimensionsFields( analytics_types_field.value );
 
@@ -191,9 +188,6 @@ final class Settings {
 			array(
 				AnalyticsTypesField::OPTION_ANALYTICS_TYPES                     => '',
 				AnalyticsIdField::OPTION_TAG_ID                                 => '',
-				MeasurementVersionDimensionField::OPTION_MEASUREMENT_VERSION    => '',
-				EventMetaDimensionField::OPTION_EVENT_META                      => '',
-				EventDebugDimensionField::OPTION_EVENT_DEBUG                    => '',
 				WebVitalsTrackingRatioField::OPTION_WEB_VITALS_TRACKING_RATIO   => Plugin::TRACKING_DEFAULT_CHANCE,
 			),
 			$options

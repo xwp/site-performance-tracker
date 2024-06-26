@@ -16,38 +16,9 @@
 
 /* global gtag */
 
-const uaDimMeasurementVersion = window.webVitalsAnalyticsData[ 0 ].measurementVersion
-	? window.webVitalsAnalyticsData[ 0 ].measurementVersion
-	: 'dimension1';
-const uaDimEventMeta = window.webVitalsAnalyticsData[ 0 ].eventMeta
-	? window.webVitalsAnalyticsData[ 0 ].eventMeta
-	: 'dimension2';
-const uaDimEventDebug = window.webVitalsAnalyticsData[ 0 ].eventDebug
-	? window.webVitalsAnalyticsData[ 0 ].eventDebug
-	: 'dimension3';
-
-const measurementVersion = '6';
-
-let gtagConfigured = false;
-
 function getDeliveryFunction( type ) {
 	// eslint-disable-next-line no-console
 	return window[ type ] || console.log;
-}
-
-function configureGtag( id ) {
-	if ( 'gtag' in window ) {
-		gtag( 'config', id, {
-			send_page_view: false,
-			transport_type: 'beacon',
-			measurement_version: measurementVersion,
-			custom_map: {
-				[ uaDimMeasurementVersion ]: 'measurement_version',
-				[ uaDimEventMeta ]: 'event_meta',
-				[ uaDimEventDebug ]: 'event_debug',
-			},
-		} );
-	}
 }
 
 export function sendToAnalytics( { name, value, delta, id, attribution, rating } ) {
@@ -93,19 +64,6 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 			break;
 		default:
 			return '(not set)';
-	}
-
-	if ( analyticsData && analyticsData.gtag_id ) {
-		if ( ! gtagConfigured ) {
-			configureGtag( analyticsData.gtag_id );
-			gtagConfigured = true;
-		}
-
-		eventParams.event_category = 'Web Vitals';
-		eventParams.event_label = id;
-		eventParams.non_interaction = true;
-
-		getDeliveryFunction( 'gtag' )( 'event', name, eventParams );
 	}
 
 	if ( analyticsData && analyticsData.ga4_id ) {
