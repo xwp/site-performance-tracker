@@ -56,7 +56,7 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 				eventParams.sourceURL = sourceURL;
 				eventParams.sourceCharPosition = sourceCharPosition;
 				eventParams.sourceFunctionName = sourceFunctionName;
-				eventParams.styleLayoutDuration = styleLayoutDuration;
+				eventParams.styleLayoutDuration = Math.round( styleLayoutDuration );
 			}
 			break;
 		case 'LCP':
