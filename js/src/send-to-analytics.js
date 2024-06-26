@@ -40,8 +40,8 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 			const loaf = attribution.longAnimationFrameEntries.at( -1 );
 			const script = loaf?.scripts?.sort( ( a, b ) => b.duration - a.duration )[ 0 ];
 
-			eventParams.processingDuration = processingDuration;
-			eventParams.presentationDelay = presentationDelay;
+			eventParams.processingDuration = Math.round( processingDuration );
+			eventParams.presentationDelay = Math.round( presentationDelay );
 			eventParams.debug_target = interactionTarget;
 			eventParams.interactionType = interactionType;
 
