@@ -73,14 +73,18 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 	}
 
 	if ( analyticsData && analyticsData.ga4_id ) {
-		if ( typeof gtag === 'function' ) {
-			gtag( 'event', name, eventParams );
-		} else if ( window.dataLayer && typeof window.dataLayer.push === 'function' ) {
-			window.dataLayer.push( {
-				event: name,
-				send_to: analyticsData.ga4_id,
-				...eventParams,
+		if ( typeof window.gtag !== 'function' && window.dataLayer && typeof window.dataLayer.push === 'function' ) {
+			window.gtag = function() {
+				window.dataLayer.push( arguments );
+			};
+			// We need gtag to be initialized before sending events.
+			window.gtag( 'config', analyticsData.ga4_id, {
+				send_page_view: false,
 			} );
+		}
+
+		if ( typeof window.gtag === 'function' ) {
+			window.gtag( 'event', name, eventParams );
 		} else {
 			// eslint-disable-next-line no-console
 			console.log( 'Event:', name, eventParams );
