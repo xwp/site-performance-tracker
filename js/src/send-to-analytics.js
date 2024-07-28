@@ -78,6 +78,7 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 		} else if ( window.dataLayer && typeof window.dataLayer.push === 'function' ) {
 			window.dataLayer.push( {
 				event: name,
+				send_to: analyticsData.ga4_id,
 				...eventParams,
 			} );
 		} else {
