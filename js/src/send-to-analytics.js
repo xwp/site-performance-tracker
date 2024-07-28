@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-function getDeliveryFunction( type ) {
-	// eslint-disable-next-line no-console
-	return window[ type ] || console.log;
-}
+/* global gtag */
 
 export function sendToAnalytics( { name, value, delta, id, attribution, rating } ) {
 	const analyticsData = window.webVitalsAnalyticsData?.[ 0 ] ?? null;
@@ -76,6 +73,16 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 	}
 
 	if ( analyticsData && analyticsData.ga4_id ) {
-		getDeliveryFunction( 'gtag' )( 'event', name, eventParams );
+		if ( typeof gtag === 'function' ) {
+			gtag( 'event', name, eventParams );
+		} else if ( window.dataLayer && typeof window.dataLayer.push === 'function' ) {
+			window.dataLayer.push( {
+				event: name,
+				...eventParams,
+			} );
+		} else {
+			// eslint-disable-next-line no-console
+			console.log( 'Event:', name, eventParams );
+		}
 	}
 }
