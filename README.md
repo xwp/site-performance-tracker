@@ -72,7 +72,11 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ### Changelog
 
-#### 1.3.3 - October 30th, 2023
+#### 1.3.4 - Jul 15th, 2023
+
+- Fix bug in INP reporting when some attributions were empty.
+
+#### 1.3.3 - Jun 26th, 2023
 
 - Deprecated GA3 support.
 - Used attribution build of web vitals.

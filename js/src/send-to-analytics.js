@@ -20,7 +20,7 @@ function getDeliveryFunction( type ) {
 }
 
 export function sendToAnalytics( { name, value, delta, id, attribution, rating } ) {
-	const analyticsData = window.webVitalsAnalyticsData[ 0 ];
+	const analyticsData = window.webVitalsAnalyticsData?.[ 0 ] ?? null;
 	const eventParams = {
 		value: delta,
 		metric_id: id,
@@ -31,22 +31,33 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 
 	switch ( name ) {
 		case 'CLS':
-			eventParams.debug_target = attribution.largestShiftTarget;
+			eventParams.debug_target = attribution?.largestShiftTarget || '(not set)';
 			break;
 		case 'INP':
-			const { processingDuration, presentationDelay, interactionTarget, interactionType } = attribution;
-			const loaf = attribution.longAnimationFrameEntries.at( -1 );
+			const { processingDuration = 0, presentationDelay = 0, interactionTarget = '(not set)', interactionType = '(not set)', inputDelay = 0 } = attribution || {};
+			const loaf = attribution?.longAnimationFrameEntries?.at( -1 );
 			const script = loaf?.scripts?.sort( ( a, b ) => b.duration - a.duration )[ 0 ];
+			const delays = {
+				inputDelay,
+				processingDuration,
+				presentationDelay,
+			};
 
 			eventParams.processingDuration = Math.round( processingDuration );
 			eventParams.presentationDelay = Math.round( presentationDelay );
 			eventParams.debug_target = interactionTarget;
 			eventParams.interactionType = interactionType;
+			// Return the name of the biggest contributor to INP.
+			const maxDelay = Object.keys( delays ).reduce( ( a, b ) => ( delays[ a ] > delays[ b ] ? a : b ) );
+			// Return the name of the biggest contributor to INP if it's significant.
+			if ( delays[ maxDelay ] > 50 ) {
+				eventParams.maxDelay = maxDelay;
+			}
 
 			if ( script ) {
-				const { invokerType, invoker, sourceURL, sourceCharPosition, sourceFunctionName } = script;
-				const { startTime, duration, styleAndLayoutStart } = loaf;
-				const endTime = startTime	+ duration;
+				const { invokerType = '(not set)', invoker = '(not set)', sourceURL = '(not set)', sourceCharPosition = 0, sourceFunctionName = '(not set)' } = script;
+				const { startTime = 0, duration = 0, styleAndLayoutStart = 0 } = loaf || {};
+				const endTime = startTime + duration;
 				const styleLayoutDuration = endTime - styleAndLayoutStart;
 
 				eventParams.invokerType = invokerType;
@@ -58,7 +69,7 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 			}
 			break;
 		case 'LCP':
-			eventParams.debug_target = attribution.element;
+			eventParams.debug_target = attribution?.element || '(not set)';
 			break;
 		default:
 			return '(not set)';
