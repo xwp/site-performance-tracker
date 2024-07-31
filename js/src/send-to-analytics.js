@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-/* global gtag */
 
 export function sendToAnalytics( { name, value, delta, id, attribution, rating } ) {
 	const analyticsData = window.webVitalsAnalyticsData?.[ 0 ] ?? null;
