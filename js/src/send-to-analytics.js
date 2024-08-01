@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-function getDeliveryFunction( type ) {
-	// eslint-disable-next-line no-console
-	return window[ type ] || console.log;
-}
-
 export function sendToAnalytics( { name, value, delta, id, attribution, rating } ) {
 	const analyticsData = window.webVitalsAnalyticsData?.[ 0 ] ?? null;
 	const eventParams = {
@@ -76,6 +71,21 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 	}
 
 	if ( analyticsData && analyticsData.ga4_id ) {
-		getDeliveryFunction( 'gtag' )( 'event', name, eventParams );
+		if ( typeof window.gtag !== 'function' && window.dataLayer && typeof window.dataLayer.push === 'function' ) {
+			window.gtag = function() {
+				window.dataLayer.push( arguments );
+			};
+			// We need gtag to be initialized before sending events.
+			window.gtag( 'config', analyticsData.ga4_id, {
+				send_page_view: false,
+			} );
+		}
+
+		if ( typeof window.gtag === 'function' ) {
+			window.gtag( 'event', name, eventParams );
+		} else {
+			// eslint-disable-next-line no-console
+			console.log( 'Event:', name, eventParams );
+		}
 	}
 }

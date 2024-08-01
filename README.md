@@ -72,6 +72,10 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ### Changelog
 
+#### 1.3.5 - Jul 28th, 2023
+
+- Add tracking support for Google Tag Manager setup GA4 with window.dataLayer.
+
 #### 1.3.4 - Jul 15th, 2023
 
 - Fix bug in INP reporting when some attributions were empty.
