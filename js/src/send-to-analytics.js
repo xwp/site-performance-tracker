@@ -22,6 +22,7 @@ export function sendToAnalytics( { name, value, delta, id, attribution, rating }
 		metric_value: value,
 		metric_delta: Math.round( name === 'CLS' ? delta * 1000 : delta ),
 		metric_rating: rating,
+		non_interactive: true,
 	};
 
 	switch ( name ) {
