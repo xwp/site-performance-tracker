@@ -72,6 +72,10 @@ All contributions are welcome! Please create [an issue](https://github.com/xwp/s
 
 ### Changelog
 
+#### 1.3.6 - Jan 14th, 2025
+
+- Made events non_interactive, such that they don't interfere with user events.
+
 #### 1.3.5 - Jul 28th, 2023
 
 - Add tracking support for Google Tag Manager setup GA4 with window.dataLayer.
