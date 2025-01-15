@@ -34,7 +34,7 @@
     "@wordpress/dependency-extraction-webpack-plugin": "^4.27.0",
     "@wordpress/env": "^9.3.1",
     "@wordpress/scripts": "^22.5.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-zip": "^5.1.0",
     "jest": "^27.5.1",
